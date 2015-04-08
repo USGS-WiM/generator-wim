@@ -1,0 +1,118 @@
+body {
+    padding-top: 50px;
+    background-image: url("../images/wimlogoCompact.png");
+    background-color:#474747;
+}
+
+@media (max-width: 767px) {
+    #geosearchButtonText {
+        display: none;
+    }
+
+    #legendButtonNavBar {
+        display: none;
+    }
+
+    /*.basemapThumb {*/
+        /*display: none;*/
+    /*}*/
+}
+
+@media (min-width: 768px) {
+    #legendButtonSidebar {
+        display: none;
+    }
+}
+
+.basemapThumb {
+    border:1px solid #ffffff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+}
+
+/*basemapBtn elements manually set to width of widest - temp solution until dynamic solution is implemented */
+.basemapBtn {
+    width: 86px;
+    margin-bottom: 2px;
+    padding:2px;
+}
+
+.legend {
+    position:absolute;
+    padding:4px;
+    top:1em;
+    right:10px;
+    /*width:250px*/
+    /*height:320px;*/
+    z-index:1;
+    color: black;
+    background-color:white;
+    opacity:0.80;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+#legendButtonSidebar {
+    width: 100%;
+}
+
+.map {
+    overflow: auto;
+}
+
+#mapDiv {
+    min-height: 100%;
+    max-height: 100%;
+}
+
+.modal-dialog {
+    padding-top: 60px;
+}
+
+.navbar-brand {
+    padding:7px 4px;
+}
+
+.navbar-dark {
+    border-width:0;
+    background-color:#474747;
+    color:#ffffff;
+    font-family:arial,sans-serif;
+    top:0;
+    position:fixed;
+    width:inherit;
+}
+
+.no-col-padding {
+    padding: 0;
+}
+
+.panel-heading a:after {
+    font-family:'Glyphicons Halflings';
+    content:"\e114";
+    float: right;
+    color: grey;
+}
+.panel-heading a.collapsed:after {
+    content:"\e080";
+}
+
+.row-map {
+    background: #eee;
+}
+
+
+[class*="col-"] {
+    background-color: #eee;
+    border: 1px solid #E7E7E7;
+    text-align: center;
+}
+
+.wim-sidebar-panel {
+    margin-bottom: 2px;
+}
+

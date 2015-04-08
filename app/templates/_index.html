@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= appName %></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	
+	<!-- CSS for the mapping components -->
+	<% if (mappingAPI == "esri") {%><link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css"><%}%>
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+	<% if (mappingAPI == "esri") {%><link rel="stylesheet" href="bower_components/bootstrap-map-js/dist/css/bootstrapmap.min.css"><%}%>
+	<link rel="stylesheet" href="bower_components/bootstrap-sidebar/dist/css/sidebar.css">
+	<% if (mappingAPI == "leaflet") {%><link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css"><%}%>	
+    <!-- endbower -->
+    <!-- endbuild -->
+	
+   	<!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <link rel="shortcut icon" href="/favicon.ico">
+	
+	<% if (mappingAPI == "esri") {%>
+	<script type="text/javascript">
+        var package_path = "http://esri.github.com/bootstrap-map-js/src/js";
+        var dojoConfig = {
+            packages: [{
+                name: "application",
+                location: package_path
+            }]
+        };
+    </script>
+	
+	<script src="http://js.arcgis.com/3.13/"></script>
+	<%}%>
+	
+	<!-- build:js scripts/vendor.js -->
+	<!-- bower:js -->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	
+	<% if( mappingAPI == "leaflet") {%>
+		<script src="bower_components/leaflet/dist/leaflet.js"></script>
+		<script src="bower_components/esri-leaflet/dist/esri-leaflet.js"></script>
+	<%}%>
+	
+	<!-- endbower -->
+  	<!-- endbuild -->
+
+	<!-- build:js scripts/main.js -->
+	<script src="scripts/map.js"></script>
+	<!-- endbuild -->
+
+</head>
+<body>
+	
+	<div id="navbar" class="navbar navbar-static navbar-default navbar-fixed-top navbar-dark">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle toggle-left hidden-md hidden-lg" data-toggle="sidebar" data-target=".sidebar-left">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://usgs.gov">
+                    <img alt="USGS logo" src="images/usgs-logo.png">
+					<span class='hidden-xs' style='font-size:20px;display:inline-block;'>&nbsp;&nbsp;<%= appName %>
+                </a>
+		    </div>
+
+            <button id="geosearchNav" type="button" class="btn btn-primary navbar-btn pull-right">
+                <span class="glyphicon glyphicon-search"></span>
+                <span id="geosearchButtonText"> Geosearch</span>
+            </button>
+
+            <button id="legendButtonNavBar" type="button" class="btn btn-primary navbar-btn pull-right" style="margin-right: 1em;"><span class="glyphicon glyphicon-list"></span> Legend</button>
+            <!--<button type="button" class="navbar-toggle toggle-right" data-toggle="sidebar" data-target=".sidebar-right">-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+            <!--</button>-->
+        </div>
+    </div>
+	
+    <div class="modal fade" id="geosearchModal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                    <h4 class="modal-title">Geosearch</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div id="geosearch"></div>
+                    </div>
+                    <form id="geosearch-form" class="form-inline">
+                        <div class="checkbox">
+                            <label>
+                                <input id="chkExtent" type="checkbox"> Search in Map Only
+                            </label>
+                        </div>
+                        <button id="btnGeosearch" type="button" class="btn btn-success btn-fixed" data-dismiss="modal"> Go </button>
+                        <button id="btnDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
+                    </form>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+	
+	<!-- Begin page content -->
+    <div class="container-fluid">
+        <div class="row">
+            <!--<div id="sidebar" class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-left sidebar-animate sidebar-md-show no-col-padding">-->
+            <div id="sidebar" class="col-xs-11 col-sm-10 col-md-3 col-lg-2 sidebar sidebar-left sidebar-animate sidebar-md-show no-col-padding">
+                <!-- # include line below to get accordion effect with panels - opening one closes the others. remember closing div tag at bottom -->
+                <!--<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">-->
+                    <!-- include btn-toolbar below to put legend and geosearch buttons next to eachother -->
+                    <!--<div class="btn-toolbar" style="margin-bottom: 2px;">-->
+                        <!--<div class="btn-group no-col-padding">-->
+                            <!--<button id="legendButtonSidebar" type="button" class="btn btn-default" ><span class="glyphicon glyphicon-list"></span> Legend</button>-->
+                            <!--<button id="geosearchButtonSidebar" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Geosearch</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <button id="legendButtonSidebar" type="button" class="btn btn-default" ><span class="glyphicon glyphicon-list"></span> Legend</button>
+                    <div class="panel panel-default wim-sidebar-panel">
+                        <div class="panel-heading" id="basemapsHeader">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse"  href="#basemapsPanel" aria-expanded="false" aria-controls="basemapsPanel">
+                                    Basemaps
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="basemapsPanel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="basemapsHeader">
+                            <div class="panel-body collapse in">
+                                <button id="btnStreets" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/streets.jpg"><br class="basemapThumb">Streets</button>
+                                <button id="btnSatellite" class="btn btn-default basemapBtn equalize" ><img class="basemapThumb" alt="" src="images/satellite.jpg"><br class="basemapThumb">Satellite</button>
+                                <button id="btnHybrid" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/imagery_labels.jpg"><br class="basemapThumb">Hybrid</button>
+                                <button id="btnTopo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/topo.jpg"><br class="basemapThumb">Topo</button>
+                                <button id="btnTerrain" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/terrain.jpg"><br class="basemapThumb">Terrain</button>
+                                <button id="btnGray" class="btn btn-default basemapBtn equalize" ><img class="basemapThumb" alt="" src="images/gray.jpg"><br class="basemapThumb">Gray</button>
+                                <button id="btnOSM" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/osm.jpg"><br class="basemapThumb">OSM</button>
+                                <button id="btnNatGeo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/natgeo.jpg"><br class="basemapThumb">NatGeo</button>
+                                <button id="btnNatlMap" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/national_map.jpg"><br class="basemapThumb">Nat'l Map</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel panel-default wim-sidebar-panel">
+                        <div class="panel-heading" id="layersPanelHeader">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" href="#layersPanel" aria-expanded="true" aria-controls="layersPanel">
+                                    Map Layers
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
+                            <div class="panel-body">
+                                <p>Layer 1</p>
+                                <p>Layer 2</p>
+                                <p>Layer 3</p>
+                                <p>Layer 4</p>
+                            </div>
+                        </div>
+                    </div>
+                <!-- # closing div tag for accordion style panels -->
+                <!--</div>-->
+            </div>
+            <div class="col-md-9 col-lg-10 col-md-offset-3 col-lg-offset-2 no-col-padding">
+                <div id="legend" class="legend" style="display: none" >
+                    <button id="legendClose" type="button" class="close" data-dismiss="legend" aria-label="Close" aria-hidden="true">x</button>
+                    <p>Legend goes here</p>
+                    <div style="margin:6px;">Want to get the legend icons <br> themselves to be non-transparent <br>if possible</div>
+                </div>
+                <!-- Map div -->
+                <div id="mapDiv"></div>
+
+            </div>
+            <div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-right sidebar-animate">
+                <!--<div class="panel panel-default" id="legendPanel">-->
+                    <!--<div class="panel-heading">-->
+                        <!--<h4 class="panel-title">-->
+                            <!--<a data-toggle="collapse" data-target="#legend" href="#legend" class="collapsed">Map Legend</a>-->
+                        <!--</h4>-->
+                    <!--</div>-->
+                    <!--<div id="legend" class="panel-collapse collapse">-->
+                        <!--<div class="panel-body">Legend here</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>	
+</body>
+</html>
