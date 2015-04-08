@@ -84,7 +84,7 @@ var WiMGenerator = yeoman.generators.Base.extend({
 
     // template specific resources
     var sourceDir = 'map-' + this.mappingAPI;
-    this.copy(sourceDir + '/_map.js', 'src/scripts/map.js');
+    this.copy(sourceDir + '/_core.js', 'src/scripts/core.js');
     this.copy('_index.html', 'src/index.html');
 	this.copy('_main.css', 'src/styles/main.css');
 	this.directory('/images/', 'src/images/');
