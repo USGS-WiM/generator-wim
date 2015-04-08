@@ -4,19 +4,17 @@
     <title><%= appName %></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-	
-	<!-- CSS for the mapping components -->
-	<% if (mappingAPI == "esri") {%><link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css"><%}%>
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<% if (mappingAPI == "esri") {%><link rel="stylesheet" href="bower_components/bootstrap-map-js/dist/css/bootstrapmap.min.css"><%}%>
 	<link rel="stylesheet" href="bower_components/bootstrap-sidebar/dist/css/sidebar.css">
 	<% if (mappingAPI == "leaflet") {%><link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css"><%}%>	
     <!-- endbower -->
     <!-- endbuild -->
+	<!-- CSS for the mapping components -->
+	<% if (mappingAPI == "esri") {%><link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css"><%}%>
 	
    	<!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
