@@ -9,14 +9,21 @@ var wiredep = require('wiredep').stream;
 // Load plugins
 var $ = require('gulp-load-plugins')();
 
-//get ESRI API
+//only get esri api if needed
+<% if (mappingAPI == "esri") {%>
 var esrislurp = require('esrislurp')
 gulp.task('download-esri-api', function(cb) {
-	//only get esri api if needed
-	<% if (mappingAPI == "esri") {%>
-		esrislurp('src/lib/esri', '3.13', 'false', cb);
-	<%}%>
+	esrislurp('src/lib/esri', '3.13', 'false', cb);
 });
+<%}%>
+
+//copy leaflet images
+<% if (mappingAPI == "leaflet") {%>
+gulp.task('leaflet', function() {
+    return gulp.src('src/bower_components/leaflet/dist/images/*.*')
+        .pipe(gulp.dest('src/images'));
+});
+<%}%>
 
 // Styles
 gulp.task('styles', function () {
@@ -24,6 +31,12 @@ gulp.task('styles', function () {
         .pipe($.autoprefixer('last 1 version'))
         .pipe(gulp.dest('src/styles'))
         .pipe($.size());
+});
+
+// Icons
+gulp.task('icons', function() {
+    return gulp.src('src/bower_components/bootstrap/dist/fonts/*.*')
+        .pipe(gulp.dest('build/fonts'));
 });
 
 // Scripts
@@ -35,7 +48,7 @@ gulp.task('scripts', function () {
 });
 
 // HTML
-gulp.task('html', ['styles', 'scripts'], function () {
+gulp.task('html', ['styles', 'scripts', 'icons'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
 

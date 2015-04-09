@@ -18,21 +18,11 @@ var WiMGenerator = yeoman.generators.Base.extend({
         });
       }
     });
-
     
     this.on('depsInstalled', function(){
-      if (this.msrcingAPI == 'leaflet') {
-        console.log('copy leaflet dependencies ...');
-        fse.copy('src/bower_components/leaflet/dist/images', 'src/images', function(err){
-          if (err) return console.error(err);
-          // successfully copied leaflet files
-        });
-      }
+      //can do something here if needed
     }.bind(this));
-
-
   },
-
 
   promptUser: function () {
     var done = this.async();
@@ -69,12 +59,9 @@ var WiMGenerator = yeoman.generators.Base.extend({
   
 	//set up folder structure
     this.mkdir('src');
-    this.mkdir('src/lib');
     this.mkdir('src/styles');
     this.mkdir('src/scripts');
     this.mkdir('src/images');
-    this.mkdir('src/lib/styles');
-    this.mkdir('src/lib/scripts');
     this.template('gulpfile.js', 'gulpfile.js');
     this.template('_package.json', 'package.json');
     this.template('_bower.json', 'bower.json');
