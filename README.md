@@ -33,10 +33,10 @@ npm link
 #### 4.  Run the generator
 
 ```bash
+md **new_project_folder**
+cd **new_project_folder**
 yo wim
 ```
-#### 5.  Profit
-
 
 ## Some links for learning more about this process 
 ####*please add more here as found*
