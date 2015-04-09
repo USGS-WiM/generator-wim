@@ -1,16 +1,17 @@
 {
   "name": "<%= _.slugify(appName) %>",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {
-  	"jquery": "latest",	
-  	"bootstrap": "latest",
-	"bootstrap-sidebar" : "latest"
-  	<%if(mappingAPI == "leaflet"){%>,
-  	"leaflet": "latest",
-	"esri-leaflet": "latest"
-	<%}%>
-	<%if(mappingAPI == "esri"){%>,
-  	"bootstrap-map-js" : "latest"
-	<%}%>
+  	 "jquery": "^2.1.3",	
+  	 "bootstrap": "^3.3.4",
+	   "bootstrap-sidebar" : "^0.2.0"
+  	 <%if(mappingAPI == "leaflet"){%>,
+    	 "leaflet": "^0.7.3",
+  	   "esri-leaflet": "^1.0.0-rc.6",
+       "esri-leaflet-geocoder": "^1.0.0-rc.4"
+  	 <%}%>
+	   <%if(mappingAPI == "esri"){%>,
+  	   "bootstrap-map-js" : "latest"
+	   <%}%>
   }
 }

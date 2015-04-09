@@ -8,9 +8,14 @@
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<% if (mappingAPI == "esri") {%><link rel="stylesheet" href="bower_components/bootstrap-map-js/dist/css/bootstrapmap.min.css"><%}%>
+	<% if (mappingAPI == "esri") {%>
+        <link rel="stylesheet" href="bower_components/bootstrap-map-js/dist/css/bootstrapmap.min.css">
+    <%}%>
 	<link rel="stylesheet" href="bower_components/bootstrap-sidebar/dist/css/sidebar.css">
-	<% if (mappingAPI == "leaflet") {%><link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css"><%}%>	
+	<% if (mappingAPI == "leaflet") {%>
+        <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
+        <link rel="stylesheet" href="bower_components/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css">
+    <%}%>	
     <!-- endbower -->
     <!-- endbuild -->
 	<!-- CSS for the mapping components -->
@@ -41,9 +46,10 @@
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	
 	<% if( mappingAPI == "leaflet") {%>
-		<script src="bower_components/leaflet/dist/leaflet.js"></script>
-		<script src="bower_components/esri-leaflet/dist/esri-leaflet.js"></script>
-	<%}%>
+	   <script src="bower_components/leaflet/dist/leaflet.js"></script>
+	   <script src="bower_components/esri-leaflet/dist/esri-leaflet.js"></script>
+	   <script src="bower_components/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.js"></script>
+    <%}%>
 	
 	<!-- endbower -->
   	<!-- endbuild -->
