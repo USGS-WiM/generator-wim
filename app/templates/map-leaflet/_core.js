@@ -65,8 +65,9 @@ $( document ).ready(function() {
     $('#geosearchNav2').click(function(){
         showModal();
     });
-        
-	var searchControl = new L.esri.Geocoding.Controls.Geosearch();//.addTo(map);
+
+	//var searchControl = new L.esri.Geocoding.Controls.Geosearch();//.addTo(map);
+	$('#geosearch').append(new L.esri.Geocoding.Controls.Geosearch());
 
 	var results = new L.LayerGroup().addTo(map);
 
