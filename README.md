@@ -47,6 +47,14 @@ run a pull  from the upstream at your local repo directory to retrieve latest fr
 ```bash
 git pull upstream master
 ```
+
+If you have conflicts after you pull the latest code, it is recommended to install and configure a windows mergetool for git.   [p4merge](http://www.perforce.com/product/components/perforce-visual-merge-and-diff-tools) seems to work OK.  [Here is some help](http://www.perforce.com/perforce/doc.current/manuals/p4v/merging_files.html) on using it to compare diffs from git.  The commands to set it up with git:
+```bash
+git config --global merge.tool p4merge
+git config --global mergetool.p4merge.cmd "C:\\Users\\%username%\\Perforce\\p4merge.exe \"$BASE\" \"$LOCAL\"
+\"$REMOTE\" \"$MERGED\""
+```
+
  For good housekeeping, follow up your upstream pull with a push to your personal account repo so it is in sync with the org repo at [USGS-WiM/generator-wim](https://github.com/USGS-WiM/generator-wim).
 
 ```bash
@@ -111,6 +119,3 @@ http://browsenpm.org/package.json
 
 **bower**
 http://bower.io/docs/creating-packages/
-
-
-> Written with [StackEdit](https://stackedit.io/).
