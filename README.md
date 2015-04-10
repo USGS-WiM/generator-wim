@@ -33,9 +33,10 @@ npm link
 #### 4.  Run the generator
 
 ```bash
+md generator-wim-dev
+cd generator-wim-dev
 yo wim
 ```
-#### 5.  Profit
 
 ---
 ## Editing the generator itself
