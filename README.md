@@ -5,9 +5,9 @@
 
 ## Getting Started
 
-#### 1.  Fork this repo to your personal github account
+##### 1.  Fork this repo to your personal github account
 
-#### 2.  Clone the repo from your personal github account to your computer
+##### 2.  Clone the repo from your personal github account to your computer
 
 ## Generator Setup
 
