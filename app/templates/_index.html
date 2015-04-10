@@ -7,27 +7,26 @@
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<% if (mappingAPI == "esri") {%>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <% if (mappingAPI == "esri") {%>
         <link rel="stylesheet" href="bower_components/bootstrap-map-js/dist/css/bootstrapmap.min.css">
     <%}%>
-	<link rel="stylesheet" href="bower_components/bootstrap-sidebar/dist/css/sidebar.css">
-	<% if (mappingAPI == "leaflet") {%>
+    <link rel="stylesheet" href="bower_components/bootstrap-sidebar/dist/css/sidebar.css">
+    <% if (mappingAPI == "leaflet") {%>
         <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
-        <link rel="stylesheet" href="bower_components/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css">
-    <%}%>	
+    <%}%>   
     <!-- endbower -->
     <!-- endbuild -->
-	<!-- CSS for the mapping components -->
-	<% if (mappingAPI == "esri") {%><link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css"><%}%>
-	
-   	<!-- build:css styles/main.css -->
+    <!-- CSS for the mapping components -->
+    <% if (mappingAPI == "esri") {%><link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css"><%}%>
+    
+    <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
     <link rel="shortcut icon" href="/favicon.ico">
-	
-	<% if (mappingAPI == "esri") {%>
-	<script type="text/javascript">
+    
+    <% if (mappingAPI == "esri") {%>
+    <script type="text/javascript">
         var package_path = "http://esri.github.com/bootstrap-map-js/src/js";
         var dojoConfig = {
             packages: [{
@@ -36,28 +35,29 @@
             }]
         };
     </script>
-	
-	<script src="http://js.arcgis.com/3.13/"></script>
-	<%}%>
-	
-	<!-- build:js scripts/vendor.js -->
-	<!-- bower:js -->
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/bootstrap-sidebar/dist/js/sidebar.js"></script>
-	
-	<% if( mappingAPI == "leaflet") {%>
-	   <script src="bower_components/leaflet/dist/leaflet.js"></script>
-	   <script src="bower_components/esri-leaflet/dist/esri-leaflet.js"></script>
-	   <script src="bower_components/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.js"></script>
+    
+    <script src="http://js.arcgis.com/3.13/"></script>
     <%}%>
-	
-	<!-- endbower -->
-  	<!-- endbuild -->
+    
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/bootstrap-sidebar/dist/js/sidebar.js"></script>
+    
+    <% if( mappingAPI == "leaflet") {%>
+        
+        <script src="bower_components/leaflet/dist/leaflet.js"></script>
+        <script src="bower_components/esri-leaflet/dist/esri-leaflet.js"></script>
+        <script src="http://txpub.usgs.gov/DSS/search_api/1.0/api/search_api.min.js"></script>
+    <%}%>
+    
+    <!-- endbower -->
+    <!-- endbuild -->
 
-	<!-- build:js scripts/core.js -->
-	<script src="scripts/core.js"></script>
-	<!-- endbuild -->
+    <!-- build:js scripts/core.js -->
+    <script src="scripts/core.js"></script>
+    <!-- endbuild -->
 
     <!-- build:js scripts/layer.js -->
     <script src="scripts/layers.js"></script>
@@ -65,8 +65,8 @@
 
 </head>
 <body>
-	
-	<div id="navbar" class="navbar navbar-static navbar-default navbar-fixed-top navbar-dark">
+    
+    <div id="navbar" class="navbar navbar-static navbar-default navbar-fixed-top navbar-dark">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle toggle-left hidden-md hidden-lg" data-toggle="sidebar" data-target=".sidebar-left">
@@ -76,9 +76,9 @@
                 </button>
                 <a class="navbar-brand" href="http://usgs.gov">
                     <img alt="USGS logo" src="images/usgs-logo.png">
-					<span class='hidden-xs' style='font-size:20px;display:inline-block;'>&nbsp;&nbsp;<%= appName %></span>
+                    <span class='hidden-xs' style='font-size:20px;display:inline-block;'>&nbsp;&nbsp;<%= appName %></span>
                 </a>
-		    </div>
+            </div>
 
             <button id="geosearchNav" type="button" class="btn btn-primary navbar-btn pull-right">
                 <span class="glyphicon glyphicon-search"></span>
@@ -93,7 +93,7 @@
             <!--</button>-->
         </div>
     </div>
-	
+    
     <div class="modal fade" id="geosearchModal" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -103,7 +103,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <div id="geosearch"></div>
+                        <div id="geosearch"><div id="sapi_searchTextBoxDiv"></div></div>
                     </div>
                     <form id="geosearch-form" class="form-inline">
                         <div class="checkbox">
@@ -118,8 +118,8 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div>
-	
-	<!-- Begin page content -->
+    
+    <!-- Begin page content -->
     <div class="container-fluid">
         <div class="row">
             <!--<div id="sidebar" class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-left sidebar-animate sidebar-md-show no-col-padding">-->
@@ -196,6 +196,6 @@
                 <!--</div>-->
             </div>
         </div>
-    </div>	
+    </div>  
 </body>
 </html>

@@ -7,8 +7,7 @@
 	   "bootstrap-sidebar" : "^0.2.0"
   	 <%if(mappingAPI == "leaflet"){%>,
     	 "leaflet": "^0.7.3",
-  	   "esri-leaflet": "^1.0.0-rc.6",
-       "esri-leaflet-geocoder": "^1.0.0-rc.4"
+  	   "esri-leaflet": "^1.0.0-rc.6"
   	 <%}%>
 	   <%if(mappingAPI == "esri"){%>,
   	   "bootstrap-map-js" : "latest"
