@@ -59,6 +59,10 @@
 	<script src="scripts/core.js"></script>
 	<!-- endbuild -->
 
+    <!-- build:js scripts/layer.js -->
+    <script src="scripts/layers.js"></script>
+    <!-- endbuild -->
+
 </head>
 <body>
 	
@@ -162,12 +166,7 @@
                             </h4>
                         </div>
                         <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
-                            <div class="panel-body">
-                                <p>Layer 1</p>
-                                <p>Layer 2</p>
-                                <p>Layer 3</p>
-                                <p>Layer 4</p>
-                            </div>
+                            <div id="toggle" style="padding: 2px 2px;"></div>
                         </div>
                     </div>
                 <!-- # closing div tag for accordion style panels -->
@@ -176,7 +175,8 @@
             <div class="col-md-9 col-lg-10 col-md-offset-3 col-lg-offset-2 no-col-padding">
                 <div id="legend" class="legend" style="display: none" >
                     <button id="legendClose" type="button" class="close" data-dismiss="legend" aria-label="Close" aria-hidden="true">x</button>
-                    <p>Legend goes here</p>
+                    <p>Explanation</p>
+                    <div id="legendDiv"></div>
                     <div style="margin:6px;">Want to get the legend icons <br> themselves to be non-transparent <br>if possible</div>
                 </div>
                 <!-- Map div -->

@@ -5,6 +5,9 @@
 /**
  * Created by bdraper on 4/3/2015.
  */
+
+var map;
+
 require([
     'esri/map',
     'application/bootstrapmap',
@@ -30,12 +33,15 @@ require([
     on
 ) {
     // Get a reference to the ArcGIS Map class
-    var map = BootstrapMap.create('mapDiv', {
+    map = Map('mapDiv', {
         basemap: 'national-geographic',
-        center: [-122.45, 37.77],
-        zoom: 12
+        center: [-95.6, 38.6],
+        zoom: 4
     });
 
+    $('#mapDiv').height($('body').height());
+    map.resize();
+    
     var idealMapHeight = $(window).height() - $('#navbar').height();
     $('#mapDiv, #mapDiv_root').height(idealMapHeight + 'px');
     $(window).resize(function () {
