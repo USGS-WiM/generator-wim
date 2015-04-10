@@ -55,28 +55,16 @@ $( document ).ready(function() {
   	/* basemap controller */
 
 	/* geocoder control */
-     function showModal() {
-        $('#geosearchModal').modal('show');
-    }
-    // Geosearch nav menu is selected
-    $('#geosearchNav').click(function(){
-        showModal();
-    });
-    $('#geosearchNav2').click(function(){
-        showModal();
-    });
-
-	//var searchControl = new L.esri.Geocoding.Controls.Geosearch();//.addTo(map);
-	$('#geosearch').append(new L.esri.Geocoding.Controls.Geosearch());
-
-	var results = new L.LayerGroup().addTo(map);
-
-	searchControl.on('results', function(data){
-		results.clearLayers();
-		for (var i = data.results.length - 1; i >= 0; i--) {
-		  results.addLayer(L.marker(data.results[i].latlng));
-		}
+	$('#geosearchNav').click(function(){
+		$.noConflict()
+		$('#geosearchModal').modal('show');
 	});
+
+	search_api.on("load", function() {
+	    search_api.setOpts({
+	        "textboxPosition" : "user-defined"
+	    });
+    });
 	/* geocoder control */
 
 	/* legend control */
