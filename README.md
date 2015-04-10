@@ -5,15 +5,15 @@
 
 ## Getting Started
 
-#### 1.  Fork this repo to your personal github account
+##### 1.  Fork this repo to your personal github account
 
-#### 2.  Clone the repo from your personal github account to your computer
+##### 2.  Clone the repo from your personal github account to your computer
 
 ## Generator Setup
 
 #### 1.  Install required software
-[node.js](http://nodejs.org)
-[github for windows](https://windows.github.com/) (only required if GUI is preferred, otherwise can use command line)
+[node.js](http://nodejs.org)  
+[github for windows](https://windows.github.com/) (only required if GUI is preferred, otherwise can use command line)  
 
 #### 2.  Install generator global dependencies
 This will install the following packages to your "C:\Users\%user%\AppData\Roaming\npm\node_modules" folder.  This can be done from any command prompt
@@ -33,9 +33,10 @@ npm link
 #### 4.  Run the generator
 
 ```bash
+md generator-wim-dev
+cd generator-wim-dev
 yo wim
 ```
-#### 5.  Profit
 
 ---
 ## Editing the generator itself
