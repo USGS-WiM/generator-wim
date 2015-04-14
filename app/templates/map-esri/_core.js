@@ -1,12 +1,13 @@
 //for jshint
 'use strict';
-// Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
+// Generated on 2015-04-13 using generator-wim 0.0.1
 
 /**
  * Created by bdraper on 4/3/2015.
  */
 
 var map;
+var allLayers;
 
 require([
     'esri/map',
@@ -32,6 +33,9 @@ require([
     dom,
     on
 ) {
+
+    allLayers = mapLayers;
+
     // Get a reference to the ArcGIS Map class
     map = Map('mapDiv', {
         basemap: 'national-geographic',
@@ -41,13 +45,11 @@ require([
 
     $('#mapDiv').height($('body').height());
     map.resize();
-    
     var idealMapHeight = $(window).height() - $('#navbar').height();
     $('#mapDiv, #mapDiv_root').height(idealMapHeight + 'px');
     $(window).resize(function () {
         $('#mapDiv, #mapDiv_root').height(idealMapHeight + 'px');
     });
-
     var nationalMapBasemap = new ArcGISTiledMapServiceLayer('http://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer');
     // these on clicks change the basemap. the map.removeLayer is required for nat'l map b/c it is not officially basemap.
     on(dom.byId('btnStreets'), 'click', function () {
@@ -213,6 +215,281 @@ require([
         });
     });
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    require([
+        'esri/dijit/Legend',
+        'esri/tasks/locator',
+        'esri/tasks/query',
+        'esri/tasks/QueryTask',
+        'esri/graphicsUtils',
+        'esri/geometry/Point',
+        'esri/geometry/Extent',
+        'esri/layers/WMSLayer',
+        'esri/layers/WMSLayerInfo',
+        'dijit/form/CheckBox',
+        'dijit/form/RadioButton',
+        'dojo/query',
+        'dojo/dom',
+        'dojo/dom-class',
+        'dojo/dom-construct',
+        'dojo/dom-style',
+        'dojo/on'
+    ], function(
+        Legend,
+        Locator,
+        Query,
+        QueryTask,
+        graphicsUtils,
+        Point,
+        Extent,
+        WMSLayer,
+        WMSLayerInfo,
+        CheckBox,
+        RadioButton,
+        query,
+        dom,
+        domClass,
+        domConstruct,
+        domStyle,
+        on
+    ) {
+
+        var legendLayers = [];
+        var layersObject = [];
+        var layerArray = [];
+        var staticLegendImage;
+        var identifyTask, identifyParams;
+        var navToolbar;
+        var locator;
+
+        //allLayers = layers;
+
+        on(map, "layers-add-result", function() {
+
+            var legend = new Legend({
+                map:map,
+                layerInfos:legendLayers
+            },"legendDiv");
+            legend.startup();
+
+            //this counter to track first and last of items in legendLayers
+            var i = 0;
+            var lastItem = layersObject.length;
+
+            dojo.forEach(layersObject, function(layer){
+
+                var layerName = layer.title;
+
+                if (layer.layer != "heading") {
+
+                    if (layer.toggleType == "radioParent"){
+
+                        var radioParentCheck = new CheckBox({
+                            name:"radioParentCheck" + layer.group,
+                            id:"radioParentCheck_" + layer.group,
+                            params: {group: layer.group},
+                            onChange:function(){
+                                var radChildLayers = [];
+                                var grp = this.params.group;
+                                dojo.forEach (layersObject, function (layer){
+                                    if (grp == layer.group && layer.toggleType != "radioParent") {
+                                        radChildLayers.push(layer.layer);
+                                    }
+                                });
+                                if (!this.checked){
+                                    dojo.forEach (radChildLayers, function (layer){
+                                        layer.setVisibility(false);
+                                    });
+                                    var divs = query("." + grp);
+                                    for(var i = 0; i < divs.length; i++) {
+                                        divs[i].style.display= "none";
+                                    }
+                                }
+                                if (this.checked){
+                                    var divs = query("." + grp);
+                                    for(var i = 0; i < divs.length; i++) {
+                                        divs[i].style.display= "block";
+                                    }
+                                    dojo.forEach (radChildLayers, function (layer){
+                                        if (dojo.byId("radioButton"+layer.id).checked) {
+                                            layer.setVisibility(true);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                        var toggleDiv = domConstruct.create("div");
+                        domConstruct.place(toggleDiv,dom.byId("toggle"), 0 );
+                        domConstruct.place(radioParentCheck.domNode,toggleDiv,"first");
+                        domStyle.set(toggleDiv, "paddingLeft", "15px");
+                        if (i === 0) {
+                            domStyle.set(toggleDiv, "paddingBottom", "10px");
+                        } else if (i == lastItem) {
+                            domStyle.set(toggleDiv, "paddingTop", "10px");
+                        }
+                        var radioParentCheckLabel = domConstruct.create('label',{'for':radioParentCheck.name,innerHTML:layerName},radioParentCheck.domNode,"after");
+                        domConstruct.place("<br/>",radioParentCheckLabel,"after");
+
+                    } else if (layer.toggleType == "checkbox"){
+
+                        var checkBox = new CheckBox({
+                            name:"checkBox" + layer.layer.id,
+                            id:"checkBox" + layer.layer.id,
+                            value:layer.layer.id,
+                            checked:layer.layer.visible,
+                            onChange:function(){
+                                var checkLayer = map.getLayer(this.value);
+                                checkLayer.setVisibility(!checkLayer.visible);
+                                this.checked = checkLayer.visible;
+                            }
+                        });
+                        var toggleDiv = domConstruct.create("div");
+                        domConstruct.place(toggleDiv,dom.byId("toggle"), 0 );
+                        domConstruct.place(checkBox.domNode,toggleDiv,"first");
+                        domStyle.set(toggleDiv, "paddingLeft", "15px");
+                        if (i === 0) {
+                            domStyle.set(toggleDiv, "paddingBottom", "10px");
+                        } else if (i == lastItem) {
+                            domStyle.set(toggleDiv, "paddingTop", "10px");
+                        }
+                        var checkLabel = domConstruct.create('label',{'for':checkBox.name,innerHTML:layerName},checkBox.domNode,"after");
+                        domConstruct.place("<br/>",checkLabel,"after");
+
+                    } else if (layer.toggleType == "radio") {
+
+                        var radioButton = new RadioButton({
+                            name: layer.group,
+                            id: "radioButton" + layer.layer.id,
+                            value:layer.layer.id,
+                            checked:layer.layer.visible,
+                            params: {group: layer.group},
+                            onChange:function() {
+                                var radioLayer = map.getLayer(this.value);
+                                var parentID = "radioParentCheck_" + layer.group;
+
+                                var checkedEval = (this.checked && dijit.byId(parentID).checked) ? true : false;
+                                radioLayer.setVisibility(checkedEval);
+                                //(this.checked && registry.byId(parentID).checked) ? radioLayer.setVisibility(true) : radioLayer.setVisibility(false);
+                            }
+                        });
+                        var toggleDiv = domConstruct.create("div");
+                        domConstruct.place(toggleDiv,dom.byId("toggle"), 0 );
+                        domConstruct.place(radioButton.domNode,toggleDiv,"first");
+                        domClass.add(toggleDiv, radioButton.params.group);
+                        domStyle.set(toggleDiv, "paddingLeft", "25px");
+                        domStyle.set(toggleDiv, "display", "none");
+                        if (i === 0) {
+                            domStyle.set(toggleDiv, "paddingBottom", "10px");
+                        } else if (i == lastItem) {
+                            domStyle.set(toggleDiv, "paddingTop", "10px");
+                        }
+                        var radioLabel = domConstruct.create('label',{'for':radioButton.name,innerHTML:layerName},radioButton.domNode,"after");
+                        domConstruct.place("<br/>",radioLabel,"after");
+                    }
+                    /////code below for headings w/out toggles
+                } else {
+
+                    var headingDiv = domConstruct.create("div");
+                    headingDiv.innerHTML = layer.title;
+                    domConstruct.place(headingDiv,dom.byId("toggle"),"first");
+                    domStyle.set(headingDiv, "paddingTop", "10px");
+                    domStyle.set(headingDiv, "color", "#D3CFBA");
+                    if (i === 0) {
+                        domStyle.set(headingDiv, "paddingBottom", "10px");
+                    } else if (i == lastItem) {
+                        domStyle.set(headingDiv, "paddingTop", "10px");
+                    }
+
+                }
+                i++;
+                //don't miss this iterator!!!!!
+            });
+        });
+
+        addAllLayers();
+
+        function addAllLayers() {
+
+            var radioGroup;
+            var radioGroupArray = [];
+
+            require([
+                "esri/layers/ArcGISDynamicMapServiceLayer"
+            ], function(
+                ArcGISDynamicMapServiceLayer) {
+
+                for ( var layer in allLayers) {
+                    if (allLayers[layer].wimOptions.type == "layer") {
+                        console.log(layer);
+                        var newLayer;
+                        if (allLayers[layer].wimOptions.layerType == "agisFeature") {
+                            newLayer = new esri.layers.FeatureLayer(allLayers[layer].url, allLayers[layer].arcOptions);
+                        } else if (allLayers[layer].wimOptions.layerType == "agisWMS") {
+                            newLayer = new esri.layers.WMSLayer(allLayers[layer].url, allLayers[layer].arcOptions);
+                            if (allLayers[layer].wimOptions.includeLegend == true && allLayers[layer].wimOptions.staticLegendOptions.hasStaticLegend == true) {
+                                var staticLegendImage = dojo.doc.createElement("div");
+                                staticLegendImage.id = allLayers[layer].arcOptions.id + 'Legend';
+                                staticLegendImage.innerHTML = '<b style="">' + allLayers[layer].wimOptions.staticLegendOptions.legendTitle + '</b><br/><img style="padding-top: 10px; width: ' + (parseInt($("#explanation").width())-25).toString() + 'px" src="' + allLayers[layer].wimOptions.staticLegendOptions.legendUrl + '" />';
+                                dojo.place(staticLegendImage,dojo.byId("legendDiv"),"after");
+                                if (allLayers[layer].arcOptions.visible == false) {
+                                    $("#" + staticLegendImage.id).hide();
+                                }
+                            }
+                        } else {
+                            newLayer = new esri.layers.ArcGISDynamicMapServiceLayer(allLayers[layer].url, allLayers[layer].arcOptions);
+                            if (allLayers[layer].visibleLayers) {
+                                newLayer.setVisibleLayers(allLayers[layer].visibleLayers);
+                            }
+                        }
+
+                        //set wim options
+                        if (allLayers[layer].wimOptions) {
+                            if (allLayers[layer].wimOptions.includeInLayerList == true) {
+                                if (allLayers[layer].wimOptions.layerOptions && allLayers[layer].wimOptions.layerOptions.selectorType == "radio" ) {
+
+                                    radioGroup = allLayers[layer].wimOptions.layerOptions.radioGroup;
+                                    radioGroupArray.push({group: radioGroup, layer:newLayer});
+
+                                    addToObjects({layer: newLayer, type:"layer", title: layer, toggleType: "radio", group: radioGroup}, allLayers[layer].wimOptions)
+
+                                } else {
+                                    addToObjects({layer: newLayer, type:"layer", title: layer, toggleType: "checkbox", group: ""}, allLayers[layer].wimOptions)
+                                }
+                            }
+                        } else {
+                            addToObjects({layer: newLayer, title: layer}, allLayers[layer].wimOptions)
+                        }
+                        layerArray.push(newLayer);
+                    } else if (allLayers[layer].wimOptions.type == "radioParent") {
+
+                        radioGroup = allLayers[layer].wimOptions.layerOptions.radioGroup;
+                        radioGroupArray.push({group: radioGroup, layer: null});
+
+                        layersObject.push({layer: null, type: "radioParent", title: layer, toggleType: "radioParent", group: radioGroup});
+
+                    } else {
+
+                        layersObject.push({layer: "heading", title: layer});
+                        console.log("heading: " + layer);
+                    }
+                }
+
+                map.addLayers(layerArray);
+
+                function addToObjects(fullObject, wimOptions) {
+                    layersObject.push(fullObject);
+                    if (wimOptions.includeLegend != false) {
+                        legendLayers.push(fullObject);
+                    }
+                }
+
+            });//end of require statement just for dynamic map service layer
+        }//end of addAllLayers
+
+    });//end of require statement containing legend building code
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 });
 
 $(document).ready(function () {
