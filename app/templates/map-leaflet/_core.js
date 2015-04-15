@@ -24,51 +24,61 @@ $( document ).ready(function() {
 	/* create map */
 
 	/* parse layers.js */
+	var count = allLayers.length;
 	$.each(allLayers, function (i,v) {
 
 		//make sure not a heading
-		if (!(v.wimOptions.type == "heading" || v.wimOptions.type == "radioParent")) {
+		if (!(v.wimOptions.type === 'heading' || v.wimOptions.type === 'radioParent')) {
 
+			var visibleLayers;
 			if (v.visibleLayers) {
-				var visibleLayers = v.visibleLayers
-			}
-			else var visibleLayers = '';
-
-			console.log('looping over alllayers object, currently: ', v.url, visibleLayers, i)
-
-			if (v.wimOptions.layerType == "agisFeature") {
-				
-
-				var featureLayer = L.esri.featureLayer(v.url).addTo(map);
-	            layerControl.addOverlay(featureLayer, i, "Feature Layers");
-
-			}
-
-			else if (v.wimOptions.layerType == "agisWMS") {
-				
-
-				var wmsLayer = L.tileLayer.wms(v.url, v.options).addTo(map);
-	            layerControl.addOverlay(wmsLayer, i, "WMS Layers");
-
+				visibleLayers = v.visibleLayers;
 			}
 			else {
+				visibleLayers = '';
+			}
 
+			console.log('looping over alllayers object, currently: ', v.url, visibleLayers, i);
 
+			//ESRI feature layers
+			if (v.wimOptions.layerType === 'agisFeature') {	
+				var featureLayer = L.esri.featureLayer(v.url).addTo(map);
+	            layerControl.addOverlay(featureLayer, '<span style="font-weight:400;">' + i + '</span>', 'Feature Layers');
+			}
 
-				
-				addMapServerLegend(v.url, visibleLayers, i)
+			//deal with WMS layers
+			else if (v.wimOptions.layerType === 'agisWMS') {
+				var wmsLayer = L.tileLayer.wms(v.url, v.options).addTo(map);
+	            layerControl.addOverlay(wmsLayer, '<span style="font-weight:400;">' + i + '</span>', 'WMS Layers');
+			}
+
+			//assume we have a regular ESRI map server to add
+			else {
+
+				addMapServerLegend(v.url, visibleLayers, i);
 				//var mapLayer = new L.esri.Layers.DynamicMapLayer(v.url, v.options).addTo(map);
-				//layerControl.addOverlay(mapLayer, i + '<img alt="Legend Swatch" src="/images/purple-pin.png" />', "Map Layers");
-
+				//layerControl.addOverlay(mapLayer, i + '<img alt='Legend Swatch' src='/images/purple-pin.png' />', 'Map Layers');
 			}
 		}
-		
+		if (!--count) {
+			cloneLegend();
+		}
 	});
+
+	function cloneLegend() {
+		//clone to legend
+		/*
+		$( ".leaflet-control-layers-group" ).each(function( index ) {
+		  	$('#legendDiv').append(this);
+		});
+		*/
+		var $legendControl = $('.leaflet-control-layers').clone();
+  		$('#legendDiv').html($legendControl);
+
+	}
 
 	//get visible and non visible layer lists
 	function addMapServerLegend(mapService, visibleLayers, groupName) {
-
-		
 
 	    //get layers REST endpoint for default visible layer info
 	    $.getJSON(mapService + '/layers?f=pjson', function (layersResponse) {
@@ -77,7 +87,7 @@ $( document ).ready(function() {
 	        var mapServiceLayers = [];
 	        $.each(layersResponse.layers, function () {
 
-	            if (this.defaultVisibility == true) {
+	            if (this.defaultVisibility === true) {
 	                mapServiceLayers.push([this.id, this.name, true]);
 	            }
 	            else {
@@ -94,29 +104,29 @@ $( document ).ready(function() {
 	            $.each(mapServiceLayers, function () {
 
 	            	//make sure layer is part of visiblelayers array of layers.js
-	            	if (visibleLayers.indexOf(this[0]) != -1) {
+	            	if (visibleLayers.indexOf(this[0]) !== -1) {
 
-	            		console.log(groupName, this[0], visibleLayers,'legend: ',legendResponse.layers[this[0]].legend.length )
+	            		console.log(groupName, this[0], visibleLayers,'legend: ',legendResponse.layers[this[0]].legend.length );
 		                var feature = legendResponse.layers[this[0]].legend;
 
 		                //swatch title
-		                var swatch = '<span>' + this[1] + '</span></br>';
+		                var swatch = '<span style="font-weight:400;">' + this[1] + '</span></br>';
 
 		                //build legend html for categorized feautres
 		                if (feature.length > 1) {
 		                    $.each(feature, function () {
-		                        swatch += '<img alt="Legend Swatch" src="data:image/png;base64,' + this.imageData + '" /><span>' + this.label.replace('<', '').replace('>', '') + '</span></br>'
-		                    })
+		                        swatch += '<img alt="Legend Swatch" src="data:image/png;base64,' + this.imageData + '" /><small>' + this.label.replace('<', '').replace('>', '') + '</small></br>';
+		                    });
 		                }
 		                //single features
 		                else {
-		                    swatch = '<img alt="Legend Swatch" src="data:image/png;base64,' + feature[0].imageData + '" /><span>' + this[1] + '</span>';
+		                    swatch = '<img alt="Legend Swatch" src="data:image/png;base64,' + feature[0].imageData + '" /><span >' + this[1] + '</span>';
 		                }
 
 		                //create layer and add to layer control 
 		                
 		                var singleLayer = new L.esri.dynamicMapLayer(mapService, { layers: [this[0]] });
-		                layerControl.addOverlay(singleLayer, swatch, '<span><strong>' + groupName + '</strong></span>');
+		                layerControl.addOverlay(singleLayer, swatch, '<span>' + groupName + '</span>');
 
 		                //if default visibility is true, turn on layer
 		                if (this[2]) {
@@ -176,9 +186,9 @@ $( document ).ready(function() {
 		$('#geosearchModal').modal('show');
 	});
 
-	search_api.on("load", function() {
+	search_api.on('load', function() {
 	    search_api.setOpts({
-	        "textboxPosition" : "user-defined"
+	        'textboxPosition' : 'user-defined'
 	    });
     });
 */
