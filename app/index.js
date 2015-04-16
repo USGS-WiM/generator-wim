@@ -6,6 +6,14 @@ var util = require('util'),
   fse = require('fs-extra');
 
 var WiMGenerator = yeoman.generators.Base.extend({
+  
+  constructor: function () {
+    yeoman.generators.Base.apply(this, arguments);
+
+    this.argument('appName', { type: String, required: false });
+    this.argument('mappingAPI', { type: String, required: false });
+  },
+  
   init: function () {
     this.pkg = require('../package.json');
 
@@ -47,12 +55,19 @@ var WiMGenerator = yeoman.generators.Base.extend({
       ]
     }];
 
-    this.prompt(prompts, function (props) {
-      this.appName = props.appName;
-      this.mappingAPI = props.mappingAPI;
+    console.log(this.appName,this.mappingAPI);
 
+    if ((!this.appName) && (!this.mappingAPI)) {
+      this.prompt(prompts, function (props) {
+        this.appName = props.appName;
+        this.mappingAPI = props.mappingAPI;
+
+        done();
+      }.bind(this));
+    }
+    else {
       done();
-    }.bind(this));
+    }
   },
 
   src: function () {
