@@ -2,10 +2,12 @@ var mapLayers;
 
 require([
     "esri/geometry/Extent",
-    "esri/layers/WMSLayerInfo"
+    "esri/layers/WMSLayerInfo",
+    "esri/layers/FeatureLayer"
 ], function(
     Extent,
-    WMSLayerInfo
+    WMSLayerInfo,
+    FeatureLayer
 ) {
 
     mapLayers = {
@@ -120,7 +122,7 @@ require([
             "arcOptions": {
                 "id": "ptFeatureLayer",
                 "visible": true,
-                "mode": esri.layers.FeatureLayer.MODE_SNAPSHOT
+                "mode": FeatureLayer.MODE_SNAPSHOT
             },
             "wimOptions": {
                 "type": "layer",
@@ -132,7 +134,7 @@ require([
             "arcOptions": {
                 "opacity": 0.75,
                 "visible": true,
-                "mode": esri.layers.FeatureLayer.MODE_SNAPSHOT
+                "mode": FeatureLayer.MODE_SNAPSHOT
             },
             "wimOptions": {
                 "type": "layer",

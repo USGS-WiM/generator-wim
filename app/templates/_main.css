@@ -1,6 +1,6 @@
 html, body {
-   height: 100%;
-   overflow:hidden;
+    height: 100%;
+    overflow:hidden;
 }
 
 body {
@@ -19,7 +19,7 @@ body {
     }
 
     /*.basemapThumb {*/
-        /*display: none;*/
+    /*display: none;*/
     /*}*/
 }
 
@@ -31,8 +31,6 @@ body {
 
 .basemapThumb {
     border:1px solid #ffffff;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
     border-radius: 5px;
 }
 
@@ -41,6 +39,29 @@ body {
     width: 86px;
     margin-bottom: 2px;
     padding:2px;
+}
+
+.hover-content {
+    display:none;
+}
+
+.latLngScale {
+    position:absolute;
+    padding:4px;
+    bottom:1em;
+    right:50%;
+    /*width:250px*/
+    /*height:320px;*/
+    z-index:1;
+    color: black;
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    border-radius: 4px;
+}
+
+.latLngScale:hover .hover-content {
+    display:inline-block;
 }
 
 .legend {
@@ -55,8 +76,7 @@ body {
     background-color: rgb(255,255,255);
     background-color: rgba(255,255,255,0.8);
     box-shadow: 0 1px 5px rgba(0,0,0,0.65);
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
+    min-width: 200px;
     border-radius: 4px;
 }
 
@@ -123,5 +143,3 @@ body {
 input[type="checkbox"], input[type="radio"] {
     float: left;
 }
-
-

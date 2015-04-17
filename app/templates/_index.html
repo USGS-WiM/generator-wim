@@ -56,7 +56,8 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!-- build:js scripts/core.js -->
+    <!-- build:js scripts/combined.js -->
+    <script src="scripts/utilities.js"></script>
     <script src="scripts/layers.js"></script>
     <script src="scripts/core.js"></script>
     <!-- endbuild -->
@@ -91,6 +92,7 @@
             <!--</button>-->
         </div>
     </div>
+
     
     <div class="modal fade" id="geosearchModal" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
@@ -173,26 +175,23 @@
             <div class="col-md-9 col-lg-10 col-md-offset-3 col-lg-offset-2 no-col-padding">
                 <div id="legend" class="legend" style="display: none" >
                     <button id="legendClose" type="button" class="close" data-dismiss="legend" aria-label="Close" aria-hidden="true">x</button>
-                    <p>Explanation</p>
+                    <h4><b>Explanation</b></h4>
                     <div id="legendDiv"></div>
-                    <div style="margin:6px;">Want to get the legend icons <br> themselves to be non-transparent <br>if possible</div>
                 </div>
                 <!-- Map div -->
                 <div id="mapDiv"></div>
 
+                <div id="latLngScale" class="latLngScale">
+                    <span class="hover-content"><b>Latitude:</b></span>
+                    <span id="latitude">y</span>,
+                    <span class="hover-content"> <b>Longitude:</b></span>
+                    <span id="longitude">x</span> |
+                    <span class="hover-content"> <b>Map scale: </b></span>
+                    1:<span id="scale"></span>
+                </div>
+
             </div>
-            <div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-right sidebar-animate">
-                <!--<div class="panel panel-default" id="legendPanel">-->
-                    <!--<div class="panel-heading">-->
-                        <!--<h4 class="panel-title">-->
-                            <!--<a data-toggle="collapse" data-target="#legend" href="#legend" class="collapsed">Map Legend</a>-->
-                        <!--</h4>-->
-                    <!--</div>-->
-                    <!--<div id="legend" class="panel-collapse collapse">-->
-                        <!--<div class="panel-body">Legend here</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            </div>
+            <div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-right sidebar-animate"></div>
         </div>
     </div>  
 </body>
