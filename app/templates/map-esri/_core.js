@@ -18,6 +18,7 @@ require([
     'esri/graphic',
     'esri/geometry/Multipoint',
     'esri/symbols/PictureMarkerSymbol',
+    "esri/geometry/webMercatorUtils",
     'dojo/dom',
     'dojo/on',
     'dojo/domReady!'
@@ -30,19 +31,20 @@ require([
     Graphic,
     Multipoint,
     PictureMarkerSymbol,
+    webMercatorUtils,
     dom,
     on
 ) {
 
     allLayers = mapLayers;
 
-    // Get a reference to the ArcGIS Map class
     map = Map('mapDiv', {
         basemap: 'national-geographic',
         center: [-95.6, 38.6],
         zoom: 4
     });
 
+    //following block forces map size to override problems with default behavior
     $('#mapDiv').height($('body').height());
     map.resize();
     var idealMapHeight = $(window).height() - $('#navbar').height();
@@ -50,8 +52,29 @@ require([
     $(window).resize(function () {
         $('#mapDiv, #mapDiv_root').height(idealMapHeight + 'px');
     });
+
+    //displays map scale on map load
+    on(map, "load", function() {
+        var scale =  map.getScale().toFixed(0);
+        $('#scale')[0].innerHTML = addCommas(scale);
+    });
+    //displays map scale on scale change (i.e. zoom level)
+    on(map, "zoom-end", function () {
+        var scale =  map.getScale().toFixed(0);
+        $('#scale')[0].innerHTML = addCommas(scale);
+    });
+    //displays latitude and longitude on cursor move
+    on(map, "mouse-move", function (cursorPosition) {
+        if (cursorPosition.mapPoint != null) {
+            var geographicMapPt = webMercatorUtils.webMercatorToGeographic(cursorPosition.mapPoint);
+            $('#latitude')[0].innerHTML = geographicMapPt.y.toFixed(3);
+            $('#longitude')[0].innerHTML = geographicMapPt.x.toFixed(3);
+        }
+
+    });
+
     var nationalMapBasemap = new ArcGISTiledMapServiceLayer('http://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer');
-    // these on clicks change the basemap. the map.removeLayer is required for nat'l map b/c it is not officially basemap.
+    //on clicks to swap basemap. map.removeLayer is required for nat'l map b/c it is not technically a basemap, but a tiled layer.
     on(dom.byId('btnStreets'), 'click', function () {
         map.setBasemap('streets');
         map.removeLayer(nationalMapBasemap);
@@ -489,7 +512,7 @@ require([
 
     });//end of require statement containing legend building code
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 });
 
 $(document).ready(function () {
