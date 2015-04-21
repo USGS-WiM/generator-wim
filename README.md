@@ -22,6 +22,10 @@ This will install the following packages to your "C:\Users\%user%\AppData\Roamin
 npm install -g yo bower gulp
 ```
 
+If you receive this error: 'npm' is not recognized as internal or external command, operable program or batch file, consult [this article](http://stackoverflow.com/questions/20992723/npm-is-not-recognized-as-internal-or-external-command-operable-program-or-bat).
+
+The suggestion in the article to removing the trailing slash from the PATH for node.js has worked before.
+
 #### 3.  Create symbolic link for generator-wim inside the generator-wim folder
 This 'tricks' node into thinking your generator-wim is a globally installed node module in this location: "C:\Users\%user%\AppData\Roaming\npm\node_modules"
 
