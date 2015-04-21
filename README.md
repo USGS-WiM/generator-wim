@@ -11,7 +11,7 @@
 
 ## Generator Setup
 
-#### 1.  Install required software
+#### 1.  Install required software (see Getting Started above before proceeding)
 [node.js](http://nodejs.org)  
 [github for windows](https://windows.github.com/) (only required if GUI is preferred, otherwise can use command line)  
 
