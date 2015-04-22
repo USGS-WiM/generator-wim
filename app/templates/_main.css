@@ -6,6 +6,9 @@ html, body {
 body {
     padding-top: 50px;
     background-image: url("../images/wimlogoCompact.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
     background-color:#474747;
 }
 
@@ -41,6 +44,20 @@ body {
     padding:2px;
 }
 
+.esriSimpleSliderTL {
+    top: 5px;
+    left: 5px;
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255,0.8);
+}
+
+#homeButton {
+    position: absolute;
+    top: 75px;
+    left: 5px;
+    z-index: 50;
+}
+
 .hover-content {
     display:none;
 }
@@ -65,19 +82,41 @@ body {
 }
 
 .legend {
-    position:absolute;
+    /*position:absolute;*/
     padding:4px;
-    top:1em;
-    right:10px;
-    /*width:250px*/
-    /*height:320px;*/
+    /*top:1em;*/
+    /*right:10px;*/
     z-index:1;
     color: black;
     background-color: rgb(255,255,255);
     background-color: rgba(255,255,255,0.8);
     box-shadow: 0 1px 5px rgba(0,0,0,0.65);
-    min-width: 200px;
+    /*min-width: 200px;*/
     border-radius: 4px;
+}
+
+.legendToggle {
+    position:absolute;
+    top:5px;
+    right:5px;
+    z-index:1;
+    color: black;
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    /*min-width: 150px;*/
+    border-radius: 4px;
+}
+
+.legendHeading {
+    color: black;
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255,0.8);
+    text-decoration: none !important;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 #legendButtonSidebar {
