@@ -64,9 +64,8 @@ require([
         var scale =  map.getScale().toFixed(0);
         $('#scale')[0].innerHTML = addCommas(scale);
         var initMapCenter = webMercatorUtils.webMercatorToGeographic(map.extent.getCenter());
-        $('#latitude')[0].innerHTML = initMapCenter.y.toFixed(3);
-        $('#longitude')[0].innerHTML = initMapCenter.x.toFixed(3);
-
+        $('#latitude').html(initMapCenter.y.toFixed(3));
+        $('#longitude').html(initMapCenter.x.toFixed(3));
     });
     //displays map scale on scale change (i.e. zoom level)
     on(map, "zoom-end", function () {
@@ -74,31 +73,22 @@ require([
         $('#scale')[0].innerHTML = addCommas(scale);
     });
 
-    //updates lat/lng indicator on mouse move. does not apply on devices w/out mouse. removes "map center" label used for touch devices
+    //updates lat/lng indicator on mouse move. does not apply on devices w/out mouse. removes "map center" label
     on(map, "mouse-move", function (cursorPosition) {
         $('#mapCenterLabel').css("display", "none");
         if (cursorPosition.mapPoint != null) {
             var geographicMapPt = webMercatorUtils.webMercatorToGeographic(cursorPosition.mapPoint);
-            $('#latitude')[0].innerHTML = geographicMapPt.y.toFixed(3);
-            $('#longitude')[0].innerHTML = geographicMapPt.x.toFixed(3);
+            $('#latitude').html(geographicMapPt.y.toFixed(3));
+            $('#longitude').html(geographicMapPt.x.toFixed(3));
         }
     });
-    //updates lat/lng indicator to map center after pan and shows "map center" label. media match check applies it only to smaller screens
+    //updates lat/lng indicator to map center after pan and shows "map center" label.
     on(map, "pan-end", function () {
-        if (window.matchMedia("(min-width: 768px)").matches) {
-            /* the viewport is at least 768 pixels wide */
-            //displays latitude and longitude on cursor move
-            $('#mapCenterLabel').css("display", "none");
-            return
-        } else {
-            /* the viewport is less than 768 pixels wide */
-            //displays latitude and longitude of map center
-            $('#mapCenterLabel').css("display", "inline");
-            var geographicMapCenter = webMercatorUtils.webMercatorToGeographic(map.extent.getCenter());
-            $('#latitude')[0].innerHTML = geographicMapCenter.y.toFixed(3);
-            $('#longitude')[0].innerHTML = geographicMapCenter.x.toFixed(3);
-
-        }
+        //displays latitude and longitude of map center
+        $('#mapCenterLabel').css("display", "inline");
+        var geographicMapCenter = webMercatorUtils.webMercatorToGeographic(map.extent.getCenter());
+        $('#latitude').html(geographicMapCenter.y.toFixed(3));
+        $('#longitude').html(geographicMapCenter.x.toFixed(3));
     });
 
     var nationalMapBasemap = new ArcGISTiledMapServiceLayer('http://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer');
