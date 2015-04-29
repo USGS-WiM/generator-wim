@@ -38,7 +38,8 @@ require([
     on
 ) {
 
-    allLayers = mapLayers;
+    //bring this line back after experiment////////////////////////////
+    //allLayers = mapLayers;
 
     map = Map('mapDiv', {
         basemap: 'national-geographic',
@@ -256,8 +257,6 @@ require([
         });
     });
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     require([
         'esri/dijit/Legend',
         'esri/tasks/locator',
@@ -304,233 +303,262 @@ require([
         var navToolbar;
         var locator;
 
-        //allLayers = layers;
+        //create global layers lookup
+        var mapLayers = [];
 
-        on(map, "layers-add-result", function() {
+        $.each(allLayers, function (index,group) {
+            console.log('processing: ', group.groupHeading)
 
-            var legend = new Legend({
-                map:map,
-                layerInfos:legendLayers
-            },"legendDiv");
-            legend.startup();
+            //sub-loop over layers within this groupType
+            $.each(group.layers, function (layerName,layerDetails) {
 
-            //this counter to track first and last of items in legendLayers
-            var i = 0;
-            var lastItem = layersObject.length;
-
-            dojo.forEach(layersObject, function(layer){
-
-                var layerName = layer.title;
-
-                if (layer.layer != "heading") {
-
-                    if (layer.toggleType == "radioParent"){
-
-                        var radioParentCheck = new CheckBox({
-                            name:"radioParentCheck" + layer.group,
-                            id:"radioParentCheck_" + layer.group,
-                            params: {group: layer.group},
-                            onChange:function(){
-                                var radChildLayers = [];
-                                var grp = this.params.group;
-                                dojo.forEach (layersObject, function (layer){
-                                    if (grp == layer.group && layer.toggleType != "radioParent") {
-                                        radChildLayers.push(layer.layer);
-                                    }
-                                });
-                                if (!this.checked){
-                                    dojo.forEach (radChildLayers, function (layer){
-                                        layer.setVisibility(false);
-                                    });
-                                    var divs = query("." + grp);
-                                    for(var i = 0; i < divs.length; i++) {
-                                        divs[i].style.display= "none";
-                                    }
-                                }
-                                if (this.checked){
-                                    var divs = query("." + grp);
-                                    for(var i = 0; i < divs.length; i++) {
-                                        divs[i].style.display= "block";
-                                    }
-                                    dojo.forEach (radChildLayers, function (layer){
-                                        if (dojo.byId("radioButton"+layer.id).checked) {
-                                            layer.setVisibility(true);
-                                        }
-                                    });
-                                }
-                            }
-                        });
-                        var toggleDiv = domConstruct.create("div");
-                        domConstruct.place(toggleDiv,dom.byId("toggle"), 0 );
-                        domConstruct.place(radioParentCheck.domNode,toggleDiv,"first");
-                        domStyle.set(toggleDiv, "paddingLeft", "15px");
-                        if (i === 0) {
-                            domStyle.set(toggleDiv, "paddingBottom", "10px");
-                        } else if (i == lastItem) {
-                            domStyle.set(toggleDiv, "paddingTop", "10px");
-                        }
-                        var radioParentCheckLabel = domConstruct.create('label',{'for':radioParentCheck.name,innerHTML:layerName},radioParentCheck.domNode,"after");
-                        domConstruct.place("<br/>",radioParentCheckLabel,"after");
-
-                    } else if (layer.toggleType == "checkbox"){
-
-                        var checkBox = new CheckBox({
-                            name:"checkBox" + layer.layer.id,
-                            id:"checkBox" + layer.layer.id,
-                            value:layer.layer.id,
-                            checked:layer.layer.visible,
-                            onChange:function(){
-                                var checkLayer = map.getLayer(this.value);
-                                checkLayer.setVisibility(!checkLayer.visible);
-                                this.checked = checkLayer.visible;
-                            }
-                        });
-                        var toggleDiv = domConstruct.create("div");
-                        domConstruct.place(toggleDiv,dom.byId("toggle"), 0 );
-                        domConstruct.place(checkBox.domNode,toggleDiv,"first");
-                        domStyle.set(toggleDiv, "paddingLeft", "15px");
-                        if (i === 0) {
-                            domStyle.set(toggleDiv, "paddingBottom", "10px");
-                        } else if (i == lastItem) {
-                            domStyle.set(toggleDiv, "paddingTop", "10px");
-                        }
-                        var checkLabel = domConstruct.create('label',{'for':checkBox.name,innerHTML:layerName},checkBox.domNode,"after");
-                        domConstruct.place("<br/>",checkLabel,"after");
-
-                    } else if (layer.toggleType == "radio") {
-
-                        var radioButton = new RadioButton({
-                            name: layer.group,
-                            id: "radioButton" + layer.layer.id,
-                            value:layer.layer.id,
-                            checked:layer.layer.visible,
-                            params: {group: layer.group},
-                            onChange:function() {
-                                var radioLayer = map.getLayer(this.value);
-                                var parentID = "radioParentCheck_" + layer.group;
-
-                                var checkedEval = (this.checked && dijit.byId(parentID).checked) ? true : false;
-                                radioLayer.setVisibility(checkedEval);
-                                //(this.checked && registry.byId(parentID).checked) ? radioLayer.setVisibility(true) : radioLayer.setVisibility(false);
-                            }
-                        });
-                        var toggleDiv = domConstruct.create("div");
-                        domConstruct.place(toggleDiv,dom.byId("toggle"), 0 );
-                        domConstruct.place(radioButton.domNode,toggleDiv,"first");
-                        domClass.add(toggleDiv, radioButton.params.group);
-                        domStyle.set(toggleDiv, "paddingLeft", "25px");
-                        domStyle.set(toggleDiv, "display", "none");
-                        if (i === 0) {
-                            domStyle.set(toggleDiv, "paddingBottom", "10px");
-                        } else if (i == lastItem) {
-                            domStyle.set(toggleDiv, "paddingTop", "10px");
-                        }
-                        var radioLabel = domConstruct.create('label',{'for':radioButton.name,innerHTML:layerName},radioButton.domNode,"after");
-                        domConstruct.place("<br/>",radioLabel,"after");
-                    }
-                    /////code below for headings w/out toggles
-                } else {
-
-                    var headingDiv = domConstruct.create("div");
-                    headingDiv.innerHTML = layer.title;
-                    domConstruct.place(headingDiv,dom.byId("toggle"),"first");
-                    domStyle.set(headingDiv, "paddingTop", "10px");
-                    domStyle.set(headingDiv, "color", "#D3CFBA");
-                    if (i === 0) {
-                        domStyle.set(headingDiv, "paddingBottom", "10px");
-                    } else if (i == lastItem) {
-                        domStyle.set(headingDiv, "paddingTop", "10px");
-                    }
-
+                //check for exclusiveGroup for this layer
+                var exclusiveGroupName = '';
+                if (layerDetails.wimOptions.exclusiveGroupName) {
+                    exclusiveGroupName = layerDetails.wimOptions.exclusiveGroupName;
                 }
-                i++;
-                //don't miss this iterator!!!!!
+
+                if (layerDetails.wimOptions.layerType === 'agisFeature') {
+                    var layer = new esri.layers.FeatureLayer(layerDetails.url);
+                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName);
+                    //addMapServerLegend(layerName, layerDetails);
+                }
+
+                else if (layerDetails.wimOptions.layerType === 'agisWMS') {
+                    var layer = new esri.layers.WMSLayer(layerDetails.url, {resourceInfo: layerDetails.options.resourceInfo, visibleLayers: layerDetails.options.visibleLayers }, layerDetails.options);
+                    map.addLayer(layer);
+                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName);
+                    //addMapServerLegend(layerName, layerDetails);
+                }
+
+                else if (layerDetails.wimOptions.layerType === 'agisDynamic') {
+                    var layer = new esri.layers.ArcGISDynamicMapServiceLayer(layerDetails.url, layerDetails.options);
+                    map.addLayer(layer);
+                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName);
+                    //addMapServerLegend(layerName, layerDetails);
+                }
             });
         });
 
-        addAllLayers();
+        function addLayer(groupHeading, showGroupHeading, layer, layerName, exclusiveGroupName) {
 
-        function addAllLayers() {
+            //add layer to map
+            //layer.addTo(map);
+            map.addLayer(layer);
 
-            var radioGroup;
-            var radioGroupArray = [];
+            //add layer to layer list
+            mapLayers.push([exclusiveGroupName,camelize(layerName),layer]);
 
-            require([
-                "esri/layers/ArcGISDynamicMapServiceLayer"
-            ], function(
-                ArcGISDynamicMapServiceLayer) {
+            //check if its an exclusiveGroup item
+            if (exclusiveGroupName) {
 
-                for ( var layer in allLayers) {
-                    if (allLayers[layer].wimOptions.type == "layer") {
-                        console.log(layer);
-                        var newLayer;
-                        if (allLayers[layer].wimOptions.layerType == "agisFeature") {
-                            newLayer = new esri.layers.FeatureLayer(allLayers[layer].url, allLayers[layer].arcOptions);
-                        } else if (allLayers[layer].wimOptions.layerType == "agisWMS") {
-                            newLayer = new esri.layers.WMSLayer(allLayers[layer].url, allLayers[layer].arcOptions);
-                            if (allLayers[layer].wimOptions.includeLegend == true && allLayers[layer].wimOptions.staticLegendOptions.hasStaticLegend == true) {
-                                var staticLegendImage = dojo.doc.createElement("div");
-                                staticLegendImage.id = allLayers[layer].arcOptions.id + 'Legend';
-                                staticLegendImage.innerHTML = '<b style="">' + allLayers[layer].wimOptions.staticLegendOptions.legendTitle + '</b><br/><img style="padding-top: 10px; width: ' + (parseInt($("#explanation").width())-25).toString() + 'px" src="' + allLayers[layer].wimOptions.staticLegendOptions.legendUrl + '" />';
-                                dojo.place(staticLegendImage,dojo.byId("legendDiv"),"after");
-                                if (allLayers[layer].arcOptions.visible == false) {
-                                    $("#" + staticLegendImage.id).hide();
+                //create radio button
+                //var button = $('<input type="radio" name="' + camelize(exclusiveGroupName) + '" value="' + camelize(layerName) + '"checked>' + layerName + '</input></br>');
+                var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <label class="btn btn-default"  style="font-weight: bold;text-align: left"> <input type="radio" name="' + camelize(exclusiveGroupName) + '" autocomplete="off"><i class="glyphspan fa fa-circle-o"></i>&nbsp;&nbsp;' + layerName + '</label> </div>');
+
+                //click listener for radio button
+                button.click(function(e) {
+
+                    //toggle checkmark
+                    $(this).find('i.glyphspan').toggleClass('fa-dot-circle-o fa-circle-o');
+
+                    var newLayer = $(this).val();
+
+                    $.each(mapLayers, function () {
+
+                        if (this[0] == exclusiveGroupName) {
+                            if (this[1] == newLayer) {
+                                console.log('adding layer: ',this[1]);
+                                map.addLayer(this[2]);
+                                $('#' + camelize(this[1])).toggle();
+                            }
+                            else {
+                                if (map.hasLayer(this[2])) {
+                                    console.log('removing layer: ',this[1]);
+                                    map.removeLayer(this[2]);
+                                    //$('#' + camelize(this[1])).toggle();
                                 }
                             }
-                        } else {
-                            newLayer = new esri.layers.ArcGISDynamicMapServiceLayer(allLayers[layer].url, allLayers[layer].arcOptions);
-                            if (allLayers[layer].visibleLayers) {
-                                newLayer.setVisibleLayers(allLayers[layer].visibleLayers);
-                            }
                         }
+                    });
+                });
+            }
 
-                        //set wim options
-                        if (allLayers[layer].wimOptions) {
-                            if (allLayers[layer].wimOptions.includeInLayerList == true) {
-                                if (allLayers[layer].wimOptions.layerOptions && allLayers[layer].wimOptions.layerOptions.selectorType == "radio" ) {
+            //not an exclusive group item
+            else {
 
-                                    radioGroup = allLayers[layer].wimOptions.layerOptions.radioGroup;
-                                    radioGroupArray.push({group: radioGroup, layer:newLayer});
+                //create layer toggle
+                //var button = $('<div align="left" style="cursor: pointer;padding:5px;"><span class="glyphspan glyphicon glyphicon-check"></span>&nbsp;&nbsp;' + layerName + '</div>');
+                var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
 
-                                    addToObjects({layer: newLayer, type:"layer", title: layer, toggleType: "radio", group: radioGroup}, allLayers[layer].wimOptions)
+                //click listener for regular button
+                button.click(function(e) {
 
-                                } else {
-                                    addToObjects({layer: newLayer, type:"layer", title: layer, toggleType: "checkbox", group: ""}, allLayers[layer].wimOptions)
-                                }
-                            }
-                        } else {
-                            addToObjects({layer: newLayer, title: layer}, allLayers[layer].wimOptions)
-                        }
-                        layerArray.push(newLayer);
-                    } else if (allLayers[layer].wimOptions.type == "radioParent") {
+                    //toggle checkmark
+                    $(this).find('i.glyphspan').toggleClass('fa-check-square-o fa-square-o');
+                    $(this).find('button').button('toggle');
 
-                        radioGroup = allLayers[layer].wimOptions.layerOptions.radioGroup;
-                        radioGroupArray.push({group: radioGroup, layer: null});
+                    e.preventDefault();
+                    e.stopPropagation();
 
-                        layersObject.push({layer: null, type: "radioParent", title: layer, toggleType: "radioParent", group: radioGroup});
+                    $('#' + camelize(layerName)).toggle();
 
+                    //layer toggle
+                    if (layer.visible) {
+                        layer.setVisibility(false);
                     } else {
-
-                        layersObject.push({layer: "heading", title: layer});
-                        console.log("heading: " + layer);
+                        layer.setVisibility(true);
                     }
+
+                });
+            }
+
+            //group heading logic
+            if (showGroupHeading) {
+
+                //camelize it for divID
+                var groupDivID = camelize(groupHeading);
+
+                //check to see if this group already exists
+                if (!$('#' + groupDivID).length) {
+                    //if it doesn't add the header
+                    var groupDiv = $('<div id="' + groupDivID + '"><div class="alert alert-info" role="alert"><strong>' + groupHeading + '</strong></div></div>');
+                    $('#toggle').append(groupDiv);
                 }
 
-                map.addLayers(layerArray);
+                //if it does already exist, append to it
+                $('#' + groupDivID).append(button);
+            }
 
-                function addToObjects(fullObject, wimOptions) {
-                    layersObject.push(fullObject);
-                    if (wimOptions.includeLegend != false) {
-                        legendLayers.push(fullObject);
+            else {
+                //otherwise append
+                $('#toggle').append(button);
+            }
+        }
+
+        function camelize(str) {
+            return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+                return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+            }).replace(/\s+/g, '');
+        }
+
+        //get visible and non visible layer lists
+        function addMapServerLegend(layerName, layerDetails) {
+
+
+            if (layerDetails.wimOptions.layerType === 'agisFeature') {
+
+                //for feature layer since default icon is used, put that in legend
+                var legendItem = $('<div align="left" id="' + camelize(layerName) + '"><img alt="Legend Swatch" src="https://raw.githubusercontent.com/Leaflet/Leaflet/master/dist/images/marker-icon.png" /><strong>&nbsp;&nbsp;' + layerName + '</strong></br></div>');
+                $('#legendDiv').append(legendItem);
+
+            }
+
+            else if (layerDetails.wimOptions.layerType === 'agisWMS') {
+
+                //for WMS layers, for now just add layer title
+                var legendItem = $('<div align="left" id="' + camelize(layerName) + '"><img alt="Legend Swatch" src="http://placehold.it/25x41" /><strong>&nbsp;&nbsp;' + layerName + '</strong></br></div>');
+                $('#legendDiv').append(legendItem);
+
+            }
+
+            else if (layerDetails.wimOptions.layerType === 'agisDynamic') {
+
+                //create new legend div
+                var legendItemDiv = $('<div align="left" id="' + camelize(layerName) + '"><strong>&nbsp;&nbsp;' + layerName + '</strong></br></div>');
+                $('#legendDiv').append(legendItemDiv);
+
+                //get legend REST endpoint for swatch
+                $.getJSON(layerDetails.url + '/legend?f=json', function (legendResponse) {
+
+                    console.log(layerName,'legendResponse',legendResponse);
+
+
+
+                    //make list of layers for legend
+                    if (layerDetails.options.layers) {
+                        //console.log(layerName, 'has visisble layers property')
+                        //if there is a layers option included, use that
+                        var visibleLayers = layerDetails.options.layers;
                     }
-                }
+                    else {
+                        //console.log(layerName, 'no visible layers property',  legendResponse)
 
-            });//end of require statement just for dynamic map service layer
-        }//end of addAllLayers
+                        //create visibleLayers array with everything
+                        var visibleLayers = [];
+                        $.grep(legendResponse.layers, function(i,v) {
+                            visibleLayers.push(v);
+                        });
+                    }
+
+                    //loop over all map service layers
+                    $.each(legendResponse.layers, function (i, legendLayer) {
+
+                        //var legendHeader = $('<strong>&nbsp;&nbsp;' + legendLayer.layerName + '</strong>');
+                        //$('#' + camelize(layerName)).append(legendHeader);
+
+                        //sub-loop over visible layers property
+                        $.each(visibleLayers, function (i, visibleLayer) {
+
+                            //console.log(layerName, 'visibleLayer',  visibleLayer);
+
+                            if (visibleLayer == legendLayer.layerId) {
+
+                                console.log(layerName, visibleLayer,legendLayer.layerId, legendLayer)
+
+                                //console.log($('#' + camelize(layerName)).find('<strong>&nbsp;&nbsp;' + legendLayer.layerName + '</strong></br>'))
+
+                                var legendHeader = $('<strong>&nbsp;&nbsp;' + legendLayer.layerName + '</strong></br>');
+                                $('#' + camelize(layerName)).append(legendHeader);
+
+                                //get legend object
+                                var feature = legendLayer.legend;
+                                /*
+                                 //build legend html for categorized feautres
+                                 if (feature.length > 1) {
+                                 */
+
+                                //placeholder icon
+                                //<img alt="Legend Swatch" src="http://placehold.it/25x41" />
+
+                                $.each(feature, function () {
+
+                                    //make sure there is a legend swatch
+                                    if (this.imageData) {
+                                        var legendFeature = $('<img alt="Legend Swatch" src="data:image/png;base64,' + this.imageData + '" /><small>' + this.label.replace('<', '').replace('>', '') + '</small></br>');
+
+                                        $('#' + camelize(layerName)).append(legendFeature);
+                                    }
+                                });
+                                /*
+                                 }
+                                 //single features
+                                 else {
+                                 var legendFeature = $('<img alt="Legend Swatch" src="data:image/png;base64,' + feature[0].imageData + '" /><small>&nbsp;&nbsp;' + legendLayer.layerName + '</small></br>');
+
+                                 //$('#legendDiv').append(legendItem);
+                                 $('#' + camelize(layerName)).append(legendFeature);
+
+                                 }
+                                 */
+                            }
+                        }); //each visible layer
+                    }); //each legend item
+                }); //get legend json
+            }
+        }
+        /* parse layers.js */
+
+        var legend = new Legend({
+            map: map
+            //layerInfos: mapLayers
+        }, "legendDiv");
+        legend.startup();
+
 
     });//end of require statement containing legend building code
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 });
 
 $(document).ready(function () {
