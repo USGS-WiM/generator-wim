@@ -44,6 +44,7 @@ body {
     padding:2px;
 }
 
+
 .esriSimpleSliderTL {
     top: 5px;
     left: 5px;
@@ -181,4 +182,11 @@ body {
 
 input[type="checkbox"], input[type="radio"] {
     float: left;
+}
+
+
+.lyrTog {
+    width: 100%;
+    padding: 1px;
+    font-weight: bold;
 }
