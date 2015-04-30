@@ -319,7 +319,7 @@ require([
                 }
 
                 if (layerDetails.wimOptions.layerType === 'agisFeature') {
-                    var layer = new esri.layers.FeatureLayer(layerDetails.url);
+                    var layer = new esri.layers.FeatureLayer(layerDetails.url, layerDetails.options);
                     addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName);
                     //addMapServerLegend(layerName, layerDetails);
                 }
@@ -333,6 +333,9 @@ require([
 
                 else if (layerDetails.wimOptions.layerType === 'agisDynamic') {
                     var layer = new esri.layers.ArcGISDynamicMapServiceLayer(layerDetails.url, layerDetails.options);
+                    if (layerDetails.visibleLayers) {
+                        layer.setVisibleLayers(layerDetails.visibleLayers);
+                    }
                     map.addLayer(layer);
                     addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName);
                     //addMapServerLegend(layerName, layerDetails);
@@ -351,36 +354,78 @@ require([
 
             //check if its an exclusiveGroup item
             if (exclusiveGroupName) {
+                
+                if (!$('#' + camelize(exclusiveGroupName)).length) {
+                    var exGroupRoot = $('<div id="' + camelize(exclusiveGroupName +" Root") + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + exclusiveGroupName + '</button> </div>');
+                    
+                    exGroupRoot.click(function(e) {
+                        exGroupRoot.find('i.glyphspan').toggleClass('fa-check-square-o fa-square-o');
+
+                        $.each(mapLayers, function (index, currentLayer) {
+
+                            var tempLayer = map.getLayer(currentLayer[2].id);
+
+                            if (currentLayer[0] == exclusiveGroupName) {
+                                if ($("#" + currentLayer[1]).find('i.glyphspan').hasClass('fa-dot-circle-o') && exGroupRoot.find('i.glyphspan').hasClass('fa-check-square-o')) {
+                                    console.log('adding layer: ',currentLayer[1]);
+                                    map.addLayer(currentLayer[2]);
+                                    var tempLayer = map.getLayer(currentLayer[2].id);
+                                    tempLayer.setVisibility(true);
+                                } else if (exGroupRoot.find('i.glyphspan').hasClass('fa-square-o')) {
+                                    console.log('removing layer: ',currentLayer[1]);
+                                    map.removeLayer(currentLayer[2]);
+                                }
+                            }
+
+                        });
+                    });
+
+                    var exGroupDiv = $('<div id="' + camelize(exclusiveGroupName) + '" class="btn-group-vertical" data-toggle="buttons"></div');
+                    $('#toggle').append(exGroupDiv);
+                }
 
                 //create radio button
                 //var button = $('<input type="radio" name="' + camelize(exclusiveGroupName) + '" value="' + camelize(layerName) + '"checked>' + layerName + '</input></br>');
-                var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <label class="btn btn-default"  style="font-weight: bold;text-align: left"> <input type="radio" name="' + camelize(exclusiveGroupName) + '" autocomplete="off"><i class="glyphspan fa fa-circle-o"></i>&nbsp;&nbsp;' + layerName + '</label> </div>');
+                if (layer.visible) {
+                   var button = $('<div id="' + camelize(layerName) + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <label class="btn btn-default"  style="font-weight: bold;text-align: left"> <input type="radio" name="' + camelize(exclusiveGroupName) + '" autocomplete="off"><i class="glyphspan fa fa-dot-circle-o ' + camelize(exclusiveGroupName) + '"></i>&nbsp;&nbsp;' + layerName + '</label> </div>');
+                } else {
+                    var button = $('<div id="' + camelize(layerName) + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <label class="btn btn-default"  style="font-weight: bold;text-align: left"> <input type="radio" name="' + camelize(exclusiveGroupName) + '" autocomplete="off"><i class="glyphspan fa fa-circle-o ' + camelize(exclusiveGroupName) + '"></i>&nbsp;&nbsp;' + layerName + '</label> </div>');
+                }
+                
+                $('#' + camelize(exclusiveGroupName)).append(button);
 
                 //click listener for radio button
                 button.click(function(e) {
 
-                    //toggle checkmark
-                    $(this).find('i.glyphspan').toggleClass('fa-dot-circle-o fa-circle-o');
+                    if ($(this).find('i.glyphspan').hasClass('fa-circle-o')) {
+                        $(this).find('i.glyphspan').toggleClass('fa-dot-circle-o fa-circle-o');
 
-                    var newLayer = $(this).val();
+                        var newLayer = $(this)[0].id;
 
-                    $.each(mapLayers, function () {
+                        $.each(mapLayers, function (index, currentLayer) {
 
-                        if (this[0] == exclusiveGroupName) {
-                            if (this[1] == newLayer) {
-                                console.log('adding layer: ',this[1]);
-                                map.addLayer(this[2]);
-                                $('#' + camelize(this[1])).toggle();
-                            }
-                            else {
-                                if (map.hasLayer(this[2])) {
-                                    console.log('removing layer: ',this[1]);
-                                    map.removeLayer(this[2]);
+                            if (currentLayer[0] == exclusiveGroupName) {
+                                if (currentLayer[1] == newLayer && $("#" + camelize(exclusiveGroupName + " Root")).find('i.glyphspan').hasClass('fa-check-square-o')) {
+                                    console.log('adding layer: ',currentLayer[1]);
+                                    map.addLayer(currentLayer[2]);
+                                    var tempLayer = map.getLayer(currentLayer[2].id);
+                                    tempLayer.setVisibility(true);
+                                    //$('#' + camelize(currentLayer[1])).toggle();
+                                }
+                                else if (currentLayer[1] == newLayer && $("#" + camelize(exclusiveGroupName + " Root")).find('i.glyphspan').hasClass('fa-square-o')) {
+                                    console.log('groud heading not checked');
+                                }
+                                else {
+                                    console.log('removing layer: ',currentLayer[1]);
+                                    map.removeLayer(currentLayer[2]);
+                                    if ($("#" + currentLayer[1]).find('i.glyphspan').hasClass('fa-dot-circle-o')) {
+                                        $("#" + currentLayer[1]).find('i.glyphspan').toggleClass('fa-dot-circle-o fa-circle-o');
+                                    }
                                     //$('#' + camelize(this[1])).toggle();
                                 }
                             }
-                        }
-                    });
+                        });
+                    }
                 });
             }
 
@@ -389,8 +434,12 @@ require([
 
                 //create layer toggle
                 //var button = $('<div align="left" style="cursor: pointer;padding:5px;"><span class="glyphspan glyphicon glyphicon-check"></span>&nbsp;&nbsp;' + layerName + '</div>');
-                var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
-
+                if (layer.visible) {
+                   var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
+                } else {
+                   var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
+                }
+                
                 //click listener for regular button
                 button.click(function(e) {
 
@@ -427,7 +476,14 @@ require([
                 }
 
                 //if it does already exist, append to it
-                $('#' + groupDivID).append(button);
+                
+                if (exclusiveGroupName) {
+                    //if (!exGroupRoot.length)
+                    $('#' + groupDivID).append(exGroupRoot);
+                    $('#' + groupDivID).append(exGroupDiv);
+                } else {
+                    $('#' + groupDivID).append(button);
+                }
             }
 
             else {
