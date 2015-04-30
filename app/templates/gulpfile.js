@@ -11,18 +11,18 @@ var $ = require('gulp-load-plugins')();
 
 //only get esri api if needed
 <% if (mappingAPI == "esri") {%>
-var esrislurp = require('esrislurp')
-gulp.task('download-esri-api', function(cb) {
-	esrislurp('src/lib/esri', '3.13', 'false', cb);
-});
+    var esrislurp = require('esrislurp')
+    gulp.task('download-esri-api', function(cb) {
+        esrislurp('src/lib/esri', '3.13', 'false', cb);
+    });
 <%}%>
 
 //copy leaflet images
 <% if (mappingAPI == "leaflet") {%>
-gulp.task('leaflet', function() {
-    return gulp.src('src/bower_components/leaflet/dist/images/*.*')
-        .pipe(gulp.dest('src/images'));
-});
+    gulp.task('leaflet', function() {
+        return gulp.src('src/bower_components/leaflet/dist/images/*.*')
+            .pipe(gulp.dest('src/images'));
+    });
 <%}%>
 
 // Styles
@@ -34,8 +34,8 @@ gulp.task('styles', function () {
 });
 
 // Icons
-gulp.task('icons', function() {
-    return gulp.src('src/bower_components/bootstrap/dist/fonts/*.*')
+gulp.task('icons', function () {
+    return gulp.src(['src/bower_components/bootstrap/dist/fonts/*.*', 'src/bower_components/fontawesome/fonts/*.*'])
         .pipe(gulp.dest('build/fonts'));
 });
 
@@ -62,7 +62,7 @@ gulp.task('html', ['styles', 'scripts', 'icons'], function () {
         .pipe(cssFilter.restore())
         .pipe($.useref.restore())
         .pipe($.useref())
-		//.pipe(rename({ extname: '.min.js' }))
+        //.pipe(rename({ extname: '.min.js' }))
         .pipe(gulp.dest('build'))
         .pipe($.size());
 });
@@ -70,19 +70,19 @@ gulp.task('html', ['styles', 'scripts', 'icons'], function () {
 // Images
 gulp.task('images', function () {
     return gulp.src([
-    		'src/images/**/*',
-    		'src/lib/images/*'])
+        'src/images/**/*',
+        'src/lib/images/*'])
         .pipe(gulp.dest('build/images'))
         .pipe($.size());
 });
 
 // Clean
 gulp.task('clean', function (cb) {
-  del([
-    'build/styles/**',
-    'build/scripts/**',
-	'build/images/**',
-  ], cb);
+    del([
+        'build/styles/**',
+        'build/scripts/**',
+        'build/images/**',
+    ], cb);
 });
 
 // Build
@@ -106,7 +106,7 @@ gulp.task('connect', function(){
 
 // Open
 gulp.task('serve', ['connect'], function() {
-  open("http://localhost:9000");
+    open("http://localhost:9000");
 });
 
 // Inject Bower components
