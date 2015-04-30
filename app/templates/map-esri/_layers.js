@@ -15,7 +15,7 @@ require([
 
     allLayers = [
         {
-            "groupHeading": "some layers",
+            "groupHeading": "WMS layers",
             "showGroupHeading": true,
             "includeInLayerList": true,
             "layers": {
@@ -83,7 +83,7 @@ require([
             }
         },
         {
-            "groupHeading": "some other layers",
+            "groupHeading": "feature layers",
             "showGroupHeading": true,
             "includeInLayerList": true,
             "layers": {
@@ -103,7 +103,7 @@ require([
                     "url" : "http://fimlb-1071089098.us-east-1.elb.amazonaws.com/arcgis/rest/services/FIMMapper/sites/MapServer/0",
                     "options": {
                         "opacity": 0.75,
-                        "visible": true
+                        "visible": false
                     },
                     "wimOptions": {
                         "type": "layer",
@@ -114,44 +114,44 @@ require([
             }
         },
         {
-            "groupHeading": "exclusive group",
+            "groupHeading": "radio button example",
             "showGroupHeading": true,
             "includeInLayerList": true,
             "layers": {
-                "Cat 2": {
-                    "url" : "http://olga.er.usgs.gov/stpgis/rest/services/Vulnerability/NACCH_change_probabilities/MapServer",
-                    "options":{
-                        "id": "cat2",
-                        "layers": [13,14,15],
-                        "opacity": 1.0
-                    },
-                    "wimOptions": {
-                        "type": "layer",
-                        "layerType": "agisDynamic",
-                        "includeInLayerList": true,
-                        "exclusiveGroupName":"Coastal Erosion Hazard",
-                        "visible": false
-                    }
-                },
                 "Cat 1":{
                     "url" : "http://olga.er.usgs.gov/stpgis/rest/services/Vulnerability/NACCH_change_probabilities/MapServer",
+                    "visibleLayers": [5,6,7],
                     "options":{
                         "id": "cat1",
-                        "layers": [5,6,7],
-                        "opacity": 1.0
+                        "opacity": 1.0,
+                        "visible": true
                     },
                     "wimOptions":{
                         "type": "layer",
                         "layerType": "agisDynamic",
                         "includeInLayerList": true,
-                        "exclusiveGroupName":"Coastal Erosion Hazard",
-                        "visible": true
+                        "exclusiveGroupName":"Coastal Erosion Hazard"
+                    }
+                },
+                "Cat 2": {
+                    "url" : "http://olga.er.usgs.gov/stpgis/rest/services/Vulnerability/NACCH_change_probabilities/MapServer",
+                    "visibleLayers": [13,14,15],
+                    "options":{
+                        "id": "cat2",
+                        "opacity": 1.0,
+                        "visible": false
+                    },
+                    "wimOptions": {
+                        "type": "layer",
+                        "layerType": "agisDynamic",
+                        "includeInLayerList": true,
+                        "exclusiveGroupName":"Coastal Erosion Hazard"
                     }
                 }
             }
         },
         {
-            "groupHeading": "other map servers",
+            "groupHeading": "ESRI dynamic map services",
             "showGroupHeading": true,
             "includeInLayerList": true,
             "layers": {
@@ -172,7 +172,7 @@ require([
                     "url": "http://wimsharedlb-418672833.us-east-1.elb.amazonaws.com/arcgis/rest/services/NAWQA/tablesTest/MapServer",
                     "options": {
                         "layers": [1],
-                        "visible": true,
+                        "visible": false,
                         "opacity": 0.6
                     },
                     "wimOptions": {

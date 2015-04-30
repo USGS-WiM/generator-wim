@@ -180,6 +180,9 @@ body {
     margin-bottom: 2px;
 }
 
+#sidebar {
+    top: 50px;
+}
 input[type="checkbox"], input[type="radio"] {
     float: left;
 }
