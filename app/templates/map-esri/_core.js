@@ -8,6 +8,8 @@
 
 var map;
 var allLayers;
+var maxLegendHeight;
+var maxLegendDivHeight;
 
 require([
     'esri/map',
@@ -57,7 +59,16 @@ require([
     var idealMapHeight = $(window).height() - $('#navbar').height();
     $('#mapDiv, #mapDiv_root').height(idealMapHeight + 'px');
     $(window).resize(function () {
+        idealMapHeight = $(window).height() - $('#navbar').height();
         $('#mapDiv, #mapDiv_root').height(idealMapHeight + 'px');
+        maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
+        //$('#legendElement').css('height', maxLegendHeight);
+        $('#legendElement').css('max-height', maxLegendHeight);
+
+        if ($("#legendCollapse").hasClass('in')) {
+            maxLegendDivHeight = ($('#legendElement').height()) - document.getElementById("legendHeading").clientHeight;
+            $('#legendDiv').css('max-height', maxLegendDivHeight);
+        }
     });
 
     //displays map scale on map load
@@ -243,7 +254,7 @@ require([
                 'width':xWidth, 'height': yHeight
             });
     }
-    // Show modal dialog
+    // Show modal dialog; handle legend sizing (both on doc ready)
     $(document).ready(function(){
         function showModal() {
             $('#geosearchModal').modal('show');
@@ -252,9 +263,26 @@ require([
         $('#geosearchNav').click(function(){
             showModal();
         });
-        $('#geosearchNav2').click(function(){
-            showModal();
+
+        $("#html").niceScroll();
+        $("#sidebar").niceScroll();
+        $("#sidebar").scroll(function () {
+            $("#sidebar").getNiceScroll().resize();
         });
+
+        $("#legendDiv").niceScroll();
+
+        maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
+        $('#legendElement').css('max-height', maxLegendHeight);
+
+        $('#legendCollapse').on('shown.bs.collapse', function () {
+            maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
+            $('#legendElement').css('max-height', maxLegendHeight);
+
+            maxLegendDivHeight = ($('#legendElement').height()) - document.getElementById("legendHeading").clientHeight;
+            $('#legendDiv').css('max-height', maxLegendDivHeight);
+        });
+
     });
 
     require([
@@ -354,10 +382,10 @@ require([
 
             //check if its an exclusiveGroup item
             if (exclusiveGroupName) {
-                
+
                 if (!$('#' + camelize(exclusiveGroupName)).length) {
                     var exGroupRoot = $('<div id="' + camelize(exclusiveGroupName +" Root") + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + exclusiveGroupName + '</button> </div>');
-                    
+
                     exGroupRoot.click(function(e) {
                         exGroupRoot.find('i.glyphspan').toggleClass('fa-check-square-o fa-square-o');
 
@@ -387,11 +415,11 @@ require([
                 //create radio button
                 //var button = $('<input type="radio" name="' + camelize(exclusiveGroupName) + '" value="' + camelize(layerName) + '"checked>' + layerName + '</input></br>');
                 if (layer.visible) {
-                   var button = $('<div id="' + camelize(layerName) + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <label class="btn btn-default"  style="font-weight: bold;text-align: left"> <input type="radio" name="' + camelize(exclusiveGroupName) + '" autocomplete="off"><i class="glyphspan fa fa-dot-circle-o ' + camelize(exclusiveGroupName) + '"></i>&nbsp;&nbsp;' + layerName + '</label> </div>');
+                    var button = $('<div id="' + camelize(layerName) + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <label class="btn btn-default"  style="font-weight: bold;text-align: left"> <input type="radio" name="' + camelize(exclusiveGroupName) + '" autocomplete="off"><i class="glyphspan fa fa-dot-circle-o ' + camelize(exclusiveGroupName) + '"></i>&nbsp;&nbsp;' + layerName + '</label> </div>');
                 } else {
                     var button = $('<div id="' + camelize(layerName) + '" class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <label class="btn btn-default"  style="font-weight: bold;text-align: left"> <input type="radio" name="' + camelize(exclusiveGroupName) + '" autocomplete="off"><i class="glyphspan fa fa-circle-o ' + camelize(exclusiveGroupName) + '"></i>&nbsp;&nbsp;' + layerName + '</label> </div>');
                 }
-                
+
                 $('#' + camelize(exclusiveGroupName)).append(button);
 
                 //click listener for radio button
@@ -435,11 +463,11 @@ require([
                 //create layer toggle
                 //var button = $('<div align="left" style="cursor: pointer;padding:5px;"><span class="glyphspan glyphicon glyphicon-check"></span>&nbsp;&nbsp;' + layerName + '</div>');
                 if (layer.visible) {
-                   var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
                 } else {
-                   var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
                 }
-                
+
                 //click listener for regular button
                 button.click(function(e) {
 
@@ -476,7 +504,7 @@ require([
                 }
 
                 //if it does already exist, append to it
-                
+
                 if (exclusiveGroupName) {
                     //if (!exGroupRoot.length)
                     $('#' + groupDivID).append(exGroupRoot);
