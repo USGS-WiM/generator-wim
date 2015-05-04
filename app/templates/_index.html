@@ -45,6 +45,7 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery.nicescroll/dist/jquery.nicescroll.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/bootstrap-sidebar/dist/js/sidebar.js"></script>
     
@@ -185,23 +186,23 @@
               <!--<div id="legendDiv"></div>-->
               <!--</div>-->
 
-              <div id="legendElement" class="panel panel-default legendToggle">
-                  <div id="legendHeading" class=" legendHeading" role="tab" id="headingOne">
-                      <h4 class="panel-title">
-                          <a data-toggle="collapse" style="text-decoration: none"  href="#legendCollapse" aria-expanded="true" aria-controls="collapseOne">
-                              <span class="glyphicon glyphicon-list"></span>
-                              Legend
-                          </a>
-                      </h4>
-                  </div>
-                  <div id="legendCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                      <div class="panel-body">
-                          <div id="legendDiv"></div>
+              <div id="mapDiv">
+
+                  <div id="legendElement" class="panel panel-default legendClass">
+                      <div id="legendHeading" class=" legendHeading" role="tab">
+                          <h4 class="panel-title">
+                              <a data-toggle="collapse" style="text-decoration: none"  href="#legendCollapse" aria-expanded="true" aria-controls="collapseOne">
+                                  <span class="glyphicon glyphicon-list"></span>
+                                  Legend
+                              </a>
+                          </h4>
+                      </div>
+                      <div id="legendCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                          <div id="legendDiv" class="panel-body"></div>
                       </div>
                   </div>
+
               </div>
-              <!-- Map div -->
-              <div id="mapDiv"></div>
 
               <div id="homeButton"></div>
 
