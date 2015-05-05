@@ -46,7 +46,7 @@ require([
     map = Map('mapDiv', {
         basemap: 'national-geographic',
         center: [-95.6, 38.6],
-        zoom: 4
+        zoom: 5
     });
     var home = new HomeButton({
         map: map
@@ -54,14 +54,7 @@ require([
     home.startup();
 
     //following block forces map size to override problems with default behavior
-    $('#mapDiv').height($('body').height());
-    map.resize();
-    var idealMapHeight = $(window).height() - $('#navbar').height();
-    $('#mapDiv, #mapDiv_root').height(idealMapHeight + 'px');
     $(window).resize(function () {
-        idealMapHeight = $(window).height() - $('#navbar').height();
-        $('#mapDiv, #mapDiv_root').height(idealMapHeight + 'px');
-
         if ($("#legendCollapse").hasClass('in')) {
             maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
             $('#legendElement').css('height', maxLegendHeight);
