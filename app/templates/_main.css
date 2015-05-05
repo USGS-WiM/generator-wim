@@ -75,7 +75,7 @@ body {
     position:absolute;
     padding:4px;
     bottom:1.6em;
-    right:50%;
+    left: 20px;
     /*width:250px*/
     /*height:320px;*/
     z-index:1;
@@ -88,6 +88,11 @@ body {
 
 .latLngScale:hover .hover-content {
     display:inline-block;
+}
+
+.alert {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 #legendDiv {
