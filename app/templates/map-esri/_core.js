@@ -61,13 +61,16 @@ require([
     $(window).resize(function () {
         idealMapHeight = $(window).height() - $('#navbar').height();
         $('#mapDiv, #mapDiv_root').height(idealMapHeight + 'px');
-        maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
-        //$('#legendElement').css('height', maxLegendHeight);
-        $('#legendElement').css('max-height', maxLegendHeight);
 
         if ($("#legendCollapse").hasClass('in')) {
-            maxLegendDivHeight = ($('#legendElement').height()) - document.getElementById("legendHeading").clientHeight;
+            maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
+            $('#legendElement').css('height', maxLegendHeight);
+            $('#legendElement').css('max-height', maxLegendHeight);
+            maxLegendDivHeight = ($('#legendElement').height()) - parseInt($('#legendHeading').css("height").replace('px',''));
             $('#legendDiv').css('max-height', maxLegendDivHeight);
+        }
+        else {
+            $('#legendElement').css('height', 'initial');
         }
     });
 
@@ -278,9 +281,12 @@ require([
         $('#legendCollapse').on('shown.bs.collapse', function () {
             maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
             $('#legendElement').css('max-height', maxLegendHeight);
-
-            maxLegendDivHeight = ($('#legendElement').height()) - document.getElementById("legendHeading").clientHeight;
+            maxLegendDivHeight = ($('#legendElement').height()) - parseInt($('#legendHeading').css("height").replace('px',''));
             $('#legendDiv').css('max-height', maxLegendDivHeight);
+        });
+
+        $('#legendCollapse').on('hide.bs.collapse', function () {
+            $('#legendElement').css('height', 'initial');
         });
 
     });
