@@ -5,6 +5,9 @@ var util = require('util'),
   chalk = require('chalk'),
   fse = require('fs-extra');
 
+
+
+ 
 var WiMGenerator = yeoman.generators.Base.extend({
   
   constructor: function () {
@@ -37,6 +40,11 @@ var WiMGenerator = yeoman.generators.Base.extend({
 
     // have Yeoman greet the user
     this.log(this.WiMWelcome());
+    
+    if ((this.options.env.cwd).indexOf('generator-wim') != -1) {
+      this.log('you need to chill');
+      return;
+    }
 
     // replace it with a short and sweet description of your generator
     this.log(chalk.magenta('You\'re using the fantastic WiM generator.'));
@@ -54,8 +62,6 @@ var WiMGenerator = yeoman.generators.Base.extend({
         'leaflet'
       ]
     }];
-
-    console.log(this.appName,this.mappingAPI);
 
     if ((!this.appName) && (!this.mappingAPI)) {
       this.prompt(prompts, function (props) {
