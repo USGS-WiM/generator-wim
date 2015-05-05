@@ -12,6 +12,10 @@ body {
     background-color:#474747;
 }
 
+.keepit100 {
+    height: 100%;
+}
+
 @media (max-width: 767px) {
     #geosearchButtonText {
         display: none;
@@ -24,6 +28,10 @@ body {
     /*.basemapThumb {*/
     /*display: none;*/
     /*}*/
+}
+
+.overflow-y-hidden {
+    overflow-y: hidden;
 }
 
 @media (min-width: 768px) {
