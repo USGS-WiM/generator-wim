@@ -102,13 +102,15 @@ require([
                 "FIM Sites": {
                     "url" : "http://fimlb-1071089098.us-east-1.elb.amazonaws.com/arcgis/rest/services/FIMMapper/sites/MapServer/0",
                     "options": {
+                        "id": "fimSites",
                         "opacity": 0.75,
-                        "visible": false
+                        "visible": true
                     },
                     "wimOptions": {
                         "type": "layer",
                         "layerType": "agisFeature",
-                        "includeInLayerList": true
+                        "includeInLayerList": true,
+                        "hasOpacitySlider": true
                     }
                 }
             }
@@ -158,6 +160,7 @@ require([
                 "Wetlands" : {
                     "url": "http://107.20.228.18/ArcGIS/rest/services/Wetlands/MapServer",
                     "options": {
+                        "id": "Wetlands",
                         "opacity": 0.75,
                         "visible": true
                     },
@@ -165,7 +168,8 @@ require([
                         "type": "layer",
                         "layerType": "agisDynamic",
                         "includeInLayerList": true,
-                        "zoomScale": 144448
+                        "zoomScale": 144448,
+                        "hasOpacitySlider": true
                     }
                 },
                 "NAWQA networks" : {
