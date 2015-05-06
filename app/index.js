@@ -42,7 +42,7 @@ var WiMGenerator = yeoman.generators.Base.extend({
     this.log(this.WiMWelcome());
     
     if ((this.options.env.cwd).indexOf('generator-wim') != -1) {
-      this.log('you need to chill');
+      this.log('yo you need to chill. (looks like you are trying to generate an app in the generator-wim repo. Pick a different directory, playa)');
       return;
     }
 
