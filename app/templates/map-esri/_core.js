@@ -347,14 +347,14 @@ require([
 
                 if (layerDetails.wimOptions.layerType === 'agisFeature') {
                     var layer = new esri.layers.FeatureLayer(layerDetails.url, layerDetails.options);
-                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName);
+                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName, layerDetails.options, layerDetails.wimOptions);
                     //addMapServerLegend(layerName, layerDetails);
                 }
 
                 else if (layerDetails.wimOptions.layerType === 'agisWMS') {
                     var layer = new esri.layers.WMSLayer(layerDetails.url, {resourceInfo: layerDetails.options.resourceInfo, visibleLayers: layerDetails.options.visibleLayers }, layerDetails.options);
                     map.addLayer(layer);
-                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName);
+                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName, layerDetails.options, layerDetails.wimOptions);
                     //addMapServerLegend(layerName, layerDetails);
                 }
 
@@ -364,13 +364,13 @@ require([
                         layer.setVisibleLayers(layerDetails.visibleLayers);
                     }
                     map.addLayer(layer);
-                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName);
+                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName, layerDetails.options, layerDetails.wimOptions);
                     //addMapServerLegend(layerName, layerDetails);
                 }
             });
         });
 
-        function addLayer(groupHeading, showGroupHeading, layer, layerName, exclusiveGroupName) {
+        function addLayer(groupHeading, showGroupHeading, layer, layerName, exclusiveGroupName, options, wimOptions) {
 
             //add layer to map
             //layer.addTo(map);
@@ -461,13 +461,15 @@ require([
 
                 //create layer toggle
                 //var button = $('<div align="left" style="cursor: pointer;padding:5px;"><span class="glyphspan glyphicon glyphicon-check"></span>&nbsp;&nbsp;' + layerName + '</div>');
-                if (layer.visible) {
-                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
+                if (layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true) {
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right"></button></span></div>');
+                 } else if (layer.visible) {
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '</button></span></div>');
                 } else {
                     var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
                 }
 
-                //click listener for regular button
+                //click listener for regular 
                 button.click(function(e) {
 
                     //toggle checkmark
@@ -505,11 +507,42 @@ require([
                 //if it does already exist, append to it
 
                 if (exclusiveGroupName) {
-                    //if (!exGroupRoot.length)
+                    //if (!exGroupRoot.length)$("#slider"+camelize(layerName))
                     $('#' + groupDivID).append(exGroupRoot);
                     $('#' + groupDivID).append(exGroupDiv);
                 } else {
                     $('#' + groupDivID).append(button);
+                    if ($("#opacity"+camelize(layerName)).length > 0) {
+                        $("#opacity"+camelize(layerName)).hover(function () {
+                            if ($("#slider").length == 0) {
+                                var currOpacity = map.getLayer(options.id).opacity;
+                                var slider = $('<div class="opacitySlider"><label id="opacityValue">Opacity: ' + currOpacity + '</label><label class="opacityClose pull-right">X</label><input id="slider" type="range"></div>');
+                                $("body").append(slider);[0]
+
+                                $("#slider")[0].value = currOpacity*100;
+                                $(".opacitySlider").css('left', event.clientX-180);
+                                $(".opacitySlider").css('top', event.clientY-5);
+
+                                $("#slider").mouseleave(function() {
+                                    $(".opacitySlider").remove();
+                                });
+
+                                $(".opacityClose").click(function() {
+                                    $(".opacitySlider").remove();
+                                });
+                            }
+                            $('#slider').change(function(event) {
+                                    //get the value of the slider with this call
+                                    var o = ($('#slider')[0].value)/100;
+                                    console.log("o: " + o);
+                                    $("#opacityValue").html("Opacity: " + o)
+                                    map.getLayer(options.id).setOpacity(o);
+                                    //here I am just specifying the element to change with a "made up" attribute (but don't worry, this is in the HTML specs and supported by all browsers).
+                                    //var e = '#' + $(this).attr('data-wjs-element');
+                                    //$(e).css('opacity', o)
+                                });
+                        });
+                    }
                 }
             }
 
