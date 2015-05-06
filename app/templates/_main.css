@@ -157,6 +157,21 @@ body {
     max-height: 100%;
 }
 
+.opacitySlider {
+    position: absolute;
+    color: white;
+    width: 200px;
+    padding: 10px;
+    /*padding-bottom: 40px;*/
+    opacity: 0.8;
+    border: solid 1px white;
+    background-color: black;
+    z-index: 1000;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
 .modal-dialog {
     padding-top: 60px;
 }
