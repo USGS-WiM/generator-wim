@@ -292,6 +292,8 @@ require([
         'esri/graphicsUtils',
         'esri/geometry/Point',
         'esri/geometry/Extent',
+        'esri/layers/ArcGISDynamicMapServiceLayer',
+        'esri/layers/FeatureLayer',
         'esri/layers/WMSLayer',
         'esri/layers/WMSLayerInfo',
         'dijit/form/CheckBox',
@@ -310,6 +312,8 @@ require([
         graphicsUtils,
         Point,
         Extent,
+        ArcGISDynamicMapServiceLayer,
+        FeatureLayer,
         WMSLayer,
         WMSLayerInfo,
         CheckBox,
@@ -336,8 +340,11 @@ require([
         $.each(allLayers, function (index,group) {
             console.log('processing: ', group.groupHeading)
 
+
             //sub-loop over layers within this groupType
             $.each(group.layers, function (layerName,layerDetails) {
+
+
 
                 //check for exclusiveGroup for this layer
                 var exclusiveGroupName = '';
@@ -346,24 +353,36 @@ require([
                 }
 
                 if (layerDetails.wimOptions.layerType === 'agisFeature') {
-                    var layer = new esri.layers.FeatureLayer(layerDetails.url, layerDetails.options);
+                    var layer = new FeatureLayer(layerDetails.url, layerDetails.options);
+                    //check if include in legend is true
+                    if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
+                        legendLayers.push({layer:layer, title: layerName});
+                    }
                     addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName, layerDetails.options, layerDetails.wimOptions);
                     //addMapServerLegend(layerName, layerDetails);
                 }
 
                 else if (layerDetails.wimOptions.layerType === 'agisWMS') {
-                    var layer = new esri.layers.WMSLayer(layerDetails.url, {resourceInfo: layerDetails.options.resourceInfo, visibleLayers: layerDetails.options.visibleLayers }, layerDetails.options);
-                    map.addLayer(layer);
+                    var layer = new WMSLayer(layerDetails.url, {resourceInfo: layerDetails.options.resourceInfo, visibleLayers: layerDetails.options.visibleLayers }, layerDetails.options);
+                    //check if include in legend is true
+                    if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
+                        legendLayers.push({layer:layer, title: layerName});
+                    }
+                    //map.addLayer(layer);
                     addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName, layerDetails.options, layerDetails.wimOptions);
                     //addMapServerLegend(layerName, layerDetails);
                 }
 
                 else if (layerDetails.wimOptions.layerType === 'agisDynamic') {
-                    var layer = new esri.layers.ArcGISDynamicMapServiceLayer(layerDetails.url, layerDetails.options);
+                    var layer = new ArcGISDynamicMapServiceLayer(layerDetails.url, layerDetails.options);
+                    //check if include in legend is true
+                    if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
+                        legendLayers.push({layer:layer, title: layerName});
+                    }
                     if (layerDetails.visibleLayers) {
                         layer.setVisibleLayers(layerDetails.visibleLayers);
                     }
-                    map.addLayer(layer);
+                    //map.addLayer(layer);
                     addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, exclusiveGroupName, layerDetails.options, layerDetails.wimOptions);
                     //addMapServerLegend(layerName, layerDetails);
                 }
@@ -464,14 +483,14 @@ require([
                 if (layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true) {
                     var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right"></button></span></div>');
                 } else if ((!layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true)) {
-                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right"></button></span></div>');
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right"></button></span></div>');
                 } else if (layer.visible) {
                     var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '</button></span></div>');
                 } else {
-                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
+                    var button = $('<div class="btn-group-vertical lyrTog" style="cursor: pointer;" data-toggle="buttons"> <button type="button" class="btn btn-default" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '</button> </div>');
                 }
 
-                //click listener for regular 
+                //click listener for regular
                 button.click(function(e) {
 
                     //toggle checkmark
@@ -533,15 +552,15 @@ require([
                                 $(".opacitySlider").remove();
                             });
                             $('#slider').change(function(event) {
-                                    //get the value of the slider with this call
-                                    var o = ($('#slider')[0].value)/100;
-                                    console.log("o: " + o);
-                                    $("#opacityValue").html("Opacity: " + o)
-                                    map.getLayer(options.id).setOpacity(o);
-                                    //here I am just specifying the element to change with a "made up" attribute (but don't worry, this is in the HTML specs and supported by all browsers).
-                                    //var e = '#' + $(this).attr('data-wjs-element');
-                                    //$(e).css('opacity', o)
-                                });
+                                //get the value of the slider with this call
+                                var o = ($('#slider')[0].value)/100;
+                                console.log("o: " + o);
+                                $("#opacityValue").html("Opacity: " + o)
+                                map.getLayer(options.id).setOpacity(o);
+                                //here I am just specifying the element to change with a "made up" attribute (but don't worry, this is in the HTML specs and supported by all browsers).
+                                //var e = '#' + $(this).attr('data-wjs-element');
+                                //$(e).css('opacity', o)
+                            });
                         });
                     }
                 }
@@ -554,7 +573,10 @@ require([
         }
 
         function camelize(str) {
+            console.log("str is:" + str);
             return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
+
+                console.log("letter is:" + letter);
                 return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
             }).replace(/\s+/g, '');
         }
@@ -667,8 +689,8 @@ require([
         /* parse layers.js */
 
         var legend = new Legend({
-            map: map
-            //layerInfos: mapLayers
+            map: map,
+            layerInfos: legendLayers
         }, "legendDiv");
         legend.startup();
 
