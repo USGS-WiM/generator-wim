@@ -572,14 +572,6 @@ require([
             }
         }
 
-        function camelize(str) {
-            console.log("str is:" + str);
-            return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(letter, index) {
-
-                console.log("letter is:" + letter);
-                return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
-            }).replace(/\s+/g, '');
-        }
 
         //get visible and non visible layer lists
         function addMapServerLegend(layerName, layerDetails) {
