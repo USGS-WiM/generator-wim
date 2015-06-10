@@ -14,7 +14,6 @@ var maxLegendDivHeight;
 require([
     'esri/map',
     "esri/dijit/HomeButton",
-    'application/bootstrapmap',
     'esri/layers/ArcGISTiledMapServiceLayer',
     'esri/dijit/Geocoder',
     'esri/dijit/PopupTemplate',
@@ -28,7 +27,6 @@ require([
 ], function (
     Map,
     HomeButton,
-    BootstrapMap,
     ArcGISTiledMapServiceLayer,
     Geocoder,
     PopupTemplate,
