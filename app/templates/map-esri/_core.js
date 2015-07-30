@@ -10,23 +10,31 @@ var map;
 var allLayers;
 var maxLegendHeight;
 var maxLegendDivHeight;
-
+var dragInfoWindows = true;
+        
 require([
+    'esri/arcgis/utils',
     'esri/map',
-    "esri/dijit/HomeButton",
+    'esri/dijit/HomeButton',
+    'esri/dijit/LocateButton',
     'esri/layers/ArcGISTiledMapServiceLayer',
     'esri/dijit/Geocoder',
     'esri/dijit/PopupTemplate',
     'esri/graphic',
     'esri/geometry/Multipoint',
     'esri/symbols/PictureMarkerSymbol',
-    "esri/geometry/webMercatorUtils",
+    'esri/geometry/webMercatorUtils',
+    'dojo/dnd/Moveable',
+    'dojo/query',
     'dojo/dom',
+    'dojo/dom-class',
     'dojo/on',
     'dojo/domReady!'
 ], function (
+    arcgisUtils,
     Map,
     HomeButton,
+    LocateButton,
     ArcGISTiledMapServiceLayer,
     Geocoder,
     PopupTemplate,
@@ -34,7 +42,10 @@ require([
     Multipoint,
     PictureMarkerSymbol,
     webMercatorUtils,
+    Moveable,
+    query,
     dom,
+    domClass,
     on
 ) {
 
@@ -46,10 +57,16 @@ require([
         center: [-95.6, 38.6],
         zoom: 5
     });
+    //button for returning to initial extent
     var home = new HomeButton({
         map: map
     }, "homeButton");
     home.startup();
+    //button for finding and zooming to user's location
+    var locate = new LocateButton({
+        map: map
+    }, "locateButton");
+    locate.startup();
 
     //following block forces map size to override problems with default behavior
     $(window).resize(function () {
@@ -72,6 +89,24 @@ require([
         var initMapCenter = webMercatorUtils.webMercatorToGeographic(map.extent.getCenter());
         $('#latitude').html(initMapCenter.y.toFixed(3));
         $('#longitude').html(initMapCenter.x.toFixed(3));
+
+        //code for adding draggability to infoWindow. http://www.gavinr.com/2015/04/13/arcgis-javascript-draggable-infowindow/
+        if (dragInfoWindows == true) {
+            var handle = query(".title", map.infoWindow.domNode)[0];
+            var dnd = new Moveable(map.infoWindow.domNode, {
+                handle: handle
+            });
+            
+            // when the infoWindow is moved, hide the arrow:
+            on(dnd, 'FirstMove', function() {
+                // hide pointer and outerpointer (used depending on where the pointer is shown)
+                var arrowNode =  query(".outerPointer", map.infoWindow.domNode)[0];
+                domClass.add(arrowNode, "hidden");
+                
+                var arrowNode =  query(".pointer", map.infoWindow.domNode)[0];
+                domClass.add(arrowNode, "hidden");
+            }.bind(this));
+        }
     });
     //displays map scale on scale change (i.e. zoom level)
     on(map, "zoom-end", function () {
@@ -134,6 +169,26 @@ require([
 
     on(dom.byId('btnNatlMap'), 'click', function () {
         map.addLayer(nationalMapBasemap);
+    });
+
+    //end code for adding draggability to infoWindow
+
+    on(map, "click", function(evt) {
+        var graphic = new Graphic();
+
+        var feature = graphic;
+
+        var template = new esri.InfoTemplate("test popup",
+                        "attributes and stuff go here");
+                        
+        //ties the above defined InfoTemplate to the feature result returned from a click event 
+        
+        feature.setInfoTemplate(template);
+
+        map.infoWindow.setFeatures([feature]);
+        map.infoWindow.show(evt.mapPoint);
+
+        map.infoWindow.show();
     });
 
     var geocoder = new Geocoder({
