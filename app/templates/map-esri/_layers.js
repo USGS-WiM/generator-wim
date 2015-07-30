@@ -103,7 +103,7 @@ require([
                     }
                 },
                 "FIM Sites": {
-                    "url" : "http://fimlb-1071089098.us-east-1.elb.amazonaws.com/arcgis/rest/services/FIMMapper/sites/MapServer/0",
+                    "url" : "http://fim.wimcloud.usgs.gov/arcgis/rest/services/FIMMapper/sites/MapServer/0",
                     "options": {
                         "id": "fimSites",
                         "opacity": 0.75,
@@ -180,7 +180,7 @@ require([
                     }
                 },
                 "NAWQA networks" : {
-                    "url": "http://wimsharedlb-418672833.us-east-1.elb.amazonaws.com/arcgis/rest/services/NAWQA/tablesTest/MapServer",
+                    "url": "http://50.17.205.92/arcgis/rest/services/NAWQA/tablesTest/MapServer",
                     "options": {
                         "id": "nawqaNetworks",
                         "layers": [1],
