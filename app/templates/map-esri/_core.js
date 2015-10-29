@@ -313,6 +313,13 @@ require([
             showModal();
         });
 
+        function showAboutModal () {
+            $('#aboutModal').modal('show');
+        }
+        $('#aboutNav').click(function(){
+            showAboutModal();
+        });
+
         $("#html").niceScroll();
         $("#sidebar").niceScroll();
         $("#sidebar").scroll(function () {

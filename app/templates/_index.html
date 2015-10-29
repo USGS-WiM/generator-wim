@@ -66,7 +66,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="http://usgs.gov">
-                <img alt="USGS logo" src="images/usgs-logo.png">
+                <img alt="USGS logo" height="38px" src="images/USGS_ID_white.png">
                 <span class='hidden-xs' style='font-size:20px;display:inline-block;'>&nbsp;&nbsp;<%= appName %></span>
             </a>
         </div>
@@ -74,6 +74,10 @@
         <button id="geosearchNav" type="button" class="btn btn-primary navbar-btn pull-right">
             <span class="glyphicon glyphicon-search"></span>
             <span id="geosearchButtonText"> Geosearch</span>
+        </button>
+
+        <button id="aboutNav" class="btn btn-default navbar-btn pull-right">
+            <i class="fa fa-question-circle"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
         </button>
 
         <!-- legend buttton for navbar. to be removed if we like the in-map legend toggle -->
@@ -112,6 +116,42 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+
+<div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog" >
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h4 class="modal-title"><%= appName %></h4>
+            </div>
+            <div id="aboutModalBody" class="modal-body">
+                <ul class="nav nav-tabs" id="aboutModalTabs">
+                    <li role="presentation"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the application</a></li>
+                    <li role="presentation" class="active"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane" id="aboutTabPane"></br>
+                        <p style="color:black; font-size: larger">App Info is below. This could be a subtitle space.</p>
+                        <p>Application info goes here. Use HTML, and your imagination.</p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane active" id="disclaimerTabPane"></br>
+                        <h3>Data Limitations</h3>
+                        <p>Data are provisional and are subject to revision until thoroughly reviewed and approved.</p>
+                        <p>Data disclaimer continues here</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <p style="color:black; margin-left:35px;text-align:left">
+                    For more information about the <%= appName %> please contact <a href="http://wim.usgs.gov/" target="_blank"><img src="images/wimvectorxs.png" id="wim_logo"></a>
+                </p>
+                <button class=" btn btn-default close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;" class="btn btn-default">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!-- Begin page content -->
 <div class="container-fluid keepit100">
@@ -166,6 +206,7 @@
             </div>
             <!-- # closing div tag for accordion style panels -->
             <!--</div>-->
+            <div class="identification pull-right">powered by  <a href="http://wim.usgs.gov/" target="_blank">WiM</a></div>
         </div>
         <div class="col-md-9 col-lg-10 col-md-offset-3 col-lg-offset-2 no-col-padding keepit100">
             <!-- legend, associated with legend buttons. to be removed if we stick with the in-map legend toggle -->
