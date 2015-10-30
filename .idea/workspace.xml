@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d58156a1-03b5-4318-81ef-90b21f9c6bc5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/images/wimvectorxs.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/generator-wim.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/generator_wim_node_modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/map-esri/_core.js" afterPath="$PROJECT_DIR$/app/templates/map-esri/_core.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/_index.html" afterPath="$PROJECT_DIR$/app/templates/_index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/map-esri/_layers.js" afterPath="$PROJECT_DIR$/app/templates/map-esri/_layers.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/_main.css" afterPath="$PROJECT_DIR$/app/templates/_main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="generator-wim.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,29 +30,39 @@
         <entry file="file://$PROJECT_DIR$/app/templates/map-esri/_core.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="320" column="11" selection-start-line="320" selection-start-column="11" selection-end-line="320" selection-end-column="11" />
+              <caret line="799" column="35" selection-start-line="799" selection-start-column="35" selection-end-line="799" selection-end-column="35" />
               <folding>
-                <marker date="1446068830007" expanded="true" signature="16644:16678" placeholder="..." />
-                <marker date="1446068830007" expanded="true" signature="18685:18719" placeholder="..." />
-                <marker date="1446068830007" expanded="true" signature="19154:19188" placeholder="..." />
-                <marker date="1446068830007" expanded="true" signature="22019:22035" placeholder="..." />
-                <marker date="1446068830007" expanded="true" signature="22140:22174" placeholder="..." />
-                <marker date="1446068830007" expanded="true" signature="22592:22608" placeholder="..." />
-                <marker date="1446068830007" expanded="true" signature="22706:22740" placeholder="..." />
-                <marker date="1446068830007" expanded="true" signature="23065:23081" placeholder="..." />
-                <marker date="1446068830007" expanded="true" signature="23186:23220" placeholder="..." />
-                <marker date="1446068830007" expanded="true" signature="23430:23446" placeholder="..." />
-                <marker date="1446068830007" expanded="true" signature="23544:23578" placeholder="..." />
+                <marker date="1446232656554" expanded="true" signature="16696:16730" placeholder="..." />
+                <marker date="1446232656554" expanded="true" signature="18737:18771" placeholder="..." />
+                <marker date="1446232656554" expanded="true" signature="19206:19240" placeholder="..." />
+                <marker date="1446232656554" expanded="true" signature="22212:22228" placeholder="..." />
+                <marker date="1446232656554" expanded="true" signature="23022:23038" placeholder="..." />
+                <marker date="1446232656554" expanded="true" signature="23734:23750" placeholder="..." />
+                <marker date="1446232656554" expanded="true" signature="24383:24399" placeholder="..." />
+                <marker date="1446232656554" expanded="true" signature="25038:25054" placeholder="..." />
+                <marker date="1446232656554" expanded="true" signature="25683:25699" placeholder="..." />
+                <marker date="1446232656554" expanded="true" signature="26191:26207" placeholder="..." />
+                <marker date="1446232656554" expanded="true" signature="26632:26648" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="_layers.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/templates/map-esri/_layers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="193" column="0" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/templates/_index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25433525">
-              <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="119" column="40" selection-start-line="119" selection-start-column="40" selection-end-line="119" selection-end-column="40" />
               <folding>
                 <element signature="n#style#0;n#span#0;n#a#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -76,11 +76,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_main.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="_main.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/templates/_main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="249" column="39" selection-start-line="249" selection-start-column="39" selection-end-line="249" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.4271739">
+              <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -101,11 +101,11 @@
         <option value="$PROJECT_DIR$/app/templates/gulpfile.js" />
         <option value="$PROJECT_DIR$/app/templates/_bower.json" />
         <option value="$PROJECT_DIR$/app/index.js" />
-        <option value="$PROJECT_DIR$/app/templates/map-esri/_layers.js" />
         <option value="$PROJECT_DIR$/app/templates/map-esri/_utilities.js" />
+        <option value="$PROJECT_DIR$/app/templates/_index.html" />
+        <option value="$PROJECT_DIR$/app/templates/map-esri/_layers.js" />
         <option value="$PROJECT_DIR$/app/templates/map-esri/_core.js" />
         <option value="$PROJECT_DIR$/app/templates/_main.css" />
-        <option value="$PROJECT_DIR$/app/templates/_index.html" />
       </list>
     </option>
   </component>
@@ -145,7 +145,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -214,7 +214,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="map-leaflet" />
+              <option name="myItemId" value="map-esri" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -242,7 +242,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -621,13 +621,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/map-leaflet/_layers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38836968">
-          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.035306334">
@@ -677,13 +670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/map-esri/_layers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="165" column="30" selection-start-line="165" selection-start-column="30" selection-end-line="165" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/map-esri/_utilities.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.25757575">
@@ -695,41 +681,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.72121215">
           <caret line="56" column="19" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/map-esri/_core.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="320" column="11" selection-start-line="320" selection-start-column="11" selection-end-line="320" selection-end-column="11" />
-          <folding>
-            <marker date="1446068830007" expanded="true" signature="16644:16678" placeholder="..." />
-            <marker date="1446068830007" expanded="true" signature="18685:18719" placeholder="..." />
-            <marker date="1446068830007" expanded="true" signature="19154:19188" placeholder="..." />
-            <marker date="1446068830007" expanded="true" signature="22019:22035" placeholder="..." />
-            <marker date="1446068830007" expanded="true" signature="22140:22174" placeholder="..." />
-            <marker date="1446068830007" expanded="true" signature="22592:22608" placeholder="..." />
-            <marker date="1446068830007" expanded="true" signature="22706:22740" placeholder="..." />
-            <marker date="1446068830007" expanded="true" signature="23065:23081" placeholder="..." />
-            <marker date="1446068830007" expanded="true" signature="23186:23220" placeholder="..." />
-            <marker date="1446068830007" expanded="true" signature="23430:23446" placeholder="..." />
-            <marker date="1446068830007" expanded="true" signature="23544:23578" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/_main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="249" column="39" selection-start-line="249" selection-start-column="39" selection-end-line="249" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/_index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25433525">
-          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="119" column="40" selection-start-line="119" selection-start-column="40" selection-end-line="119" selection-end-column="40" />
           <folding>
             <element signature="n#style#0;n#span#0;n#a#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -739,6 +698,50 @@
             <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#h4#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/map-leaflet/_layers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38913044">
+          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/map-esri/_layers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="193" column="0" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/map-esri/_core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="799" column="35" selection-start-line="799" selection-start-column="35" selection-end-line="799" selection-end-column="35" />
+          <folding>
+            <marker date="1446232656554" expanded="true" signature="16696:16730" placeholder="..." />
+            <marker date="1446232656554" expanded="true" signature="18737:18771" placeholder="..." />
+            <marker date="1446232656554" expanded="true" signature="19206:19240" placeholder="..." />
+            <marker date="1446232656554" expanded="true" signature="22212:22228" placeholder="..." />
+            <marker date="1446232656554" expanded="true" signature="23022:23038" placeholder="..." />
+            <marker date="1446232656554" expanded="true" signature="23734:23750" placeholder="..." />
+            <marker date="1446232656554" expanded="true" signature="24383:24399" placeholder="..." />
+            <marker date="1446232656554" expanded="true" signature="25038:25054" placeholder="..." />
+            <marker date="1446232656554" expanded="true" signature="25683:25699" placeholder="..." />
+            <marker date="1446232656554" expanded="true" signature="26191:26207" placeholder="..." />
+            <marker date="1446232656554" expanded="true" signature="26632:26648" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/_main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4271739">
+          <caret line="308" column="0" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
