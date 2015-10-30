@@ -89,19 +89,6 @@ require([
             "showGroupHeading": true,
             "includeInLayerList": true,
             "layers": {
-                "Pt Feature Layer": {
-                    "url" : "http://wim.usgs.gov/arcgis/rest/services/BadRiverDataPortal/NWIS_Sites/MapServer/0",
-                    "options": {
-                        "id": "ptFeatureLayer",
-                        "visible": true
-                    },
-                    "wimOptions": {
-                        "type": "layer",
-                        "layerType": "agisFeature",
-                        "includeInLayerList": true,
-                        "includeLegend" : false
-                    }
-                },
                 "FIM Sites": {
                     "url" : "http://fim.wimcloud.usgs.gov/arcgis/rest/services/FIMMapper/sites/MapServer/0",
                     "options": {
@@ -114,6 +101,7 @@ require([
                         "layerType": "agisFeature",
                         "includeInLayerList": true,
                         "hasOpacitySlider": true,
+                        "hasZoomto": true,
                         "includeLegend" : true
                     }
                 }
@@ -168,6 +156,7 @@ require([
                     "options": {
                         "id": "Wetlands",
                         "opacity": 0.75,
+                        "minScale": 144448,
                         "visible": true
                     },
                     "wimOptions": {
@@ -176,6 +165,7 @@ require([
                         "includeInLayerList": true,
                         "zoomScale": 144448,
                         "hasOpacitySlider": true,
+                        "hasZoomto" : true,
                         "includeLegend" : true
                     }
                 },
@@ -192,6 +182,7 @@ require([
                         "layerType": "agisDynamic",
                         "includeInLayerList": true,
                         "hasOpacitySlider": true,
+                        "hasZoomto": true,
                         "includeLegend" : false
                     }
                 }

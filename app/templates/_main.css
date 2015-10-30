@@ -142,6 +142,12 @@ body {
     display:inline-block;
 }
 
+.lyrTogDiv {
+    width: 100%;
+    padding: 1px;
+    font-weight: bold;
+}
+
 .alert {
     margin-top: 0px;
     margin-bottom: 0px;
@@ -200,6 +206,27 @@ body {
     width: 100%;
 }
 
+.lgi-zoom {
+    color: white;
+    background-color: black;
+    border: none !important;
+    padding: 5px 5px !important;
+}
+
+a.lgi-zoom {
+    color: white;
+}
+
+a.lgi-zoom:hover {
+    color: black;
+}
+
+.lyrTog {
+    width: 100%;
+    padding: 1px;
+    font-weight: bold;
+}
+
 .map {
     overflow: auto;
 }
@@ -207,6 +234,10 @@ body {
 #mapDiv {
     min-height: 100%;
     max-height: 100%;
+}
+
+.opacity {
+    padding-left: 10px;
 }
 
 .opacitySlider {
@@ -219,8 +250,6 @@ body {
     border: solid 1px white;
     background-color: black;
     z-index: 1000;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
     border-radius: 5px;
 }
 
@@ -275,7 +304,6 @@ body {
 
 #wim_logo:hover{
     background: blue none repeat scroll 0 0;
-    opacity: 0.8;
     cursor: pointer;
 }
 
@@ -291,9 +319,19 @@ input[type="checkbox"], input[type="radio"] {
     float: left;
 }
 
+.zoomDialog {
+    position: absolute;
+    color: white;
+    /*width: 200px;*/
+    padding: 5px;
+    /*padding-bottom: 40px;*/
+    opacity: 0.9;
+    border: solid 1px white;
+    background-color: black;
+    z-index: 1000;
+    border-radius: 5px;
+}
 
-.lyrTog {
-    width: 100%;
-    padding: 1px;
-    font-weight: bold;
+.zoomClose {
+    color: white;
 }
