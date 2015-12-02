@@ -23,6 +23,7 @@ require([
     'esri/dijit/PopupTemplate',
     'esri/graphic',
     'esri/geometry/Multipoint',
+    'esri/geometry/Point',
     'esri/symbols/PictureMarkerSymbol',
     'esri/geometry/webMercatorUtils',
     'dojo/dnd/Moveable',
@@ -41,6 +42,7 @@ require([
     PopupTemplate,
     Graphic,
     Multipoint,
+    Point,
     PictureMarkerSymbol,
     webMercatorUtils,
     Moveable,
@@ -243,9 +245,9 @@ require([
         clearFindGraphics();
         var g = (item.graphic ? item.graphic : item.result.feature);
         g.setSymbol(sym);
-        addPlaceGraphic(item.result,g.symbol);
+        //addPlaceGraphic(item.result,g.symbol);
         // Close modal
-        $('#geosearchModal').modal('hide');
+        //$('#geosearchModal').modal('hide');
     }
     function geocodeResults(places) {
         places = places.results;
@@ -254,9 +256,13 @@ require([
             var symbol = sym;
             // Create and add graphics with pop-ups
             for (var i = 0; i < places.length; i++) {
-                addPlaceGraphic(places[i], symbol);
+                //addPlaceGraphic(places[i], symbol);
             }
-            zoomToPlaces(places);
+            //zoomToPlaces(places);
+            var centerPoint = new Point(places[0].feature.geometry);
+            map.centerAndZoom(centerPoint, 17);
+            //map.setLevel(15);
+
         } else {
             //alert('Sorry, address or place not found.');  // TODO
         }
@@ -305,6 +311,7 @@ require([
                 'width':xWidth, 'height': yHeight
             });
     }
+
     // Show modal dialog; handle legend sizing (both on doc ready)
     $(document).ready(function(){
         function showModal() {
