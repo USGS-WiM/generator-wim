@@ -1,0 +1,398 @@
+@import 'variables.less';
+
+#sidebar{
+    background-color: @color-grey;
+    font-family: @sans-font;
+    @media (max-width: 991px) {
+        background-color: fade(@color-grey, 80%);
+    }
+    .groupHeading{
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: @medium-text;
+        font-size: 9pt;
+        text-transform: capitalize;
+        border-bottom: 1px solid @color-grey;
+        display: block;
+        box-sizing: border-box;
+        padding: 12px 5px 5px 12px;
+    }
+    .wim-sidebar-panel{ // Sidebar Button
+        background-color: @color-white;
+        margin: 0 auto;
+        border: none;
+        .panel-heading{
+            box-sizing: border-box;
+            margin: 0 auto;
+            padding: 0;
+            h4{
+                font-size: 10pt;
+                text-transform: uppercase;
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-align: right;
+                a{
+                    box-sizing: border-box;
+                    display: block;
+                    width: 100%;
+                    padding: 15px;
+                    color: @medium-text;
+                    background-color: @color-grey;
+                    &:after{
+                        padding: 0 0 0 10px;
+                        content: '\f3d3';
+                        font-family: 'ionicons';
+                        color: @medium-text;
+                    }
+                    &:hover{
+                        cursor: pointer;
+                        background-color: fade(@color-white, 50%);
+                        color: #000;
+                        &:after{
+                            color: #000;
+                        }
+                    }
+                    &:active{
+                        background-color: fade(@color-blue, 20%);
+                    }
+                }
+            }
+        }
+    }
+    .panel-collapse{
+        background-color: @color-white;
+
+        .btn-group-vertical{
+            border: none;
+            button{
+                background-color: transparent;
+                border: 0px solid transparent;
+                box-shadow: none;
+                color: fade(@dark-text, 100%);
+                font-weight: 500 !important;
+                font-size: 9pt;
+                font-family: @sans-font;
+                padding: 6px 10px;
+                border-radius: 0;
+                margin: 0 auto;
+                letter-spacing: -0.45px;
+                transition: @transition;
+                border-left: 4px solid transparent;
+                &.active{
+                    font-weight: 500 !important;
+                    color: @dark-text;
+                }
+                &:hover{
+                    cursor: pointer;
+                    transition: @transition;
+                    background-color: fade(@color-grey, 20%);
+                    border-left: 4px solid @color-black;
+                }
+            }
+            label{
+                border: none;
+                border-radius: 0;
+                width: 100%;
+                border-left: 2px solid transparent;
+                font-weight: 300 !important;
+                letter-spacing: 1px;
+                font-size: 9pt;
+                padding: 3px 15px;
+                color: fade(@dark-text, 100%);
+                &:hover{
+                    cursor: pointer;
+                    transition: @transition;
+                    background-color: fade(@color-grey, 20%);
+                    border-left: 2px solid @color-black;
+                    color: @dark-text;
+                }
+                &.active{
+                    background-color: transparent;
+                    color: @dark-text;
+                    box-shadow: none;
+                    font-weight: 500 !important;
+                    &:hover{
+                        cursor: pointer;
+                        transition: @transition;
+                        background-color: fade(@color-grey, 20%);
+                        border-left: 2px solid @color-black;
+                    }
+                }
+            }
+        }
+    }
+    .basemapBtn{
+        border: none;
+        outline: none;
+        border-radius: 0;
+        font-size: 9pt;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-sizing: border-box;
+        padding: 5px;
+        display: block;
+        width: 100%;
+        text-align: left;
+        color: @medium-text;
+        margin: 0 auto;
+        border-left: 4px solid transparent;
+        img{
+            height: 25px;
+            vertical-align: middle;
+            display: inline-block;
+            margin: 0 15px 0 0;
+            border-radius: 0;
+            border: none;
+        }
+        br{
+            display: none;
+        }
+        &:hover{
+            border-color: @dark-text;
+            background-color: fade(@color-grey, 50%);
+        }
+        &:focus{
+            background-color: @color-grey;
+            border-color: @color-blue;
+        }
+    }
+}
+
+
+.opacitySlider{
+    background-color: @color-black;
+    opacity: 1;
+    border-radius: 3px;
+    border: none;
+    box-shadow: none;
+    padding: 8px 8px 12px 8px;
+    #opacityValue{
+        letter-spacing: 0.5px;
+        font-weight: 400;
+        font-size: 9pt;
+    }
+    .opacityClose{
+        font-weight: lighter;
+        font-family: 'Arial', sans-serif;
+        color: fade(@color-white, 50%);
+        position: relative;
+        top: -2px;
+        left: -2px;
+        &:hover{
+            cursor: pointer;
+            color: @color-white;
+        }
+    }
+}
+
+
+// Zonal Statistics
+#zonalStatsPanel{
+    p{
+        font-size: 9pt;
+        text-align: justify;
+        font-family: @sans-font;
+        font-weight: 300;
+        padding: 0 0 10px 0;
+    }
+    #drawCustom,
+    #selectParcels,
+    #selectParcelsDraw{
+        outline: none;
+        width: 100%;
+        font-weight: 500;
+        color: @medium-text;
+        font-size: 9pt;
+        letter-spacing: 0.5px;
+        border-radius: 0;
+        text-transform: uppercase;
+        box-sizing: border-box;
+        background-color: @color-grey;
+        padding: 12px;
+        border: 1px solid #DDDDDD;
+        display: block;
+        &:hover{
+            background-color: @color-white;
+        }
+        &:active{
+            outline: none;
+        }
+    }
+    #calculateStats,
+    #displayStats{
+        background-color: #00A896;
+        border: none;
+        font-weight: lighter;
+        letter-spacing: 0.5px;
+        width: 100%;
+        border-radius: 0;
+        display: block;
+        margin: 5px 0 15px 0;
+        font-size: 9pt;
+        box-sizing: border-box;
+        padding: 12px;
+        &:disabled{
+            background-color: fade(@color-grey, 50%);
+            color: fade(@medium-text, 80%);
+            &:hover{
+                background-color: fade(@color-grey, 50%);
+            }
+        }
+        &:hover{
+            background-color: fade(#00A896, 60%);
+        }
+        &:focus{
+            outline: none;
+        }
+    }
+    #clearSelection{
+        background-color: #EA485C;
+        border: none;
+        font-weight: lighter;
+        letter-spacing: 0.5px;
+        width: 100%;
+        border-radius: 0;
+        display: block;
+        margin: 0px 0 0px 0;
+        font-size: 9pt;
+        box-sizing: border-box;
+        padding: 12px;
+        &:hover{
+            background-color: fade(#EA485C, 60%);
+        }
+        &:focus{
+            outline: none;
+        }
+    }
+}
+
+// Bookmarks
+#addBookmarkButton,
+#removeBookmarksButton{
+    border-radius: 0;
+    background-color: @color-grey;
+    color: @medium-text;
+    border: none;
+    &:nth-child(2){
+        border-left: 1px solid fade(@color-black, 20%);
+    }
+    &:hover{
+        cursor: pointer;
+        background-color: fade(@color-grey, 50%);
+    }
+}
+
+.identification{
+    font-weight: 300;
+    letter-spacing: 1.5px;
+    box-sizing: border-box;
+    padding: 10px;
+    display: block;
+    text-align: center;
+    opacity: 0.5;
+    a{
+        font-weight: 700;
+        color: @color-blue;
+    }
+    &:hover{
+        opacity: 1;
+    }
+}
+
+
+
+
+
+// Range Elements
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 8px;
+  background: @color-blue;
+  cursor: pointer;
+  margin-top: -7px;
+}
+
+input[type=range]::-moz-range-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 8px;
+    background: @color-blue;
+    cursor: pointer;
+    margin-top: -7px;
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 8px;
+    background: @color-blue;
+    cursor: pointer;
+    margin-top: -7px;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 3px;
+  cursor: pointer;
+  background: @color-white;
+}
+
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 3px;
+  cursor: pointer;
+  background: @color-white;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #2a6495;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #3071a9;
+}
+input[type=range]::-ms-fill-upper {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #367ebd;
+}

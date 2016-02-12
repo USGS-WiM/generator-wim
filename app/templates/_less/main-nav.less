@@ -1,0 +1,81 @@
+@import 'variables.less';
+
+#navbar{
+    background-color: @color-black;
+    box-sizing: border-box;
+    .navbar-toggle{
+        background-color: transparent;
+        border: none;
+        display: inline-block;
+        padding: 0;
+        margin: 0 20px 0 0;
+        padding: 0 15px 0 15px;
+        margin-left: -5%;
+        .icon-bar{
+            height: 2px;
+            border-radius: 3px;
+            color: fade(@color-white, 80%);
+        }
+        @media (max-width: 768px) {
+            margin: 0;
+        }
+        &:hover{
+            cursor: pointer;
+            background-color: fade(@color-white, 10%);
+            .icon-bar{
+                background-color: @color-white;
+            }
+        }
+    }
+    .navbar-brand{
+        padding: 0 0 0 15px;
+        img{
+            padding: 9px 0;
+            height: 50px !important;
+        }
+        span{
+            color: @color-white;
+            font-weight: 300;
+            letter-spacing: 1.25px;
+            box-sizing: border-box;
+            padding: 0px 0 0 15px;
+            height: 100%;
+            line-height: 50px;
+            float: right;
+        }
+    }
+    .navbar-text{
+        color: fade(@color-white, 100%);
+        font-weight: 200;
+        font-family: @sans-font;
+        letter-spacing: -0.5px;
+        @media (max-width: 1015px) {
+            font-size: 12pt;
+        }
+    }
+    button{
+        background-color: @color-blue;
+        letter-spacing: 0.5px;
+        box-sizing: border-box;
+        font-size: 9pt;
+        font-weight: 300;
+        height: 50px;
+        margin: 0 4px 0 4px;
+        padding: 0 15px 2px 15px;
+        border-radius: 0;
+        transition: @transition;
+        text-transform: uppercase;
+        font-family: @sans-font;
+        &:hover{
+            cursor: pointer;
+            transition: @transition;
+            background-color: fade(@color-blue, 80%);
+        }
+    }
+    #aboutNav{
+        background-color: transparent;
+        font-size: 8pt;
+        position: relative;
+        top: 1px;
+    }
+}
