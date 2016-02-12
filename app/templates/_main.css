@@ -178,6 +178,12 @@ body {
 
 /*}*/
 
+.alert-info {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+
 .legendClass {
     position:absolute;
     top:5px;

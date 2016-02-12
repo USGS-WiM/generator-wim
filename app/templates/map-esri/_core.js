@@ -56,7 +56,7 @@ require([
     //allLayers = mapLayers;
 
     map = Map('mapDiv', {
-        basemap: 'national-geographic',
+        basemap: 'gray',
         //center: [-95.6, 38.6],
         center: defaultMapCenter,
         zoom: 5

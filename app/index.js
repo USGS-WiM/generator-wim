@@ -81,6 +81,7 @@ var WiMGenerator = yeoman.generators.Base.extend({
 	//set up folder structure
     this.mkdir('src');
     this.mkdir('src/styles');
+    this.mkdir('src/less');
     this.mkdir('src/scripts');
     this.mkdir('src/images');
     this.template('gulpfile.js', 'gulpfile.js');
@@ -96,8 +97,10 @@ var WiMGenerator = yeoman.generators.Base.extend({
     this.copy(sourceDir + '/_layers.js', 'src/scripts/layers.js');
     this.copy(sourceDir + "/_utilities.js", 'src/scripts/utilities.js');
     this.copy('_index.html', 'src/index.html');
-	  this.copy('_main.css', 'src/styles/main.css');
-	  this.directory('/images/', 'src/images/');
+    this.copy('_main.css', 'src/styles/main.css');
+    this.copy('_base.css', 'src/styles/base.css');
+    this.directory('/_less/', 'src/less/');
+    this.directory('/images/', 'src/images/');
     this.copy('bowerrc', '.bowerrc');
     this.copy('gitignore', '.gitignore');
     this.copy('jshintrc', '.jshintrc');
