@@ -98,8 +98,6 @@ var WiMGenerator = yeoman.generators.Base.extend({
     this.copy(sourceDir + "/_utilities.js", 'src/scripts/utilities.js');
     this.copy('_index.html', 'src/index.html');
     this.copy('_main.css', 'src/styles/main.css');
-    this.copy('_base.css', 'src/styles/base.css');
-    this.directory('/_less/', 'src/less/');
     this.directory('/images/', 'src/images/');
     this.copy('bowerrc', '.bowerrc');
     this.copy('gitignore', '.gitignore');
