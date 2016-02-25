@@ -81,7 +81,6 @@ var WiMGenerator = yeoman.generators.Base.extend({
 	//set up folder structure
     this.mkdir('src');
     this.mkdir('src/styles');
-    this.mkdir('src/less');
     this.mkdir('src/scripts');
     this.mkdir('src/images');
     this.template('gulpfile.js', 'gulpfile.js');
