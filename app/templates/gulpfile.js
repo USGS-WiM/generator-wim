@@ -10,14 +10,6 @@ var wiredep = require('wiredep').stream;
 // Load plugins
 var $ = require('gulp-load-plugins')();
 
-//only get esri api if needed
-<% if (mappingAPI == "esri") {%>
-    var esrislurp = require('esrislurp')
-    gulp.task('download-esri-api', function(cb) {
-        esrislurp('src/lib/esri', '3.13', 'false', cb);
-    });
-<%}%>
-
 //copy leaflet images
 <% if (mappingAPI == "leaflet") {%>
     gulp.task('leaflet', function() {
@@ -28,7 +20,7 @@ var $ = require('gulp-load-plugins')();
 
 //less compilation
 gulp.task('less', function () {
-    return gulp.src(['src/less/base.less'])
+    return gulp.src(['src/bower_components/wim-mapper-styles/less/base.less'])
         .pipe(less())
         .pipe(gulp.dest('src/styles'))
         .pipe(gulp.dest('build/styles'))

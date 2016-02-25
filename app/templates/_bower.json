@@ -6,6 +6,7 @@
      "fontawesome": "^4.3.0",
      "jquery.nicescroll": "inuyaksa/jquery.nicescroll#~3.6.0",
   	 "bootstrap": "latest",
+	  "wim-mapper-styles": "https://github.com/USGS-WiM/WiM-Mapper-Styles.git",
 	   "bootstrap-sidebar" : "^0.2.0"
   	 <%if(mappingAPI == "leaflet"){%>,
     	 "leaflet": "^0.7.3",
