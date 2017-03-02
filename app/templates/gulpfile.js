@@ -13,14 +13,14 @@ var $ = require('gulp-load-plugins')();
 //copy leaflet images
 <% if (mappingAPI == "leaflet") {%>
     gulp.task('leaflet', function() {
-        return gulp.src('src/bower_components/leaflet/dist/images/*.*')
+        return gulp.src('node_modules/leaflet/dist/images/*.*')
             .pipe(gulp.dest('src/images'));
     });
 <%}%>
 
 //less compilation
 gulp.task('less', function () {
-    return gulp.src(['src/bower_components/wim-mapper-styles/less/base.less'])
+    return gulp.src(['node_modules/wim-mapper-styles/less/base.less'])
         .pipe(less())
         .pipe(gulp.dest('src/styles'))
         .pipe(gulp.dest('build/styles'))
@@ -36,7 +36,7 @@ gulp.task('styles', function () {
 
 // Icons
 gulp.task('icons', function () {
-    return gulp.src(['src/bower_components/bootstrap/dist/fonts/*.*', 'src/bower_components/fontawesome/fonts/*.*'])
+    return gulp.src(['node_modules/bootstrap/dist/fonts/*.*', 'node_modules/fontawesome/fonts/*.*'])
         .pipe(gulp.dest('build/fonts'));
 });
 
@@ -101,7 +101,10 @@ gulp.task('connect', function(){
     $.connect.server({
         root: 'src',
         port: 9000,
-        livereload: true
+        livereload: true,
+        middleware: function(connect) {
+            return [connect().use('/node_modules', connect.static('node_modules'))];
+        }
     });
 });
 
@@ -114,14 +117,14 @@ gulp.task('serve', ['connect'], function() {
 gulp.task('wiredep', function () {
     gulp.src('src/styles/*.css')
         .pipe(wiredep({
-            directory: 'src/bower_components',
-            ignorePath: 'src/bower_components/'
+            directory: 'src/node_modules',
+            ignorePath: 'src/node_modules/'
         }))
         .pipe(gulp.dest('src/styles'));
 
     gulp.src('src/*.html')
         .pipe(wiredep({
-            directory: 'src/bower_components',
+            directory: 'src/node_modules',
             ignorePath: 'src/'
         }))
         .pipe(gulp.dest('src'));

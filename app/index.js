@@ -99,7 +99,6 @@ var WiMGenerator = class extends yeoman {
     //just copy these files over and rename
     this.fs.copy(this.templatePath('_main.css'), this.destinationPath('src/styles/main.css'));
     this.fs.copy(this.templatePath('images/'), this.destinationPath('src/images/'));
-    this.fs.copy(this.templatePath('bowerrc'), this.destinationPath('.bowerrc'));
     this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
     this.fs.copy(this.templatePath('jshintrc'), this.destinationPath('.jshintrc'));
 
@@ -107,7 +106,6 @@ var WiMGenerator = class extends yeoman {
     this.fs.copyTpl(this.templatePath('_index.html'), this.destinationPath('src/index.html'), this.appConfig);
     this.fs.copyTpl(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'), this.appConfig);
     this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), this.appConfig);
-    this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), this.appConfig);
 
     // mapping API specific resources
     var sourceDir = 'map-' + this.mappingAPI;
