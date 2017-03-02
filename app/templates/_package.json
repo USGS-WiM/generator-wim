@@ -1,5 +1,5 @@
 {
-	"name": "<%= _.slugify(appName) %>",
+	"name": "<%= slugifiedAppName %>",
 	"version": "0.0.0",
 	"description": "WiM generator",
 	"repository": {
