@@ -2,56 +2,46 @@
 <html>
 <head>
     <title><%= appName %></title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="/favicon.ico">
 
     <% if (mappingAPI == "esri") {%>
-    <link rel="stylesheet" href="bower_components/bootstrap-map-js/dist/css/bootstrapmap.min.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
+    <script src="http://js.arcgis.com/3.13/"></script>
     <%}%>
-    <link rel="stylesheet" href="bower_components/bootstrap-sidebar/dist/css/sidebar.css">
-    <% if (mappingAPI == "leaflet") {%>
-    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
-    <link rel="stylesheet" href="bower_components/leaflet-groupedlayercontrol/dist/leaflet.groupedlayercontrol.min.css">
-    <%}%>
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- CSS for the mapping components -->
-    <% if (mappingAPI == "esri") {%><link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css"><%}%>
 
+    <!-- build:css styles/vendor.css -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+    <% if (mappingAPI == "esri") {%>
+    <link rel="stylesheet" href="node_modules/bootstrap-map-js/dist/css/bootstrapmap.min.css">
+    <%}%>
+    <link rel="stylesheet" href="node_modules/bootstrap-sidebar/dist/css/sidebar.css">
+    <% if (mappingAPI == "leaflet") {%>
+    <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="node_modules/leaflet-groupedlayercontrol/dist/leaflet.groupedlayercontrol.min.css">
+    <%}%>
+    <!-- endbuild -->
+     
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-    <!-- <link rel="stylesheet" href="styles/base.css"> -->
-    <!-- build:css styles/base.css -->
-    <link rel="stylesheet" href="bower_components/wim-styles/template/css/base.css">
-    <!-- endbuild -->
 
-    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- build:css styles/base.css -->
+    <link rel="stylesheet" href="node_modules/wim-styles/template/css/base.css">
+    <!-- endbuild -->
 
     <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/jquery.nicescroll/dist/jquery.nicescroll.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/bootstrap-sidebar/dist/js/sidebar.js"></script>
-
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/bootstrap-sidebar/dist/js/sidebar.js"></script>
     <% if( mappingAPI == "leaflet") {%>
-
-    <script src="bower_components/leaflet/dist/leaflet.js"></script>
-    <script src="bower_components/esri-leaflet/dist/esri-leaflet.js"></script>
-    <script src="bower_components/leaflet-groupedlayercontrol/dist/leaflet.groupedlayercontrol.min.js"></script>
+    <script src="node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="node_modules/esri-leaflet/dist/esri-leaflet.js"></script>
+    <script src="node_modules/leaflet-groupedlayercontrol/dist/leaflet.groupedlayercontrol.min.js"></script>
     <%}%>
-    <!-- endbower -->
     <!-- endbuild -->
-
-    <% if (mappingAPI == "esri") {%>
-    <script src="http://js.arcgis.com/3.13/"></script>
-    <%}%>
 
     <!-- build:js scripts/combined.js -->
     <script src="scripts/utilities.js"></script>
@@ -71,7 +61,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="http://usgs.gov">
-                <img alt="USGS logo" height="38px" src="images/USGS_ID_white.png">
+                <img alt="USGS logo" height="38px" style='display:inline-block;' src="images/USGS_ID_white.png">
                 <span class='hidden-xs' style='font-size:20px;display:inline-block;'>&nbsp;&nbsp;<%= appName %></span>
             </a>
         </div>
