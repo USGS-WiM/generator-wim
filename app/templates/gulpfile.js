@@ -1,5 +1,5 @@
 'use strict';
-// Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
+// Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= generatorInfo.name %> <%= generatorInfo.version %>
 
 var gulp = require('gulp');
 var open = require('open');

@@ -1,23 +1,23 @@
 'use strict';
-var util = require('util'),
-  path = require('path'),
-  yeoman = require('yeoman-generator'),
-  chalk = require('chalk'),
-  fse = require('fs-extra');
+var yeoman = require('yeoman-generator');
+var mkdirp = require('mkdirp')
+var yosay = require('yosay');
+var chalk = require('chalk');
+var slugify = require("underscore.string/slugify");
 
-
-
- 
-var WiMGenerator = yeoman.generators.Base.extend({
+var WiMGenerator = class extends yeoman {
   
-  constructor: function () {
-    yeoman.generators.Base.apply(this, arguments);
+  // The name `constructor` is important here
+  constructor(args,opts) {
+
+    // Calling the super constructor is important so our generator is correctly set up
+    super(args, opts);
 
     this.argument('appName', { type: String, required: false });
     this.argument('mappingAPI', { type: String, required: false });
-  },
-  
-  init: function () {
+  }
+
+  initializing() {
     this.pkg = require('../package.json');
 
     this.on('end', function () {
@@ -33,86 +33,94 @@ var WiMGenerator = yeoman.generators.Base.extend({
     this.on('depsInstalled', function(){
       //can do something here if needed
     }.bind(this));
-  },
+  }
 
-  promptUser: function () {
-    var done = this.async();
+  prompting() {
+    var welcomeMsg =  '\n   __      __.__   _____   ' +
+                      '\n  /  \\    /  \\__| /     \\  ' +
+                      '\n  \\   \\/\\/   /  |/  \\ /  \\ ' + 
+                      '\n   \\        /|  /    Y    \\' +
+                      '\n    \\__/\\  / |__\\____|__  /' +
+                      '\n         \\/             \\/ ' +
+                      '\n';
+
 
     // have Yeoman greet the user
-    this.log(this.WiMWelcome());
+    this.log(chalk.green(welcomeMsg));
     
     if ((this.options.env.cwd).indexOf('generator-wim') != -1) {
-      this.log('yo you need to chill. (looks like you are trying to generate an app in the generator-wim repo. Pick a different directory, playa)');
+      this.log(chalk.yellow('yo you need to chill. (looks like you are trying to generate an app in the generator-wim repo. Pick a different directory, playa)'));
       return;
     }
 
     // replace it with a short and sweet description of your generator
-    this.log(chalk.magenta('You\'re using the fantastic WiM generator.'));
+    this.log(yosay(chalk.magenta('You\'re using the fantastic WiM generator v2.')));
 
-    var prompts = [{
-      name: 'appName',
-      message: 'What\'s the name of your application?',
-      default: 'Map application'
-    },{
-      type: 'list',
-      name: 'mappingAPI',
-      message: 'Choose your mapping API:',
-      choices: [
-        'esri',
-        'leaflet'
-      ]
-    }];
-
-    if ((!this.appName) && (!this.mappingAPI)) {
-      this.prompt(prompts, function (props) {
-        this.appName = props.appName;
-        this.mappingAPI = props.mappingAPI;
-
-        done();
-      }.bind(this));
+    //check for command line arguments
+    if ((!this.options.appName) && (!this.options.mappingAPI)) {
+      return this.prompt([{
+        type    : 'input',
+        name: 'appName',
+        message: 'What\'s the name of your application?',
+        default: 'Map application'
+      }, {
+        type: 'list',
+        name: 'mappingAPI',
+        message: 'Choose your mapping API:',
+        choices: [
+          'leaflet',
+          'esri'
+        ]
+      }]).then((answers) => {
+        this.appName = answers.appName;
+        this.mappingAPI = answers.mappingAPI;
+      });
     }
     else {
-      done();
+      this.appName = this.options.appName;
+      this.mappingAPI = this.options.mappingAPI;
     }
-  },
-
-  src: function () {
-  
-	//set up folder structure
-    this.mkdir('src');
-    this.mkdir('src/styles');
-    this.mkdir('src/scripts');
-    this.mkdir('src/images');
-    this.template('gulpfile.js', 'gulpfile.js');
-    this.template('_package.json', 'package.json');
-    this.template('_bower.json', 'bower.json');
-  },
-
-  projectfiles: function () {
-
-    // template specific resources
-    var sourceDir = 'map-' + this.mappingAPI;
-    this.copy(sourceDir + '/_core.js', 'src/scripts/core.js');
-    this.copy(sourceDir + '/_layers.js', 'src/scripts/layers.js');
-    this.copy(sourceDir + "/_utilities.js", 'src/scripts/utilities.js');
-    this.copy('_index.html', 'src/index.html');
-    this.copy('_main.css', 'src/styles/main.css');
-    this.directory('/images/', 'src/images/');
-    this.copy('bowerrc', '.bowerrc');
-    this.copy('gitignore', '.gitignore');
-    this.copy('jshintrc', '.jshintrc');
-
-  }, 
-
-  WiMWelcome : function(){
-    return  '\n   __      __.__   _____   ' +
-            '\n  /  \\    /  \\__| /     \\  ' +
-            '\n  \\   \\/\\/   /  |/  \\ /  \\ ' + 
-            '\n   \\        /|  /    Y    \\' +
-            '\n    \\__/\\  / |__\\____|__  /' +
-            '\n         \\/             \\/ ' +
-            '\n';
   }
-});
+
+  writing() {
+    //create appConfig object
+    this.appConfig = {
+      generatorInfo: this.pkg,
+      mappingAPI: this.mappingAPI,
+      appName: this.appName,
+      slugifiedAppName: slugify(this.appName)
+    }
+
+    //create folders we need
+    mkdirp('src');
+    mkdirp('src/styles');
+    mkdirp('src/scripts');
+
+    //just copy these files over and rename
+    this.fs.copy(this.templatePath('_main.css'), this.destinationPath('src/styles/main.css'));
+    this.fs.copy(this.templatePath('images/'), this.destinationPath('src/images/'));
+    this.fs.copy(this.templatePath('bowerrc'), this.destinationPath('.bowerrc'));
+    this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
+    this.fs.copy(this.templatePath('jshintrc'), this.destinationPath('.jshintrc'));
+
+    //copyTpl is used for copying files with template variables passed in
+    this.fs.copyTpl(this.templatePath('_index.html'), this.destinationPath('src/index.html'), this.appConfig);
+    this.fs.copyTpl(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'), this.appConfig);
+    this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), this.appConfig);
+    this.fs.copyTpl(this.templatePath('_bower.json'), this.destinationPath('bower.json'), this.appConfig);
+
+    // mapping API specific resources
+    var sourceDir = 'map-' + this.mappingAPI;
+    this.fs.copy(this.templatePath(sourceDir + '/_core.js'), this.destinationPath('src/scripts/core.js'));
+    this.fs.copy(this.templatePath(sourceDir + '/_layers.js'), this.destinationPath('src/scripts/layers.js'));
+    this.fs.copy(this.templatePath(sourceDir + '/_utilities.js'), this.destinationPath('src/scripts/utilities.js'));
+
+  }
+
+  install() {
+    this.installDependencies();
+  }
+
+};
 
 module.exports = WiMGenerator;
