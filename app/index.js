@@ -80,6 +80,9 @@ var WiMGenerator = class extends yeoman {
       this.appName = this.options.appName;
       this.mappingAPI = this.options.mappingAPI;
     }
+
+    this.log(chalk.blue('You chose the application name:'), chalk.red(this.appName));
+    this.log(chalk.blue('You chose the mapping API:'), chalk.red(this.mappingAPI));
   }
 
   writing() {
@@ -104,7 +107,7 @@ var WiMGenerator = class extends yeoman {
 
     //copyTpl is used for copying files with template variables passed in
     this.fs.copyTpl(this.templatePath('_index.html'), this.destinationPath('src/index.html'), this.appConfig);
-    this.fs.copyTpl(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'), this.appConfig);
+    this.fs.copyTpl(this.templatePath('_gulpfile.js'), this.destinationPath('gulpfile.js'), this.appConfig);
     this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), this.appConfig);
 
     // mapping API specific resources
@@ -116,7 +119,7 @@ var WiMGenerator = class extends yeoman {
   }
 
   install() {
-    this.installDependencies();
+    this.npmInstall()
   }
 
 };
