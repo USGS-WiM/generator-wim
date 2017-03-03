@@ -79,10 +79,9 @@ var WiMGenerator = class extends yeoman {
     else {
       this.appName = this.options.appName;
       this.mappingAPI = this.options.mappingAPI;
+      this.log(chalk.blue('You chose the application name:'), chalk.red(this.appName));
+      this.log(chalk.blue('You chose the mapping API:'), chalk.red(this.mappingAPI));
     }
-
-    this.log(chalk.blue('You chose the application name:'), chalk.red(this.appName));
-    this.log(chalk.blue('You chose the mapping API:'), chalk.red(this.mappingAPI));
   }
 
   writing() {
@@ -102,8 +101,8 @@ var WiMGenerator = class extends yeoman {
     //just copy these files over and rename
     this.fs.copy(this.templatePath('_main.css'), this.destinationPath('src/styles/main.css'));
     this.fs.copy(this.templatePath('images/'), this.destinationPath('src/images/'));
-    this.fs.copy(this.templatePath('gitignore'), this.destinationPath('.gitignore'));
-    this.fs.copy(this.templatePath('jshintrc'), this.destinationPath('.jshintrc'));
+    this.fs.copy(this.templatePath('_.gitignore'), this.destinationPath('.gitignore'));
+    this.fs.copy(this.templatePath('_.jshintrc'), this.destinationPath('.jshintrc'));
 
     //copyTpl is used for copying files with template variables passed in
     this.fs.copyTpl(this.templatePath('_index.html'), this.destinationPath('src/index.html'), this.appConfig);
