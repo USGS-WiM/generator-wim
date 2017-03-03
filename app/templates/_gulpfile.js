@@ -111,7 +111,7 @@ gulp.task('serve', ['connect'], function() {
     open("http://localhost:9000");
 });
 
-// Inject Bower components
+// Inject components
 gulp.task('wiredep', function () {
     gulp.src('src/styles/*.css')
         .pipe(wiredep({
@@ -151,6 +151,4 @@ gulp.task('watch', ['less', 'connect', 'serve'], function () {
     // Watch image files
     gulp.watch('src/images/**/*', ['images']);
 
-    // Watch bower files
-    gulp.watch('bower.json', ['wiredep']);
 });
