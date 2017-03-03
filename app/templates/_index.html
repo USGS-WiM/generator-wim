@@ -6,20 +6,20 @@
     <link rel="shortcut icon" href="/favicon.ico">
 
     <% if (mappingAPI == "esri") {%>
-    <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
-    <script src="http://js.arcgis.com/3.13/"></script>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.19/esri/css/esri.css">
+    <script src="http://js.arcgis.com/3.19/"></script>
     <%}%>
 
     <!-- build:css styles/vendor.css -->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
     <% if (mappingAPI == "esri") {%>
-    <link rel="stylesheet" href="node_modules/bootstrap-map-js/dist/css/bootstrapmap.min.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap-map-js/dist/css/bootstrapmap.min.css">
     <%}%>
-    <link rel="stylesheet" href="node_modules/bootstrap-sidebar/dist/css/sidebar.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap-sidebar/dist/css/sidebar.css">
     <% if (mappingAPI == "leaflet") {%>
-    <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
-    <link rel="stylesheet" href="node_modules/leaflet-groupedlayercontrol/dist/leaflet.groupedlayercontrol.min.css">
+    <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="../node_modules/leaflet-groupedlayercontrol/dist/leaflet.groupedlayercontrol.min.css">
     <%}%>
     <!-- endbuild -->
      
@@ -28,18 +28,18 @@
     <!-- endbuild -->
 
     <!-- build:css styles/base.css -->
-    <link rel="stylesheet" href="node_modules/wim-styles/template/css/base.css">
+    <link rel="stylesheet" href="../node_modules/wim-styles/template/css/base.css">
     <!-- endbuild -->
 
     <!-- build:js scripts/vendor.js -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/jquery.nicescroll/jquery.nicescroll.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="node_modules/bootstrap-sidebar/dist/js/sidebar.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/jquery.nicescroll/jquery.nicescroll.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/bootstrap-sidebar/dist/js/sidebar.js"></script>
     <% if( mappingAPI == "leaflet") {%>
-    <script src="node_modules/leaflet/dist/leaflet.js"></script>
-    <script src="node_modules/esri-leaflet/dist/esri-leaflet.js"></script>
-    <script src="node_modules/leaflet-groupedlayercontrol/dist/leaflet.groupedlayercontrol.min.js"></script>
+    <script src="../node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="../node_modules/esri-leaflet/dist/esri-leaflet.js"></script>
+    <script src="../node_modules/leaflet-groupedlayercontrol/dist/leaflet.groupedlayercontrol.min.js"></script>
     <%}%>
     <!-- endbuild -->
 

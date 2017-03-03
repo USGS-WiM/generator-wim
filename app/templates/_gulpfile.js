@@ -1,22 +1,29 @@
 'use strict';
-// Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= generatorInfo.name %> <%= generatorInfo.version %>
+// Generated on 2017-03-03 using generator-wim 0.0.1
 
-var gulp = require('gulp');
-var open = require('open');
-var del = require('del');
-var less = require('gulp-less');
-var wiredep = require('wiredep').stream;
-
-// Load plugins
-var $ = require('gulp-load-plugins')();
+var gulp = require('gulp'),
+    git = require('gulp-git'),
+    bump = require('gulp-bump'),
+    jshint = require('gulp-jshint'),
+    size = require('gulp-size'),
+    uglify = require('gulp-uglify'),
+    useref = require('gulp-useref'),
+    cleanCSS = require('gulp-clean-css'),
+    connect = require('gulp-connect'),
+    autoprefixer = require('gulp-autoprefixer'),
+    filter = require('gulp-filter'),
+    del = require('del'),
+    open = require('open'),
+    semver = require('semver'),
+    replace = require('gulp-string-replace'),
+    stylish = require('jshint-stylish'),
+    less = require('gulp-less');
 
 //copy leaflet images
-<% if (mappingAPI == "leaflet") {%>
-    gulp.task('leaflet', function() {
-        return gulp.src('node_modules/leaflet/dist/images/*.*')
-            .pipe(gulp.dest('src/images'));
-    });
-<%}%>
+gulp.task('leaflet', function() {
+    return gulp.src('node_modules/leaflet/dist/images/*.*')
+        .pipe(gulp.dest('src/images'));
+});
 
 //less compilation
 gulp.task('less', function () {
@@ -29,9 +36,9 @@ gulp.task('less', function () {
 // Styles
 gulp.task('styles', function () {
     return gulp.src(['src/styles/main.css'])
-        .pipe($.autoprefixer('last 1 version'))
+        .pipe(autoprefixer('last 1 version'))
         .pipe(gulp.dest('src/styles'))
-        .pipe($.size());
+        .pipe(size());
 });
 
 // Icons
@@ -43,29 +50,26 @@ gulp.task('icons', function () {
 // Scripts
 gulp.task('scripts', function () {
     return gulp.src(['src/scripts/**/*.js'])
-        .pipe($.jshint('.jshintrc'))
-        .pipe($.jshint.reporter('default'))
-        .pipe($.size());
+        .pipe(jshint('.jshintrc'))
+        .pipe(jshint.reporter(stylish))
+        .pipe(size());
 });
 
 // HTML
 gulp.task('html', ['styles', 'scripts', 'icons'], function () {
-    var jsFilter = $.filter('**/*.js');
-    var cssFilter = $.filter('**/*.css');
+    var jsFilter = filter('**/*.js', { restore: true });
+    var cssFilter = filter('**/*.css', { restore: true });
 
     return gulp.src('src/*.html')
-        .pipe($.useref.assets())
+        .pipe(useref())
         .pipe(jsFilter)
-        .pipe($.uglify())
-        .pipe(jsFilter.restore())
+        .pipe(uglify())
+        .pipe(jsFilter.restore)
         .pipe(cssFilter)
-        .pipe($.csso())
-        .pipe(cssFilter.restore())
-        .pipe($.useref.restore())
-        .pipe($.useref())
-        //.pipe(rename({ extname: '.min.js' }))
+        .pipe(cleanCSS({ processImport: false }))
+        .pipe(cssFilter.restore)
         .pipe(gulp.dest('build'))
-        .pipe($.size());
+        .pipe(size());
 });
 
 // Images
@@ -74,31 +78,25 @@ gulp.task('images', function () {
         'src/images/**/*',
         'src/lib/images/*'])
         .pipe(gulp.dest('build/images'))
-        .pipe($.size());
+        .pipe(size());
 });
 
 // Clean
-gulp.task('clean', function (cb) {
-    del([
-        'build/styles/**',
-        'build/scripts/**',
-        'build/images/**',
-    ], cb);
+gulp.task('clean', function(cb) {
+    return del(['build'], cb);
 });
 
 // Build
-gulp.task('build', ['html', 'images', 'less']);
+gulp.task('build', ['clean'], function () {
+    gulp.start('html', 'images', 'less');
+});
 
 // Default task
-//make sure download-esri-api (if needed) is run just after clean, but before build
-//gulp.task('default', ['clean', 'download-esri-api'], function () {
-gulp.task('default', ['clean'], function () {
-    gulp.start('build');
-});
+gulp.task('default', ['build']);
 
 // Connect
 gulp.task('connect', function(){
-    $.connect.server({
+    connect.server({
         root: 'src',
         port: 9000,
         livereload: true,
@@ -141,7 +139,7 @@ gulp.task('watch', ['less', 'connect', 'serve'], function () {
         'src/images/**/*'
     ], function (event) {
         return gulp.src(event.path)
-            .pipe($.connect.reload());
+            .pipe(connect.reload());
     });
 
     // Watch .css files
