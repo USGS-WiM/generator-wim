@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="USGS WiM">
+	<link rel="copyright" href="license.txt">
+    <title><%= appName %></title>
+
+    <script src="scripts/appConfig.js"></script>
+
+    <% if (buildSystem == "webpack") {%>
+    <script src="./scripts/vendor.bundle.min.js"></script>
+    <script src="./scripts/bundle.min.js"></script> 
+    <%}%>
+
+    <% if (mappingAPI == "esri") {%>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.20/esri/css/esri.css">
+    <script src="http://js.arcgis.com/3.20/"></script>
+    <%}%>
+
+    <% if (buildSystem == "gulp") {%>
+        <!-- build:css styles/vendor.css -->
+        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+        <% if (mappingAPI == "esri") {%>
+
+        <%}%>
+        <% if (mappingAPI == "leaflet") {%>
+        <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css">
+        <%}%>
+        <!-- endbuild -->
+        
+        <!-- build:css styles/custom.css -->
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+
+        <!-- build:js scripts/vendor.js -->
+        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+        <% if( mappingAPI == "leaflet") {%>
+        <script src="../node_modules/leaflet/dist/leaflet.js"></script>
+        <script src="../node_modules/esri-leaflet/dist/esri-leaflet.js"></script>
+        <%}%>
+        <!-- endbuild -->
+
+        <!-- build:js scripts/custom.js -->
+        <script src="scripts/core.js"></script>
+        <!-- endbuild -->
+    <%}%>
+
+  </head>
+  <body>
+    <div id="top-menu">
+        <div class="title">
+            <a class='top-menu-brand' href="http://www.usgs.gov"><img src="images/usgs-logo.png"></a>
+            <span class="app-name"><%= appName %></span> <span class="app-name-mobile"><%= appName %></span> 
+        </div>
+        <div id="mobile-main-menu">
+            <span class="glyphicon glyphicon-menu-hamburger" ></span>
+        </div>
+
+        <button id="aboutButton" class="btn btn-default top-menu-btn pull-right">
+            <i class="glyphicon glyphicon-info-sign"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
+        </button>
+    </div>
+
+    <div id="main-menu">
+        <div class="main-menu-container scrollable">
+            <div class="menu-content"> 
+                <div class="scrollable-content">
+
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default sidebar-panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1">
+                                        Panel
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="panel1" class="panel-collapse collapse">
+                                <div class="panel-body">     
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default sidebar-panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#basemapsPanel">
+                                        Basemaps
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="basemapsPanel" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <button id="btnStreets" class="btn btn-default slick-btn basemapBtn equalize"><img class="basemapThumb" alt="" src="images/streets.jpg"><br class="basemapThumb">Streets</button>
+                                    <button id="btnSatellite" class="btn btn-default slick-btn basemapBtn equalize" ><img class="basemapThumb" alt="" src="images/satellite.jpg"><br class="basemapThumb">Satellite</button>
+                                    <button id="btnTopo" class="btn btn-default slick-btn basemapBtn equalize"><img class="basemapThumb" alt="" src="images/topo.jpg"><br class="basemapThumb">Topo</button>
+                                    <button id="btnTerrain" class="btn btn-default slick-btn basemapBtn equalize"><img class="basemapThumb" alt="" src="images/terrain.jpg"><br class="basemapThumb">Terrain</button>
+                                    <button id="btnGray" class="btn btn-default slick-btn basemapBtn equalize slick-btn-selection" ><img class="basemapThumb" alt="" src="images/gray.jpg"><br class="basemapThumb">Gray</button>
+                                    <button id="btnNatGeo" class="btn btn-default slick-btn basemapBtn equalize"><img class="basemapThumb" alt="" src="images/natgeo.jpg"><br class="basemapThumb">NatGeo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="info" class="identification pull-right">Developed by WIM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog" >
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                    <h4 class="modal-title"><%= appName %></h4>
+                </div>
+                <div id="aboutModalBody" class="modal-body">
+                    <ul class="nav nav-tabs" id="aboutModalTabs">
+                        <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the application</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
+                            <p>Developed by <a href="http://wim.usgs.gov" target="_blank">Web Informatics and Mapping (WiM)</a></p>
+                            <span id="appVersion"></span>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="modal-footer">
+                </div>-->
+            </div><!-- /.modal-content -->
+        </div> <!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="mapDiv">
+    </div>
+  </body>
+</html>

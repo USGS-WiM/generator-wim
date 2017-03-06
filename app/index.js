@@ -1,9 +1,10 @@
 'use strict';
 var yeoman = require('yeoman-generator');
-var mkdirp = require('mkdirp')
+var mkdirp = require('mkdirp');
 var yosay = require('yosay');
 var chalk = require('chalk');
 var slugify = require("underscore.string/slugify");
+var glob = require('glob');
 
 var WiMGenerator = class extends yeoman {
   
@@ -18,7 +19,6 @@ var WiMGenerator = class extends yeoman {
   }
 
   initializing() {
-    this.pkg = require('../package.json');
 
     this.on('end', function () {
       if (!this.options['skip-install']) {
@@ -71,9 +71,29 @@ var WiMGenerator = class extends yeoman {
           'leaflet',
           'esri'
         ]
+      },
+      {
+        type: 'list',
+        name: 'mappingFlavor',
+        message: 'Choose your flavor:',
+        choices: [
+          'lite',
+          'full'
+        ]
+      },
+      {
+        type: 'list',
+        name: 'buildSystem',
+        message: 'Choose your build system:',
+        choices: [
+          'gulp',
+          'webpack'
+        ]
       }]).then((answers) => {
         this.appName = answers.appName;
         this.mappingAPI = answers.mappingAPI;
+        this.mappingFlavor = answers.mappingFlavor;
+        this.buildSystem = answers.buildSystem;
       });
     }
     else {
@@ -85,36 +105,39 @@ var WiMGenerator = class extends yeoman {
   }
 
   writing() {
+    this.generatorPkg = require('../package.json');
+    //this.templatePkg = require(this.templatePath('/package.json'));
+
     //create appConfig object
     this.appConfig = {
-      generatorInfo: this.pkg,
+      generatorInfo: this.generatorPkg,
+      //appInfo: this.templatePkg,
       mappingAPI: this.mappingAPI,
       appName: this.appName,
+      buildSystem: this.buildSystem,
       slugifiedAppName: slugify(this.appName)
+    };
+
+    //first do full copy ignoring templated files
+    this.fs.copy(this.templatePath(), this.destinationPath(), { globOptions: { dot: true, ignore: ['**/package.json','**/index.html','**/gulpfile.js','**/webpack.config.js','**/core.js']}});
+
+    //then overwrite template files
+    this.fs.copyTpl(this.templatePath('src/index.html'), this.destinationPath('src/index.html'), this.appConfig);
+    this.fs.copyTpl(this.templatePath('package.json'), this.destinationPath('package.json'), this.appConfig);
+
+    if (this.mappingFlavor == 'lite') {
+      this.fs.copyTpl(this.templatePath('src/scripts/' + this.mappingAPI + '/core-lite.js'), this.destinationPath('src/scripts/core.js'), this.appConfig);
+    }
+    else {
+      this.fs.copyTpl(this.templatePath('src/scripts/' + this.mappingAPI + '/core-full.js'), this.destinationPath('src/scripts/core.js'), this.appConfig);
     }
 
-    //create folders we need
-    mkdirp('src');
-    mkdirp('src/styles');
-    mkdirp('src/scripts');
-
-    //just copy these files over and rename
-    this.fs.copy(this.templatePath('_main.css'), this.destinationPath('src/styles/main.css'));
-    this.fs.copy(this.templatePath('images/'), this.destinationPath('src/images/'));
-    this.fs.copy(this.templatePath('_.gitignore'), this.destinationPath('.gitignore'));
-    this.fs.copy(this.templatePath('_.jshintrc'), this.destinationPath('.jshintrc'));
-
-    //copyTpl is used for copying files with template variables passed in
-    this.fs.copyTpl(this.templatePath('_index.html'), this.destinationPath('src/index.html'), this.appConfig);
-    this.fs.copyTpl(this.templatePath('_gulpfile.js'), this.destinationPath('gulpfile.js'), this.appConfig);
-    this.fs.copyTpl(this.templatePath('_package.json'), this.destinationPath('package.json'), this.appConfig);
-
-    // mapping API specific resources
-    var sourceDir = 'map-' + this.mappingAPI;
-    this.fs.copy(this.templatePath(sourceDir + '/_core.js'), this.destinationPath('src/scripts/core.js'));
-    this.fs.copy(this.templatePath(sourceDir + '/_layers.js'), this.destinationPath('src/scripts/layers.js'));
-    this.fs.copy(this.templatePath(sourceDir + '/_utilities.js'), this.destinationPath('src/scripts/utilities.js'));
-
+    if (this.buildSystem == 'gulp') {
+      this.fs.copyTpl(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'), this.appConfig);
+    }
+    if (this.buildSystem == 'webpack') {
+      this.fs.copyTpl(this.templatePath('webpack.config.js'), this.destinationPath('webpack.config.js'), this.appConfig);
+    }
   }
 
   install() {
