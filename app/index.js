@@ -99,8 +99,10 @@ var WiMGenerator = class extends yeoman {
     else {
       this.appName = this.options.appName;
       this.mappingAPI = this.options.mappingAPI;
+      this.mappingFlavor = this.options.mappingFlavor
       this.log(chalk.blue('You chose the application name:'), chalk.red(this.appName));
       this.log(chalk.blue('You chose the mapping API:'), chalk.red(this.mappingAPI));
+      this.log(chalk.blue('You chose the mapping flavor:'), chalk.red(this.mappingFlavor));
     }
   }
 
@@ -113,6 +115,7 @@ var WiMGenerator = class extends yeoman {
       generatorInfo: this.generatorPkg,
       //appInfo: this.templatePkg,
       mappingAPI: this.mappingAPI,
+      mappingFlavor: this.mappingFlavor,
       appName: this.appName,
       buildSystem: this.buildSystem,
       slugifiedAppName: slugify(this.appName)

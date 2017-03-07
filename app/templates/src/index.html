@@ -43,6 +43,7 @@
         <!-- endbuild -->
 
         <!-- build:js scripts/custom.js -->
+        <script src="scripts/utilities.js"></script>
         <script src="scripts/core.js"></script>
         <!-- endbuild -->
     <%}%>
@@ -102,6 +103,22 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- map layers panel for esri full -->
+                        <% if( mappingAPI == "esri" && mappingFlavor == "full") {%>
+                        <div class="panel panel-default wim-sidebar-panel">
+                            <div class="panel-heading" id="layersPanelHeader">
+                                <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" href="#layersPanel" aria-expanded="true" aria-controls="layersPanel">
+                                        Map Layers
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
+                                <div id="toggle" style="padding: 2px 2px;"></div>
+                            </div>
+                        </div>
+                        <%}%>
+                        <!-- end map layers panel for esri full -->
                     </div>
 
                     <div id="info" class="identification pull-right">Developed by WIM</div>
@@ -136,6 +153,39 @@
     </div><!-- /.modal -->
 
     <div id="mapDiv">
+
+        <% if( mappingAPI == "esri" && mappingFlavor == "full") {%>
+        <div id="legendElement" class="panel panel-default legendClass">
+            <div id="legendHeading" class=" legendHeading" role="tab">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" style="text-decoration: none"  href="#legendCollapse" aria-expanded="true" aria-controls="collapseOne">
+                        <span class="glyphicon glyphicon-list"></span>
+                        Legend
+                    </a>
+                </h4>
+            </div>
+            <div id="legendCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div id="legendDiv" class="panel-body"></div>
+            </div>
+        </div>
+        <%}%>
+
     </div>
+
+    <% if( mappingAPI == "esri" && mappingFlavor == "full") {%>
+    <div id="homeButton"></div>
+    <div id="locateButton"></div>
+
+    <div id="latLngScale" class="latLngScale">
+        <span class="hover-content"> <b>Map scale </b></span>
+        1:<span id="scale"></span> <br>
+        <span class="hover-content"><b>Latitude</b></span>
+        <span id="latitude">y</span> |
+        <span class="hover-content"> <b>Longitude</b></span>
+        <span id="longitude">x</span>
+        <span id="mapCenterLabel"  class="hover-content"> (center)</span>
+    </div>
+    <%}%>
+
   </body>
 </html>

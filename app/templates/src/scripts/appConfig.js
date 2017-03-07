@@ -168,7 +168,7 @@ app.allLayers = [
                     }
                 },
                 "NAWQA networks" : {
-                    "url": "http://50.17.205.92/arcgis/rest/services/NAWQA/tablesTest/MapServer",
+                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/NAWQA/tablesTest/MapServer",
                     "options": {
                         "id": "nawqaNetworks",
                         "layers": [1],
