@@ -31,6 +31,7 @@
         
         <!-- build:css styles/custom.css -->
         <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="../node_modules/wim-styles/template/css/base.css">
         <!-- endbuild -->
 
         <!-- build:js scripts/vendor.js -->
@@ -44,7 +45,10 @@
 
         <!-- build:js scripts/custom.js -->
         <script src="scripts/utilities.js"></script>
-        <script src="scripts/core.js"></script>
+        <script src="scripts/core-lite.js"></script>
+        <% if( mappingFlavor == "full") {%>
+        <script src="scripts/core-full.js"></script>
+        <%}%>
         <!-- endbuild -->
     <%}%>
 
@@ -70,7 +74,7 @@
                 <div class="scrollable-content">
 
                     <div class="panel-group" id="accordion">
-                        <div class="panel panel-default sidebar-panel">
+                        <div class="panel panel-default sidebar-panel wim-sidebar-panel">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1">
@@ -92,7 +96,7 @@
                                     </a>
                                 </h4>
                             </div>
-                            <div id="basemapsPanel" class="panel-collapse collapse in">
+                            <div id="basemapsPanel" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <button id="btnStreets" class="btn btn-default slick-btn basemapBtn equalize"><img class="basemapThumb" alt="" src="images/streets.jpg"><br class="basemapThumb">Streets</button>
                                     <button id="btnSatellite" class="btn btn-default slick-btn basemapBtn equalize" ><img class="basemapThumb" alt="" src="images/satellite.jpg"><br class="basemapThumb">Satellite</button>
@@ -103,18 +107,21 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- map layers panel for esri full -->
+
+                         <!--map layers panel for esri full -->
                         <% if( mappingAPI == "esri" && mappingFlavor == "full") {%>
-                        <div class="panel panel-default wim-sidebar-panel">
-                            <div class="panel-heading" id="layersPanelHeader">
+                        <div class="panel panel-default sidebar-panel">
+                            <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" href="#layersPanel" aria-expanded="true" aria-controls="layersPanel">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#layersPanel" >
                                         Map Layers
                                     </a>
                                 </h4>
                             </div>
-                            <div id="layersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="layersPanelHeader">
-                                <div id="toggle" style="padding: 2px 2px;"></div>
+                            <div id="layersPanel" class="panel-collapse collapse in">
+                                <div class="panel-body collapse in">
+                                    <div id="toggle" style="padding: 2px 2px;"></div>
+                                </div>
                             </div>
                         </div>
                         <%}%>
@@ -172,7 +179,7 @@
 
     </div>
 
-    <% if( mappingAPI == "esri" && mappingFlavor == "full") {%>
+    <% if( mappingAPI == "esri") {%>
     <div id="homeButton"></div>
     <div id="locateButton"></div>
 

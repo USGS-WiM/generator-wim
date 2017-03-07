@@ -113,6 +113,78 @@ body {
        url('../fonts/OpenSans-Regular.svg#OpenSans') format('svg'); /* Legacy iOS */
 }
 
+#mapDiv_zoom_slider {
+  top: 80px !important;
+  left: 280px !important;
+}
+
+#homeButton {
+    position: absolute;
+    top: 90px !important;
+    left: 272px !important;
+    z-index: 50 !important;
+}
+
+#locateButton {
+    position: absolute;
+    top: 130px !important;
+    left: 272px !important;
+    z-index: 50 !important;
+}
+
+.legendClass {
+    position:absolute;
+    top:80px !important;
+    right:5px;
+    z-index:3;
+    color: black;
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    /*min-width: 150px;*/
+    border-radius: 4px;
+}
+
+.legendHeading {
+    color: black;
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255,0.8);
+    text-decoration: none !important;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#homeButton {
+    position: absolute;
+    top: 75px;
+    left: 5px;
+    z-index: 50;
+}
+
+#locateButton {
+    position: absolute;
+    top: 115px;
+    left: 5px;
+    z-index: 50;
+}
+
+.latLngScale {
+    position:absolute;
+    padding:4px;
+    bottom:1.6em;
+    left: 280px !important;
+    /*width:250px*/
+    /*height:320px;*/
+    z-index:1;
+    color: black;
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    border-radius: 4px;
+}
+
 /*
     ===========================
     ===========================
@@ -208,21 +280,17 @@ body {
 
 @media (max-width: 1020px) {
   #top-menu {
-    display: -webkit-flex;
     display: flex;
-    -webkit-flex-wrap: nowrap;
     flex-wrap: nowrap;
     width: 100%;
     border-bottom: 1px solid #191924;
   }
 
   #top-menu #mobile-main-menu {
-    -webkit-order: 0;
     order: 0;
   }
 
   #top-menu .title {
-    -webkit-order: 1;
     order: 1;
     width: calc(100% - 95px);
     text-align: center;

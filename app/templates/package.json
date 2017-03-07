@@ -26,7 +26,8 @@
 	"dependencies": {
 		"jquery": "^3.1.1",
 		"font-awesome": "^4.7.0",
-		"bootstrap": "^3.3.7"<%if(mappingAPI == "leaflet"){%>,
+		"bootstrap": "^3.3.7",
+		"wim-styles": "github:usgs-wim/wim-styles#master"<%if(mappingAPI == "leaflet"){%>,
 		"leaflet": "0.7.7",
 		"esri-leaflet": "1.0.4"
 		<%}%>

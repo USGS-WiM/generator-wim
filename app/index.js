@@ -122,17 +122,15 @@ var WiMGenerator = class extends yeoman {
     };
 
     //first do full copy ignoring templated files
-    this.fs.copy(this.templatePath(), this.destinationPath(), { globOptions: { dot: true, ignore: ['**/package.json','**/index.html','**/gulpfile.js','**/webpack.config.js','**/core.js']}});
+    this.fs.copy(this.templatePath(), this.destinationPath(), { globOptions: { dot: true, ignore: ['**/package.json','**/index.html','**/gulpfile.js','**/webpack.config.js','**/core.js','**/leaflet/*','**/esri/*']}});
 
     //then overwrite template files
     this.fs.copyTpl(this.templatePath('src/index.html'), this.destinationPath('src/index.html'), this.appConfig);
     this.fs.copyTpl(this.templatePath('package.json'), this.destinationPath('package.json'), this.appConfig);
 
-    if (this.mappingFlavor == 'lite') {
-      this.fs.copyTpl(this.templatePath('src/scripts/' + this.mappingAPI + '/core-lite.js'), this.destinationPath('src/scripts/core.js'), this.appConfig);
-    }
-    else {
-      this.fs.copyTpl(this.templatePath('src/scripts/' + this.mappingAPI + '/core-full.js'), this.destinationPath('src/scripts/core.js'), this.appConfig);
+    this.fs.copyTpl(this.templatePath('src/scripts/' + this.mappingAPI + '/core-lite.js'), this.destinationPath('src/scripts/core-lite.js'), this.appConfig);
+    if (this.mappingFlavor == 'full') {
+      this.fs.copyTpl(this.templatePath('src/scripts/' + this.mappingAPI + '/core-full.js'), this.destinationPath('src/scripts/core-full.js'), this.appConfig);
     }
 
     if (this.buildSystem == 'gulp') {
