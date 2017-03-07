@@ -15,7 +15,12 @@ var PATHS = {
 
 var common = {
     entry: {
-        app: PATHS.src + 'scripts/core.js',
+        <%if(mappingFlavor == "lite"){%>
+        app: PATHS.src + 'scripts/core-lite.js',
+        <%}%>
+        <%if(mappingFlavor == "full"){%>
+        app: [PATHS.src + 'scripts/core-lite.js', PATHS.src + 'scripts/core-full.js'],
+        <%}%>
         vendor: [
             PATHS.src + '/styles/main.css', 
             <%if(mappingAPI == "leaflet"){%>
