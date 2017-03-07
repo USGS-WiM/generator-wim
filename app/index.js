@@ -108,12 +108,10 @@ var WiMGenerator = class extends yeoman {
 
   writing() {
     this.generatorPkg = require('../package.json');
-    //this.templatePkg = require(this.templatePath('/package.json'));
-
+    
     //create appConfig object
     this.appConfig = {
       generatorInfo: this.generatorPkg,
-      //appInfo: this.templatePkg,
       mappingAPI: this.mappingAPI,
       mappingFlavor: this.mappingFlavor,
       appName: this.appName,
@@ -127,18 +125,10 @@ var WiMGenerator = class extends yeoman {
     //then overwrite template files
     this.fs.copyTpl(this.templatePath('src/index.html'), this.destinationPath('src/index.html'), this.appConfig);
     this.fs.copyTpl(this.templatePath('package.json'), this.destinationPath('package.json'), this.appConfig);
-
     this.fs.copyTpl(this.templatePath('src/scripts/' + this.mappingAPI + '/core-lite.js'), this.destinationPath('src/scripts/core-lite.js'), this.appConfig);
-    if (this.mappingFlavor == 'full') {
-      this.fs.copyTpl(this.templatePath('src/scripts/' + this.mappingAPI + '/core-full.js'), this.destinationPath('src/scripts/core-full.js'), this.appConfig);
-    }
-
-    if (this.buildSystem == 'gulp') {
-      this.fs.copyTpl(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'), this.appConfig);
-    }
-    if (this.buildSystem == 'webpack') {
-      this.fs.copyTpl(this.templatePath('webpack.config.js'), this.destinationPath('webpack.config.js'), this.appConfig);
-    }
+    if (this.mappingFlavor == 'full') this.fs.copyTpl(this.templatePath('src/scripts/' + this.mappingAPI + '/core-full.js'), this.destinationPath('src/scripts/core-full.js'), this.appConfig);
+    if (this.buildSystem == 'gulp') this.fs.copyTpl(this.templatePath('gulpfile.js'), this.destinationPath('gulpfile.js'), this.appConfig);
+    if (this.buildSystem == 'webpack') this.fs.copyTpl(this.templatePath('webpack.config.js'), this.destinationPath('webpack.config.js'), this.appConfig);
   }
 
   install() {

@@ -20,6 +20,9 @@ require([
         zoom: app.zoomLevel
     });
 
+    //set app version
+	$('#aboutModalTitle').append(' <small>v' + app.version + '</small>');
+
     //displays map scale on map load
     app.map.on("load", function() {
         var scale =  app.map.getScale().toFixed(0);

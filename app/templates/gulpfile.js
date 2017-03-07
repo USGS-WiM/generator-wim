@@ -1,6 +1,3 @@
-'use strict';
-// Generated on 2017-03-03 using generator-wim 0.0.1
-
 var gulp = require('gulp'),
     git = require('gulp-git'),
     bump = require('gulp-bump'),
@@ -18,6 +15,50 @@ var gulp = require('gulp'),
     replace = require('gulp-string-replace'),
     stylish = require('jshint-stylish'),
     less = require('gulp-less');
+
+//get current app version
+var version = require('./package.json').version;
+
+//function for version lookup and tagging
+function inc(importance) {
+    //get new version number
+    var newVer = semver.inc(version, importance);
+
+    //bump appConfig version
+    // gulp.src('**/**/appConfig.js')
+    //     .pipe(replace(/app.version = '([^']+)'/g, "app.version = '" + newVer + "'"))
+    //     .pipe(gulp.dest('src/scripts'))
+    //     .pipe(gulp.dest('build/scripts'))
+
+    gulp.src('src/scripts/appConfig.js')
+        .pipe(replace(/app.version = '([^']+)'/g, "app.version = '" + newVer + "'"))
+        .pipe(gulp.dest('src/scripts'))
+
+    gulp.src('build/scripts/appConfig.js')
+        .pipe(replace(/app.version = '([^']+)'/g, "app.version = '" + newVer + "'"))
+        .pipe(gulp.dest('build/scripts'))
+
+    // get all the files to bump version in 
+    gulp.src(['package.json'])
+        // bump the version number in those files 
+        .pipe(bump({ type: importance }))
+        // save it back to filesystem 
+        .pipe(gulp.dest(function(file) {
+            return file.base;
+        }))
+        // commit the changed version number 
+        .pipe(git.commit('Release v' + newVer))
+        // **tag it in the repository** 
+        //.pipe(git.tag('v' + newVer));
+        .pipe(git.tag('v' + newVer, 'Version message', function (err) {
+            if (err) throw err;
+        }));
+}
+
+//tasks for version tags
+gulp.task('patch', ['build'], function () { return inc('patch'); });
+gulp.task('feature', ['build'], function () { return inc('minor'); });
+gulp.task('release', ['build'], function () { return inc('major'); });
 
 //copy leaflet images
 gulp.task('leaflet', function() {
@@ -81,6 +122,12 @@ gulp.task('images', function () {
         .pipe(size());
 });
 
+// appConfig
+gulp.task('appConfig', function () {
+    return gulp.src(['src/scripts/appConfig.js'])
+        .pipe(gulp.dest('build/scripts'))
+});
+
 // Clean
 gulp.task('clean', function(cb) {
     return del(['build'], cb);
@@ -88,7 +135,7 @@ gulp.task('clean', function(cb) {
 
 // Build
 gulp.task('build', ['clean'], function () {
-    gulp.start('html', 'images', 'less');
+    gulp.start('html', 'images', 'less', 'leaflet', 'appConfig');
 });
 
 // Default task

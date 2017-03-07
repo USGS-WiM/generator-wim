@@ -13,6 +13,9 @@ $( document ).ready(function() {
 
 	//set initial view
 	app.map.setView([app.mapY, app.mapX], app.zoomLevel);
+
+	//set app version
+	$('#aboutModalTitle').append(' <small>v' + app.version + '</small>');
 	
 	/*  START EVENT HANDLERS */
 	$('#mobile-main-menu').click(function() {
