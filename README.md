@@ -28,6 +28,7 @@ This 'tricks' node into thinking your generator-wim is a globally installed node
 
 ```bash
 cd generator-wim
+npm install
 npm link
 ```
 
