@@ -36,8 +36,8 @@ npm link
 Create a new folder for the generated app and run the generator
 
 ```bash
-md generator-wim-dev
-cd generator-wim-dev
+md new-app
+cd new-app
 yo wim
 ```
 
