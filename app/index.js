@@ -16,6 +16,8 @@ var WiMGenerator = class extends yeoman {
 
     this.argument('appName', { type: String, required: false });
     this.argument('mappingAPI', { type: String, required: false });
+    this.argument('mappingFlavor', { type: String, required: false });
+    this.argument('buildSystem', { type: String, required: false });
   }
 
   initializing() {
@@ -57,7 +59,7 @@ var WiMGenerator = class extends yeoman {
     this.log(yosay(chalk.magenta('You\'re using the fantastic WiM generator v2.')));
 
     //check for command line arguments
-    if ((!this.options.appName) && (!this.options.mappingAPI)) {
+    if ((!this.options.appName) && (!this.options.mappingAPI) && (!this.options.mappingFlavor) && (!this.options.buildSystem)) {
       return this.prompt([{
         type    : 'input',
         name: 'appName',
@@ -88,21 +90,28 @@ var WiMGenerator = class extends yeoman {
         choices: [
           'gulp',
           'webpack'
-        ]
+        ],
+        //only ask this question if the mappingAPI is leaflet right now
+        when: function(answers) {
+          return answers.mappingAPI === 'leaflet';
+        }
       }]).then((answers) => {
         this.appName = answers.appName;
         this.mappingAPI = answers.mappingAPI;
         this.mappingFlavor = answers.mappingFlavor;
-        this.buildSystem = answers.buildSystem;
+        //assume gulp unless we got an answer to the buildSystem question
+        (answers.buildSystem) ? this.buildSystem = answers.buildSystem : this.buildSystem = 'gulp';
       });
     }
     else {
       this.appName = this.options.appName;
       this.mappingAPI = this.options.mappingAPI;
-      this.mappingFlavor = this.options.mappingFlavor
+      this.mappingFlavor = this.options.mappingFlavor;
+      this.buildSystem = this.options.buildSystem;
       this.log(chalk.blue('You chose the application name:'), chalk.red(this.appName));
       this.log(chalk.blue('You chose the mapping API:'), chalk.red(this.mappingAPI));
       this.log(chalk.blue('You chose the mapping flavor:'), chalk.red(this.mappingFlavor));
+      this.log(chalk.blue('You chose the build system:'), chalk.red(this.buildSystem));
     }
   }
 
