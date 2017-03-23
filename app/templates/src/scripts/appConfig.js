@@ -1,20 +1,11 @@
-/**
- * Created by bdraper on 4/27/2015.
- */
-var allLayers;
 
-require([
-    "esri/geometry/Extent",
-    "esri/layers/WMSLayerInfo",
-    "esri/layers/FeatureLayer",
-    'dojo/domReady!'
-], function(
-    Extent,
-    WMSLayerInfo,
-    FeatureLayer
-) {
+var app = {};
+app.version = '0.0.0';
+app.mapX = '-97.0';
+app.mapY = '40.0';
+app.zoomLevel = 4;
 
-    allLayers = [
+app.allLayers = [
         {
             "groupHeading": "WMS layers",
             "showGroupHeading": true,
@@ -30,59 +21,65 @@ require([
                         "visible": true,
                         //"extent": "-126.40869140625, 31.025390625, -109.66552734375, 41.5283203125",
                         //"wkid": 4326,
-                        "resourceInfo":  {
-                            "extent": new Extent(-126.40869140625, 31.025390625, -109.66552734375, 41.5283203125, {
-                                "wkid": 4326
-                            }),
-                            "layerInfos": [new WMSLayerInfo({
-                                "name": "1",
-                                "title": "Rivers"
-                            }), new WMSLayerInfo({
-                                "name": "2",
-                                "title": "Cities"
-                            })]
-                        },
+                        "resourceInfo": {},
                         "visibleLayers": ["1", "2"]
                     },
                     "wimOptions": {
                         "type": "layer",
                         "layerType": "agisWMS",
                         "includeInLayerList": true,
-                        "includeLegend" : true
-                    }
-                },
-                "NOAA Flood Warnings": {
-                    "url" : "http://nowcoast.noaa.gov/wms/com.esri.wms.Esrimap/wwa",
-                    "options":{
-                        "id": "noaaFloodWarn",
-                        "transparent":true,
-                        "opacity": 0.6,
-                        "visible": true,
-                        "resourceInfo":  {
-                            "extent": new Extent( -126.40869140625, 31.025390625, -109.66552734375, 41.5283203125, {
-                                "wkid": 4326
-                            }),
-                            "layerInfos": [new WMSLayerInfo({
-                                "name": 'floodWarnLyr',
-                                "title": 'Flood Warnings',
-                                "transparent": false
-                            })]
-                        },
-                        "visibleLayers": ['WARN_SHORT_FLW']
-                    },
-                    "wimOptions": {
-                        "type": "layer",
-                        "layerType": "agisWMS",
-                        "includeInLayerList": true,
                         "includeLegend": true,
-                        "staticLegendOptions": {
-                            "hasStaticLegend": true,
-                            "legendTitle": "NOAA Flood Warnings (not the right legend, by the way)",
-                            "legendUrl": "http://nowcoast.noaa.gov/LayerInfo?layer=NHC_TRACK_POLY&data=legend"
-                        }
+                        "extent": {
+                            "xmin": -126.40869140625,
+                            "ymin": 31.025390625,
+                            "xmax": -099.66552734375,
+                            "ymax": 41.5283203125,
+                            "wkid": 4326
+                        }, "layerInfos": [{
+                            "name": "1",
+                            "title": "Rivers"
+                        }, {
+                            "name": "2",
+                            "title": "Cities"
+                        }]
                     }
                 }
+            },
+            "NOAA Flood Warnings": {
+                "url" : "http://nowcoast.noaa.gov/wms/com.esri.wms.Esrimap/wwa",
+                "options":{
+                    "id": "noaaFloodWarn",
+                    "transparent":true,
+                    "opacity": 0.6,
+                    "visible": true,
+                    "resourceInfo":  {},
+                    "visibleLayers": ['WARN_SHORT_FLW']
+                },
+                "wimOptions": {
+                    "type": "layer",
+                    "layerType": "agisWMS",
+                    "includeInLayerList": true,
+                    "includeLegend": true,
+                    "staticLegendOptions": {
+                        "hasStaticLegend": true,
+                        "legendTitle": "NOAA Flood Warnings (not the right legend, by the way)",
+                        "legendUrl": "http://nowcoast.noaa.gov/LayerInfo?layer=NHC_TRACK_POLY&data=legend"
+                    },
+                    "extent": {
+                        "xmin": -126.40869140625,
+                        "ymin": 31.025390625,
+                        "xmax": -099.66552734375,
+                        "ymax": 41.5283203125,
+                        "wkid": 4326
+                    },
+                    "layerInfos": [{
+                        "name": 'floodWarnLyr',
+                        "title": 'Flood Warnings',
+                        "transparent": false
+                    }]
+                }
             }
+
         },
         {
             "groupHeading": "feature layers",
@@ -170,7 +167,7 @@ require([
                     }
                 },
                 "NAWQA networks" : {
-                    "url": "http://50.17.205.92/arcgis/rest/services/NAWQA/tablesTest/MapServer",
+                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/NAWQA/tablesTest/MapServer",
                     "options": {
                         "id": "nawqaNetworks",
                         "layers": [1],
@@ -189,10 +186,3 @@ require([
             }
         }
     ]
-
-});
-
-
-
-
-

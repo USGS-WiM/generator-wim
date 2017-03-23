@@ -29,7 +29,6 @@
     "yosay": "^2.0.0"
   },
   "devDependencies": {
-    "mocha": "*",
     "underscore.string": "^3.3.4"
   },
   "readmeFilename": "README.md",

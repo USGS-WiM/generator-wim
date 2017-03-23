@@ -28,6 +28,7 @@ This 'tricks' node into thinking your generator-wim is a globally installed node
 
 ```bash
 cd generator-wim
+npm install
 npm link
 ```
 
@@ -35,8 +36,8 @@ npm link
 Create a new folder for the generated app and run the generator
 
 ```bash
-md generator-wim-dev
-cd generator-wim-dev
+md new-app
+cd new-app
 yo wim
 ```
 
