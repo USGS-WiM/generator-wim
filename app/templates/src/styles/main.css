@@ -274,6 +274,22 @@ body {
   height: 100%;
 }
 
+.footer-links {
+  display: block;
+  box-sizing: border-box;
+  padding: 0px 5px 0px 5px;
+  line-height: 1.5em;
+  opacity: .75;
+  text-align: center;
+}
+
+.footer-links a {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0px 4px 0px 4px;
+  font-size: 10pt;
+}
+
 /************* END MAIN MENU **************/
 
 /************** All other stuff *********/
