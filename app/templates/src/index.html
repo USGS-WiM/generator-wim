@@ -67,6 +67,13 @@
         <button id="aboutButton" class="btn btn-default top-menu-btn pull-right">
             <i class="glyphicon glyphicon-info-sign"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
         </button>
+
+        <% if( mappingFlavor == "full") {%>
+        <button id="userGuideButton" class="btn btn-default top-menu-btn pull-right">
+            <i class="glyphicon glyphicon-book"></i><span class="hidden-xs">&nbsp;&nbsp;User Guide</span>
+        </button>
+        <%}%>
+        
     </div>
 
     <div id="main-menu">
@@ -168,6 +175,95 @@
             </div><!-- /.modal-content -->
         </div> <!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+<% if( mappingFlavor == "full") {%>
+<!-- User Guide Modal -->
+    <div id="userGuideModal" class="modal fade"  tabindex="-1" role="dialog" >
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h4 class="modal-title">Map Interface User Guide</h4>
+            </div>
+            <div id="aboutModalBody" class="modal-body">
+                <ul class="nav nav-tabs" id="aboutModalTabs">
+                    <li role="presentation" class="active"><a id="searchTab" href="#searchTabPane" data-toggle="tab"><i class="glyphicon glyphicon-search"></i>&nbsp;Search, Zoom, Print</a></li>
+                    <li role="presentation"><a id="explanationTab" href="#explanationTabPane" data-toggle="tab"><i class="glyphicon glyphicon-list"></i>&nbsp;Explanation</a></li>
+                    <li role="presentation"><a id="mapSelectionTab" href="#mapSelectionTabPane" data-toggle="tab"><i class="glyphicon glyphicon-wrench"></i>&nbsp;Map selection options</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="searchTabPane">
+                        <span class="user-guide-header">Search, zoom, and print capabilities</span>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Searching</b>The search option allows the user to search for a location such as a city, state, zip code, or general place name.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Navigating the map</b>The scroll wheel on the mouse can be used to zoom, and in the upper left area of the tool are "+" and "&#45;" icons to zoom in and out, respectively.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Home Location</b>The crosshair button will zoom the map to your location, and the home button will center the US on the map.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Opening a site</b>Clicking on an arrow or circle at a site will bring up a window with details about the site, graphs of the original data and model predictions (for some constituents), and a table of the other trend results at the same site.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Moving site window</b>Reposition the site info pop-up window with the mouse see the rest of the underlying map if necessary.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>More site details</b>Additional details about the graphs are available in the FAQs. Additional details about the column headers in the table are available by hovering on the help button for each column header.</p>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="explanationTabPane">
+                        <span class="user-guide-header">Explanation</span>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Explanation display</b>The Explanation box can be collapsed to display more of the mapped area.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Using the Explanation</b>The expanded Explanation box explains the arrows and circles that appear for each site, displaying the results from the statistical analysis of trends.</p>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="mapSelectionTabPane">
+                        <span class="user-guide-header">Map selection options</span>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Changing the basemap style</b>The "Basemaps" sidebar allows a user to show various geographic information or landscape imagery as a background layer beneath the trend results.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Changing or adding map layers</b>The "Map Layers" sidebar allows a user to show land use for 1974, 1982, 1992, 2002, or 2012 as a background layer beneath the trend results.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Selecting a constituent</b>The Constituent group selection allows a user to choose a constituent group and then choose a specific constituent from within that group. See About -&gt; Learn More for a list of constituents.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Selecting a trend type</b>Based on the constituent selection, a user can choose from among the available trend types. Concentration is the amount of the constituent in the stream. Load is the mass of the constituent transported past the sampling point in a stream during a period of time. A metric is an index calculated to represent a specific characteristic of aquatic communities. Changes over time in water-quality concentration and load and changes in aquatic ecology-metrics can be strongly influenced by random and systematic variations in streamflow. Flow normalization removes the variation in concentration, load, or metric that is due to variations in streamflow. As a result, concentration and load trends are flow normalized and aquatic ecology metric trends are flow normalized. See FAQ #17 for more information. Note not all trend types are available for every constituent.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Selecting a trend period</b>Based on the constituent selection, a user can choose from among the available trend periods. Once the constituent, trend type, and trend period have been selected, the map will automatically update. Note not all trend periods are available for every constituent.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form id="closeModalButton" id="disclaimer-form" class="form-inline" style="text-align:center;">
+                <button id="enterMapper" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </form>
+
+        </div><!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div><!-- User Guide modal -->
+<%}%>
 
     <div id="mapDiv">
 
