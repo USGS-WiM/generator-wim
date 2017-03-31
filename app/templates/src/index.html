@@ -162,12 +162,24 @@
                 </div>
                 <div id="aboutModalBody" class="modal-body">
                     <ul class="nav nav-tabs" id="aboutModalTabs">
-                        <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the application</a></li>
-                    </ul>
+                    <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;About</a></li>
+                    <li role="presentation"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab" onclick="ga('send','event','About Modal','click','Learn More');"><i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;Disclaimer</a></li>
+                    <li role="presentation"><a id="contactTab" href="#contactTabPane" data-toggle="tab" onclick="ga('send','event','About Modal','click','Partner Organizations');"><i class="glyphicon glyphicon-envelope"></i>&nbsp;Contact Us</a></li>
+                </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
                             <p>Developed by <a href="http://wim.usgs.gov" target="_blank">Web Informatics and Mapping (WiM)</a></p>
                             <span id="appVersion"></span>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="disclaimerTabPane">
+                            <h3>Disclaimer</h3>
+                                <p>The use of trade, product, industry or firm names or products is for informative purposes only and does not constitute an endorsement by the U.S. Government...</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="contactTabPane">
+                            <h3>Contact Us</h3>
+                                <p>Add contact information for cooperator agency.</p>
+                                <p><i class="glyphicon glyphicon-envelope"></i> email:</p>
+                                <p><i class="glyphicon glyphicon-earphone"></i> phone:</p>
                         </div>
                     </div>
                 </div>
