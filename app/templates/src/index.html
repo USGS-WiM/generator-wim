@@ -10,6 +10,9 @@
 
     <script src="scripts/appConfig.js"></script>
 
+    <link rel="stylesheet" href="https://txpub.usgs.gov/DSS/search_api/2.1/api/search_api.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
     <% if (buildSystem == "webpack") {%>
     <script src="./scripts/vendor.bundle.min.js"></script>
     <script src="./scripts/bundle.min.js"></script> 
@@ -19,6 +22,10 @@
     <link rel="stylesheet" href="http://js.arcgis.com/3.20/esri/css/esri.css">
     <script src="http://js.arcgis.com/3.20/"></script>
     <%}%>
+
+    <!-- USGS Search -->
+    <script type="text/javascript" src="https://txpub.usgs.gov/DSS/search_api/2.1/api/search_api.min.js"></script>
+
 
     <% if (buildSystem == "gulp") {%>
         <!-- build:css styles/vendor.css -->
@@ -64,6 +71,10 @@
         <div id="mobile-main-menu">
             <span class="glyphicon glyphicon-menu-hamburger" ></span>
         </div>
+
+        <button id="geosearchButton" type="button" class="btn btn-default top-menu-btn pull-right">
+            <i class="glyphicon glyphicon-search"></i><span class="hidden-xs">&nbsp;&nbsp;Find Location</span>
+        </button>
 
         <button id="aboutButton" class="btn btn-default top-menu-btn pull-right">
             <i class="glyphicon glyphicon-info-sign"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
@@ -167,7 +178,7 @@
                         <li role="presentation"><a id="contactTab" href="#contactTabPane" data-toggle="tab" onclick="ga('send','event','About Modal','click','Partner Organizations');"><i class="glyphicon glyphicon-envelope"></i>&nbsp;Contact Us</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>\
+                        <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
                             <p>Add some information about this app.</p>
                             <p>Developed by <a href="http://wim.usgs.gov" target="_blank">Web Informatics and Mapping (WiM)</a></p>
                             <span id="appVersion"></span>
@@ -189,6 +200,29 @@
             </div><!-- /.modal-content -->
         </div> <!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+    <div class="modal fade overflow-y-hidden" id="geosearchModal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                        <h4 class="modal-title">Find Location</h4>
+                </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div id="geosearch" align="center"></div>
+                            <br>
+                            <div align="center">
+                                <p>Search provided by <a href="https://txpub.usgs.gov/dss/search_api/2.0/" target="_blank">USGS Search Javascript API</a></p>
+                            </div>
+                        </div>
+                            <form id="geosearch-form" class="form-inline">
+                                <button id="btnDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
+                            </form>
+                    </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 
 <% if( mappingFlavor == "full") {%>
 <!-- User Guide Modal -->
