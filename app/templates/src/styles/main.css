@@ -509,6 +509,14 @@ pre {
 
 #closeModalButton{
   box-sizing: border-box; 
-  padding: 0 25px 35px;
-   
+  padding: 0 25px 35px;  
+}
+
+/* Hiding 'Powered by ESRI' logo */
+.map .logo-med {
+  display: none;
+}
+
+.esri-leaflet-logo leaflet-control {
+    display: none;
 }

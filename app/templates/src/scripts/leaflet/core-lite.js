@@ -16,6 +16,32 @@ $( document ).ready(function() {
 
 	//set app version
 	$('#aboutModalTitle').append(' <small>v' + app.version + '</small>');
+
+	// USGS Search
+	search_api.create( "geosearch", {
+			on_result: function(o) {
+				// what to do when a location is found
+				// o.result is geojson point feature of location with properties
+				app.map
+					.fitBounds([ // zoom to location
+						[ o.result.properties.LatMin, o.result.properties.LonMin ],
+						[ o.result.properties.LatMax, o.result.properties.LonMax ]
+					])
+					$("#geosearchModal").modal('hide');
+		},
+		
+			"include_usgs_sw": true,
+			"include_usgs_gw": true,
+			"include_usgs_sp": true,
+			"include_usgs_at": true,
+			"include_usgs_ot": true,
+			"include_huc2": true,
+			"include_huc4": true,
+			"include_huc6": true,
+			"include_huc8": true,
+			"include_huc10": true,
+			"include_huc12": true,
+		});
 	
 	/*  START EVENT HANDLERS */
 	$('#mobile-main-menu').click(function() {
@@ -29,6 +55,12 @@ $( document ).ready(function() {
 		setBasemap(baseMap);
 	});
 
+	// geosearch modal
+    $('#geosearchButton').click(function() {
+		$('#geosearchModal').modal('show');
+	});
+
+	// about modal
 	$('#aboutButton').click(function() {
 		$('#aboutModal').modal('show');
 	});	
