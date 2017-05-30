@@ -61,6 +61,20 @@
         <!-- endbuild -->
     <%}%>
 
+    <!-- Start Google Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        /* After creating a property for your account on analytics.google.com, enter the tracking ID where it's stated below*/
+        ga('create', 'UA-ENTERCODE-HERE>', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    <!-- End Google Analytics -->
+
   </head>
   <body>
     <div id="top-menu">
@@ -72,11 +86,11 @@
             <span class="glyphicon glyphicon-menu-hamburger" ></span>
         </div>
 
-        <button id="geosearchButton" type="button" class="btn btn-default top-menu-btn pull-right">
+        <button id="geosearchButton" type="button" class="btn btn-default top-menu-btn pull-right" onclick="ga('send','event','navbar','click','Find Location Modal Opened');">
             <i class="glyphicon glyphicon-search"></i><span class="hidden-xs">&nbsp;&nbsp;Find Location</span>
         </button>
 
-        <button id="aboutButton" class="btn btn-default top-menu-btn pull-right">
+        <button id="aboutButton" class="btn btn-default top-menu-btn pull-right" onclick="ga('send','event','navbar','click','About');">
             <i class="glyphicon glyphicon-info-sign"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
         </button>
 
@@ -173,9 +187,9 @@
                 </div>
                 <div id="aboutModalBody" class="modal-body">
                     <ul class="nav nav-tabs" id="aboutModalTabs">
-                        <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;About</a></li>
-                        <li role="presentation"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab" onclick="ga('send','event','About Modal','click','Learn More');"><i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;Disclaimer</a></li>
-                        <li role="presentation"><a id="contactTab" href="#contactTabPane" data-toggle="tab" onclick="ga('send','event','About Modal','click','Partner Organizations');"><i class="glyphicon glyphicon-envelope"></i>&nbsp;Contact Us</a></li>
+                        <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab" onclick="ga('send','event','About Modal','click','About');"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;About</a></li>
+                        <li role="presentation"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab" onclick="ga('send','event','About Modal','click','Disclaimer');"><i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;Disclaimer</a></li>
+                        <li role="presentation"><a id="contactTab" href="#contactTabPane" data-toggle="tab" onclick="ga('send','event','About Modal','click','Contact');"><i class="glyphicon glyphicon-envelope"></i>&nbsp;Contact Us</a></li>
                     </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
@@ -231,7 +245,7 @@
 
 <% if( mappingFlavor == "full") {%>
 <!-- User Guide Modal -->
-    <div id="userGuideModal" class="modal fade"  tabindex="-1" role="dialog" >
+    <div id="userGuideModal" class="modal fade"  tabindex="-1" role="dialog" onclick="ga('send','event','navbar','click','User Guide');">
     <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
