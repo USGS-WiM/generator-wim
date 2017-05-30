@@ -42,6 +42,72 @@ $( document ).ready(function() {
 			"include_huc10": true,
 			"include_huc12": true,
 		});
+
+	// START LAT/LONG INDICATOR
+	
+	//displays map scale on map load
+	app.map.on('load', function() {
+		var mapScale =  scaleLookup(app.map.getZoom());
+		$('#scale')[0].innerHTML = mapScale;
+		console.log('Initial Map scale registered as ' + mapScale, map.getZoom());
+
+		var initMapCenter = app.map.getCenter();
+		$('#latitude').html(initMapCenter.lat.toFixed(4));
+		$('#longitude').html(initMapCenter.lng.toFixed(4));
+	});
+
+	//displays map scale on scale change (i.e. zoom level)
+	app.map.on( 'zoomend', function () {
+		var mapZoom = app.map.getZoom();
+		var mapScale = scaleLookup(mapZoom);
+		$('#scale')[0].innerHTML = mapScale;
+		$('#zoomLevel')[0].innerHTML = mapZoom;
+	});
+
+	//updates lat/lng indicator on mouse move. does not apply on devices w/out mouse. removes 'map center' label
+	app.map.on( 'mousemove', function (cursorPosition) {
+		$('#mapCenterLabel').css('display', 'none');
+		if (cursorPosition.latlng !== null) {
+			$('#latitude').html(cursorPosition.latlng.lat.toFixed(4));
+			$('#longitude').html(cursorPosition.latlng.lng.toFixed(4));
+		}
+	});
+	
+	//updates lat/lng indicator to map center after pan and shows 'map center' label.
+	app.map.on( 'dragend', function () {
+		//displays latitude and longitude of map center
+		$('#mapCenterLabel').css('display', 'inline');
+		var geographicMapCenter = app.map.getCenter();
+		$('#latitude').html(geographicMapCenter.lat.toFixed(4));
+		$('#longitude').html(geographicMapCenter.lng.toFixed(4));
+	});
+
+		function scaleLookup(mapZoom) {
+			switch (mapZoom) {
+				case 19: return '1,128';
+				case 18: return '2,256';
+				case 17: return '4,513';
+				case 16: return '9,027';
+				case 15: return '18,055';
+				case 14: return '36,111';
+				case 13: return '72,223';
+				case 12: return '144,447';
+				case 11: return '288,895';
+				case 10: return '577,790';
+				case 9: return '1,155,581';
+				case 8: return '2,311,162';
+				case 7: return '4,622,324';
+				case 6: return '9,244,649';
+				case 5: return '18,489,298';
+				case 4: return '36,978,596';
+				case 3: return '73,957,193';
+				case 2: return '147,914,387';
+				case 1: return '295,828,775';
+				case 0: return '591,657,550';
+			}
+		}
+
+	// END LAT/LONG INDICATOR
 	
 	/*  START EVENT HANDLERS */
 	$('#mobile-main-menu').click(function() {

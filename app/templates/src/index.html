@@ -353,5 +353,16 @@
     </div>
     <%}%>
 
+    <% if( mappingAPI == "leaflet") {%>
+    <div id="latLngScale" class="latLngScale">
+            <span class="hover-content"> <b>Map scale </b></span>
+            1:<span id="scale"></span> | <span class="hover-content"> <b>Zoom level </b></span> <span id="zoomLevel"></span><br>
+            <span class="hover-content"><b>Latitude</b></span>
+            <span id="latitude">y</span> |
+            <span class="hover-content"> <b>Longitude</b></span>
+            <span id="longitude">x</span>
+            <span id="mapCenterLabel"  class="hover-content"> (center)</span>
+    </div>
+    <%}%>
   </body>
 </html>
