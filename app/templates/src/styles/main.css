@@ -517,6 +517,18 @@ pre {
   display: none;
 }
 
+
+
 .esri-leaflet-logo leaflet-control {
     display: none;
+}
+
+/* Styling Home Button */
+.leaflet-control-defaultextent-toggle {
+  text-indent: -9999px;
+  white-space: nowrap;
+  background-image: url('../images/home.png');
+  width: 26px;
+  height: 26px;
+  display: block;
 }
