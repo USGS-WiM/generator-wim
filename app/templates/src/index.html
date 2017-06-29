@@ -3,11 +3,15 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="author" content="USGS WiM">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="copyright" href="license.txt">
     <link rel="shortcut icon" id="favicon" type="image/ico" href="images/favicon-dark.png" />
     <title><%= appName %></title>
 
     <script src="scripts/appConfig.js"></script>
+
+    <link rel="stylesheet" href="https://txpub.usgs.gov/DSS/search_api/2.1/api/search_api.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <% if (buildSystem == "webpack") {%>
     <script src="./scripts/vendor.bundle.min.js"></script>
@@ -15,9 +19,13 @@
     <%}%>
 
     <% if (mappingAPI == "esri") {%>
-    <link rel="stylesheet" href="http://js.arcgis.com/3.20/esri/css/esri.css">
-    <script src="http://js.arcgis.com/3.20/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+    <script src="https://js.arcgis.com/3.20/"></script>
     <%}%>
+
+    <!-- USGS Search -->
+    <script type="text/javascript" src="https://txpub.usgs.gov/DSS/search_api/2.1/api/search_api.min.js"></script>
+
 
     <% if (buildSystem == "gulp") {%>
         <!-- build:css styles/vendor.css -->
@@ -53,20 +61,45 @@
         <!-- endbuild -->
     <%}%>
 
+    <!-- Start Google Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        /* After creating a property for your account on analytics.google.com, enter the tracking ID where it's stated below*/
+        ga('create', 'UA-ENTERCODE-HERE>', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    <!-- End Google Analytics -->
+
   </head>
   <body>
     <div id="top-menu">
         <div class="title">
-            <a class='top-menu-brand' href="http://www.usgs.gov"><img src="images/usgs-logo.png"></a>
+            <a class='top-menu-brand' href="https://www.usgs.gov"><img id="logo" src="images/usgs_logo.png"></a>
             <span class="app-name"><%= appName %></span> <span class="app-name-mobile"><%= appName %></span> 
         </div>
         <div id="mobile-main-menu">
             <span class="glyphicon glyphicon-menu-hamburger" ></span>
         </div>
 
-        <button id="aboutButton" class="btn btn-default top-menu-btn pull-right">
+        <button id="geosearchButton" type="button" class="btn btn-default top-menu-btn pull-right" onclick="ga('send','event','navbar','click','Find Location Modal Opened');">
+            <i class="glyphicon glyphicon-search"></i><span class="hidden-xs">&nbsp;&nbsp;Find Location</span>
+        </button>
+
+        <button id="aboutButton" class="btn btn-default top-menu-btn pull-right" onclick="ga('send','event','navbar','click','About');">
             <i class="glyphicon glyphicon-info-sign"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
         </button>
+
+        <% if( mappingFlavor == "full") {%>
+        <button id="userGuideButton" class="btn btn-default top-menu-btn pull-right">
+            <i class="glyphicon glyphicon-book"></i><span class="hidden-xs">&nbsp;&nbsp;User Guide</span>
+        </button>
+        <%}%>
+
     </div>
 
     <div id="main-menu">
@@ -78,7 +111,7 @@
                         <div class="panel panel-default sidebar-panel wim-sidebar-panel">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#panel1">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#panel1">
                                         Panel
                                     </a>
                                 </h4>
@@ -92,7 +125,7 @@
                         <div class="panel panel-default sidebar-panel">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#basemapsPanel">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#basemapsPanel">
                                         Basemaps
                                     </a>
                                 </h4>
@@ -154,12 +187,25 @@
                 </div>
                 <div id="aboutModalBody" class="modal-body">
                     <ul class="nav nav-tabs" id="aboutModalTabs">
-                        <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;About the application</a></li>
+                        <li role="presentation" class="active"><a id="aboutTab" href="#aboutTabPane" data-toggle="tab" onclick="ga('send','event','About Modal','click','About');"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;About</a></li>
+                        <li role="presentation"><a id="disclaimerTab" href="#disclaimerTabPane" data-toggle="tab" onclick="ga('send','event','About Modal','click','Disclaimer');"><i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;Disclaimer</a></li>
+                        <li role="presentation"><a id="contactTab" href="#contactTabPane" data-toggle="tab" onclick="ga('send','event','About Modal','click','Contact');"><i class="glyphicon glyphicon-envelope"></i>&nbsp;Contact Us</a></li>
                     </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
-                            <p>Developed by <a href="http://wim.usgs.gov" target="_blank">Web Informatics and Mapping (WiM)</a></p>
+                            <p>Add some information about this app.</p>
+                            <p>Developed by <a href="https://wim.usgs.gov" target="_blank">Web Informatics and Mapping (WiM)</a></p>
                             <span id="appVersion"></span>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="disclaimerTabPane">
+                            <h3>Disclaimer</h3>
+                                <p>The use of trade, product, industry or firm names or products is for informative purposes only and does not constitute an endorsement by the U.S. Government...</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="contactTabPane">
+                            <h3>Contact Us</h3>
+                                <p>Add contact information for cooperator agency.</p>
+                                <p><i class="glyphicon glyphicon-envelope"></i> email:</p>
+                                <p><i class="glyphicon glyphicon-earphone"></i> phone:</p>
                         </div>
                     </div>
                 </div>
@@ -168,6 +214,123 @@
             </div><!-- /.modal-content -->
         </div> <!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+    <div class="modal fade overflow-y-hidden" id="geosearchModal" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                        <h4 class="modal-title">Find Location</h4>
+                </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div id="geosearch" align="center"></div>
+                            <br>
+                            <div align="center">
+                                <p>Search provided by <a href="https://txpub.usgs.gov/dss/search_api/2.0/" target="_blank">USGS Search Javascript API</a></p>
+                            </div>
+                            <br>
+                            <div>
+                                <h5 style="text-align: center">Supported search strings include: </h5>
+                                    <p style="text-align: center">Address, States, Zip Codes, Area Codes, Lat/Long (i.e. '43.9,-72.1')</p>
+                            </div>
+                        </div>
+                            <form id="geosearch-form" class="form-inline">
+                                <button id="btnDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
+                            </form>
+                    </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+<% if( mappingFlavor == "full") {%>
+<!-- User Guide Modal -->
+    <div id="userGuideModal" class="modal fade"  tabindex="-1" role="dialog" onclick="ga('send','event','navbar','click','User Guide');">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h4 class="modal-title">Map Interface User Guide</h4>
+            </div>
+            <div id="aboutModalBody" class="modal-body">
+                <ul class="nav nav-tabs" id="aboutModalTabs">
+                    <li role="presentation" class="active"><a id="searchTab" href="#searchTabPane" data-toggle="tab"><i class="glyphicon glyphicon-search"></i>&nbsp;Search, Zoom, Print</a></li>
+                    <li role="presentation"><a id="explanationTab" href="#explanationTabPane" data-toggle="tab"><i class="glyphicon glyphicon-list"></i>&nbsp;Explanation</a></li>
+                    <li role="presentation"><a id="mapSelectionTab" href="#mapSelectionTabPane" data-toggle="tab"><i class="glyphicon glyphicon-wrench"></i>&nbsp;Map selection options</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="searchTabPane">
+                        <span class="user-guide-header">Search, zoom, and print capabilities</span>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Searching</b>The search option allows the user to search for a location such as a city, state, zip code, or general place name.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Navigating the map</b>The scroll wheel on the mouse can be used to zoom, and in the upper left area of the tool are "+" and "&#45;" icons to zoom in and out, respectively.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Home Location</b>The crosshair button will zoom the map to your location, and the home button will center the US on the map.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Opening a site</b>Clicking on an arrow or circle at a site will bring up a window with details about the site, graphs of the original data and model predictions (for some constituents), and a table of the other trend results at the same site.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Moving site window</b>Reposition the site info pop-up window with the mouse see the rest of the underlying map if necessary.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>More site details</b>Additional details about the graphs are available in the FAQs. Additional details about the column headers in the table are available by hovering on the help button for each column header.</p>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="explanationTabPane">
+                        <span class="user-guide-header">Explanation</span>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Explanation display</b>The Explanation box can be collapsed to display more of the mapped area.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Using the Explanation</b>The expanded Explanation box explains the arrows and circles that appear for each site, displaying the results from the statistical analysis of trends.</p>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="mapSelectionTabPane">
+                        <span class="user-guide-header">Map selection options</span>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Changing the basemap style</b>The "Basemaps" sidebar allows a user to show various geographic information or landscape imagery as a background layer beneath the trend results.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Changing or adding map layers</b>The "Map Layers" sidebar allows a user to show land use for 1974, 1982, 1992, 2002, or 2012 as a background layer beneath the trend results.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Selecting a constituent</b>The Constituent group selection allows a user to choose a constituent group and then choose a specific constituent from within that group. See About -&gt; Learn More for a list of constituents.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Selecting a trend type</b>Based on the constituent selection, a user can choose from among the available trend types. Concentration is the amount of the constituent in the stream. Load is the mass of the constituent transported past the sampling point in a stream during a period of time. A metric is an index calculated to represent a specific characteristic of aquatic communities. Changes over time in water-quality concentration and load and changes in aquatic ecology-metrics can be strongly influenced by random and systematic variations in streamflow. Flow normalization removes the variation in concentration, load, or metric that is due to variations in streamflow. As a result, concentration and load trends are flow normalized and aquatic ecology metric trends are flow normalized. See FAQ #17 for more information. Note not all trend types are available for every constituent.</p>
+                        </div>
+                        <div class="user-guide-item">
+                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
+                            <p><b>Selecting a trend period</b>Based on the constituent selection, a user can choose from among the available trend periods. Once the constituent, trend type, and trend period have been selected, the map will automatically update. Note not all trend periods are available for every constituent.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form id="closeModalButton" id="disclaimer-form" class="form-inline" style="text-align:center;">
+                <button id="enterMapper" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </form>
+
+        </div><!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div><!-- User Guide modal -->
+<%}%>
 
     <div id="mapDiv">
 
@@ -204,5 +367,16 @@
     </div>
     <%}%>
 
+    <% if( mappingAPI == "leaflet") {%>
+    <div id="latLngScale" class="latLngScale">
+            <span class="hover-content"> <b>Map scale </b></span>
+            1:<span id="scale"></span> | <span class="hover-content"> <b>Zoom level </b></span> <span id="zoomLevel"></span><br>
+            <span class="hover-content"><b>Latitude</b></span>
+            <span id="latitude">y</span> |
+            <span class="hover-content"> <b>Longitude</b></span>
+            <span id="longitude">x</span>
+            <span id="mapCenterLabel"  class="hover-content"> (center)</span>
+    </div>
+    <%}%>
   </body>
 </html>

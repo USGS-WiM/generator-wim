@@ -385,6 +385,12 @@ require([
         }
     }
 
+    // User Guide Modal
+
+    $('#userGuideButton').click(function(){
+        $('#userGuideModal').modal('show');
+    });
+
 
     //get visible and non visible layer lists
     function addMapServerLegend(layerName, layerDetails) {
