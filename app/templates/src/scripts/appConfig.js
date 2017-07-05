@@ -50,7 +50,7 @@ app.allLayers = [
             "includeInLayerList": true,
             "layers": {
                 "FIM Sites": {
-                    "url" : "http://fim.wimcloud.usgs.gov/arcgis/rest/services/FIMMapper/sites/MapServer/0",
+                    "url" : "https://gis.wim.usgs.gov/arcgis/rest/services/FIMMapper/sites/MapServer/0",
                     "options": {
                         "id": "fimSites",
                         "opacity": 0.75,
@@ -73,7 +73,7 @@ app.allLayers = [
             "includeInLayerList": true,
             "layers": {
                 "Cat 1":{
-                    "url" : "http://olga.er.usgs.gov/stpgis/rest/services/Vulnerability/NACCH_change_probabilities/MapServer",
+                    "url" : "https://olga.er.usgs.gov/stpgis/rest/services/Vulnerability/NACCH_change_probabilities/MapServer",
                     "visibleLayers": [5,6,7],
                     "options":{
                         "id": "cat1",
@@ -89,7 +89,7 @@ app.allLayers = [
                     }
                 },
                 "Cat 2": {
-                    "url" : "http://olga.er.usgs.gov/stpgis/rest/services/Vulnerability/NACCH_change_probabilities/MapServer",
+                    "url" : "https://olga.er.usgs.gov/stpgis/rest/services/Vulnerability/NACCH_change_probabilities/MapServer",
                     "visibleLayers": [13,14,15],
                     "options":{
                         "id": "cat2",
@@ -112,7 +112,7 @@ app.allLayers = [
             "includeInLayerList": true,
             "layers": {
                 "Wetlands" : {
-                    "url": "http://107.20.228.18/ArcGIS/rest/services/Wetlands/MapServer",
+                    "url": "https://fwsprimary.wim.usgs.gov/server/rest/services/WetlandsProjects/Recent_and_Current_Projects/MapServer",
                     "options": {
                         "id": "Wetlands",
                         "opacity": 0.75,
