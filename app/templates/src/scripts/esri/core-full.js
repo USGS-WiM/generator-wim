@@ -391,6 +391,12 @@ require([
         $('#userGuideModal').modal('show');
     });
 
+    // FAQ Modal
+
+    $('#faqButton').click(function(){
+        $('#faqModal').modal('show');
+    });
+
 
     //get visible and non visible layer lists
     function addMapServerLegend(layerName, layerDetails) {
@@ -504,5 +510,36 @@ require([
         layerInfos: legendLayers
     }, 'legendDiv');
     legend.startup();
+
+    
+        // FAQ Modal controls.
+    $('#faq1header').click(function(){$('#faq1body').slideToggle(250);});
+    $('#faq2header').click(function(){$('#faq2body').slideToggle(250);});
+    $('#faq3header').click(function(){$('#faq3body').slideToggle(250);});
+    $('#faq4header').click(function(){$('#faq4body').slideToggle(250);});
+    $('#faq5header').click(function(){$('#faq5body').slideToggle(250);});
+    $('#faq6header').click(function(){$('#faq6body').slideToggle(250);});
+    $('#faq7header').click(function(){$('#faq7body').slideToggle(250);});
+    $('#faq8header').click(function(){$('#faq8body').slideToggle(250);});
+    $('#faq9header').click(function(){$('#faq9body').slideToggle(250);});
+    $('#faq10header').click(function(){$('#faq10body').slideToggle(250);});
+    $('#faq11header').click(function(){$('#faq11body').slideToggle(250);});
+    $('#faq12header').click(function(){$('#faq12body').slideToggle(250);});
+    $('#faq13header').click(function(){$('#faq13body').slideToggle(250);});
+    $('#faq14header').click(function(){$('#faq14body').slideToggle(250);});
+    $('#faq15header').click(function(){$('#faq15body').slideToggle(250);});
+    $('#faq16header').click(function(){$('#faq16body').slideToggle(250);});
+    $('#faq17header').click(function(){$('#faq17body').slideToggle(250);});
+    $('#faq18header').click(function(){$('#faq18body').slideToggle(250);});
+    $('#faq19header').click(function(){$('#faq19body').slideToggle(250);});
+    $('#faq20header').click(function(){$('#faq20body').slideToggle(250);});
+    $('#faq21header').click(function(){$('#faq21body').slideToggle(250);});
+    $('#faq22header').click(function(){$('#faq22body').slideToggle(250);});
+    $('#faq23header').click(function(){$('#faq23body').slideToggle(250);});
+    $('#faq24header').click(function(){$('#faq24body').slideToggle(250);});
+    $('#faq25header').click(function(){$('#faq25body').slideToggle(250);});
+    $('#faq26header').click(function(){$('#faq26body').slideToggle(250);});
+    $('#faq27header').click(function(){$('#faq27body').slideToggle(250);});
+    $('#faq28header').click(function(){$('#faq28body').slideToggle(250);});
 
 });//end of require statement containing legend building code

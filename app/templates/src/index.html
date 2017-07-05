@@ -89,14 +89,19 @@
         <button id="geosearchButton" type="button" class="btn btn-default top-menu-btn pull-right" onclick="ga('send','event','navbar','click','Find Location Modal Opened');">
             <i class="glyphicon glyphicon-search"></i><span class="hidden-xs">&nbsp;&nbsp;Find Location</span>
         </button>
+        
+        <% if( mappingFlavor == "full") {%>
+        <button id="faqButton" class="btn btn-default top-menu-btn pull-right">
+            <i class="glyphicon glyphicon-book"></i><span class="hidden-xs">&nbsp;&nbsp;FAQ</span>
+        </button>
+
+        <button id="userGuideButton" class="btn btn-default top-menu-btn pull-right">
+            <i class="glyphicon glyphicon-book"></i><span class="hidden-xs">&nbsp;&nbsp;User Guide</span>
+        </button>
+        
 
         <button id="aboutButton" class="btn btn-default top-menu-btn pull-right" onclick="ga('send','event','navbar','click','About');">
             <i class="glyphicon glyphicon-info-sign"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
-        </button>
-
-        <% if( mappingFlavor == "full") {%>
-        <button id="userGuideButton" class="btn btn-default top-menu-btn pull-right">
-            <i class="glyphicon glyphicon-book"></i><span class="hidden-xs">&nbsp;&nbsp;User Guide</span>
         </button>
         <%}%>
 
@@ -330,6 +335,73 @@
         </div><!-- /.modal-content -->
     </div> <!-- /.modal-dialog -->
 </div><!-- User Guide modal -->
+
+<div id="faqModal" class="modal fade"  tabindex="-1" role="dialog" >
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                <h4 class="modal-title">Frequently Asked Questions</h4>
+            </div>
+            <div class="faq-modal-body">
+                <h4 style="margin-bottom: 15px; font-weight: 600;">Study scope</h4>
+                <div class="faq-header" id="faq1header">1. What is the purpose of this study? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq1body">
+                    Hamburger frankfurter cupim kevin pastrami salami pork chop jerky prosciutto burgdoggen tenderloin jowl sausage. Jowl ham hock short ribs burgdoggen shankle alcatra spare ribs andouille pork loin turkey pork chop capicola tongue.
+                </div>
+
+                <div class="faq-header" id="faq2header">2. Where can I get more information on this study? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq2body">
+                    Jowl ham hock short ribs burgdoggen shankle alcatra spare ribs andouille pork loin turkey pork chop capicola tongue.
+                </div>
+
+                <div class="faq-header" id="faq3header">3. Why evaluate changes in water quality? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq3body">
+                    Shank pork loin pork chop, alcatra beef ribs t-bone jowl. Short ribs burgdoggen drumstick salami t-bone shoulder, turducken pork loin tenderloin bacon doner brisket jerky. Burgdoggen bresaola brisket tail bacon, salami drumstick rump. Landjaeger drumstick filet mignon pastrami prosciutto ham hock bacon kevin capicola t-bone. Drumstick picanha ball tip venison pork boudin salami meatloaf bresaola leberkas ham chicken bacon.
+                </div>
+
+                <div class="faq-header" id="faq4header">4. Who completed this study? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq4body">
+                    Kevin cupim capicola jerky short ribs, shoulder boudin. Pork chop meatball beef ribs, boudin kielbasa burgdoggen fatback short ribs strip steak shoulder turkey cupim swine.
+                </div>
+
+                <div class="faq-header" id="faq5header">5. What data were included in your analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq5body">
+                    Porchetta capicola cupim shoulder, ribeye chicken drumstick salami andouille swine short loin turkey boudin doner. Brisket beef ribs pork loin rump, landjaeger turducken pork kevin meatball sausage picanha pork chop jerky chicken. Burgdoggen ham hock boudin short ribs pastrami alcatra bresaola rump pork belly sausage spare ribs pork chop. 
+                </div>
+
+                <div class="faq-header" id="faq6header">6. What constituents were included in your analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq6body">
+                    Kevin capicola pig rump. Kielbasa swine strip steak drumstick pancetta hamburger tongue doner pastrami meatball picanha. Frankfurter tri-tip sausage brisket jerky, turducken shankle ball tip short loin picanha beef ribs andouille. Sausage pastrami pork prosciutto venison.
+                </div>
+
+                <div class="faq-header" id="faq7header">7. What time periods did you assess in your trend analyses? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq7body">
+                    Ribeye pork shank beef ribs, drumstick prosciutto venison porchetta leberkas picanha kevin landjaeger. Hamburger tri-tip rump ham hock cow picanha pork belly salami chuck doner. Shankle burgdoggen ball tip, doner corned beef alcatra short loin. Drumstick hamburger ball tip, spare ribs sirloin biltong shankle flank short loin ham landjaeger.
+                </div>
+
+                <div class="faq-header" id="faq8header">8. Why do your trends only extend through 2012? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq8body">
+                    Ham hock prosciutto meatball tail turducken leberkas brisket biltong. Kevin capicola pig rump. Kielbasa swine strip steak drumstick pancetta hamburger tongue doner pastrami meatball picanha. Frankfurter tri-tip sausage brisket jerky, turducken shankle ball tip short loin picanha beef ribs andouille. Sausage pastrami pork prosciutto venison.
+                </div>
+
+
+                <h4 style="margin-bottom: 15px; font-weight: 600;">Features of the Mapper</h4>
+
+
+                <div class="faq-header" id="faq9header">9. Where can I find help for navigating this mapper? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq9body">
+                    Hamburger tri-tip rump ham hock cow picanha pork belly salami chuck doner. Shankle burgdoggen ball tip, doner corned beef alcatra short loin. 
+                </div>
+
+                <div class="faq-header" id="faq10header">10. Are the data used in your trend analyses available for download? <i class="fa fa-angle-right"></i></div>
+                <div class="faq-body" id="faq10body">
+                    Bacon ipsum dolor amet landjaeger jerky ground round ribeye t-bone pork loin short ribs capicola burgdoggen picanha flank. Pork pork chop t-bone tri-tip tenderloin brisket pig, turkey filet mignon landjaeger prosciutto alcatra ball tip pork loin cow. 
+                </div>
+        </div><!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- End FAQ Modal-->
 <%}%>
 
     <div id="mapDiv">
