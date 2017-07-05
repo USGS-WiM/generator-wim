@@ -12,7 +12,7 @@ app.allLayers = [
             "includeInLayerList": true,
             "layers": {
                 "ESRI Sample WMS": {
-                    "url" : "http://sampleserver1.arcgisonline.com/ArcGIS/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/WMSServer",
+                    "url" : "https://sampleserver1.arcgisonline.com/ArcGIS/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/WMSServer",
                     "options":{
                         "id": "esriSampleWMS",
                         //"format": "image/png",
@@ -45,43 +45,6 @@ app.allLayers = [
                     }
                 }
             },
-            "NOAA Flood Warnings": {
-                "url" : "http://nowcoast.noaa.gov/wms/com.esri.wms.Esrimap/wwa",
-                "options":{
-                    "id": "noaaFloodWarn",
-                    "transparent":true,
-                    "opacity": 0.6,
-                    "visible": true,
-                    "resourceInfo":  {},
-                    "visibleLayers": ['WARN_SHORT_FLW']
-                },
-                "wimOptions": {
-                    "type": "layer",
-                    "layerType": "agisWMS",
-                    "includeInLayerList": true,
-                    "includeLegend": true,
-                    "staticLegendOptions": {
-                        "hasStaticLegend": true,
-                        "legendTitle": "NOAA Flood Warnings (not the right legend, by the way)",
-                        "legendUrl": "http://nowcoast.noaa.gov/LayerInfo?layer=NHC_TRACK_POLY&data=legend"
-                    },
-                    "extent": {
-                        "xmin": -126.40869140625,
-                        "ymin": 31.025390625,
-                        "xmax": -099.66552734375,
-                        "ymax": 41.5283203125,
-                        "wkid": 4326
-                    },
-                    "layerInfos": [{
-                        "name": 'floodWarnLyr',
-                        "title": 'Flood Warnings',
-                        "transparent": false
-                    }]
-                }
-            }
-
-        },
-        {
             "groupHeading": "feature layers",
             "showGroupHeading": true,
             "includeInLayerList": true,
