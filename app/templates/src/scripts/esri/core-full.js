@@ -413,7 +413,7 @@ require([
         else if (layerDetails.wimOptions.layerType === 'agisWMS') {
 
             //for WMS layers, for now just add layer title
-            var legendItem = $('<div align="left" id="' + camelize(layerName) + '"><img alt="Legend Swatch" src="http://placehold.it/25x41" /><strong>&nbsp;&nbsp;' + layerName + '</strong></br></div>');
+            var legendItem = $('<div align="left" id="' + camelize(layerName) + '"><img alt="Legend Swatch" src="https://placehold.it/25x41" /><strong>&nbsp;&nbsp;' + layerName + '</strong></br></div>');
             $('#legendDiv').append(legendItem);
 
         }
