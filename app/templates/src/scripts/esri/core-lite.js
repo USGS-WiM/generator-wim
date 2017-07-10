@@ -56,6 +56,34 @@ require([
         $('#longitude').html(geographicMapCenter.x.toFixed(3));
     });
 
+    // Modals
+    $(document).ready(function(){
+        function showModal() {
+            $('#geosearchModal').modal('show');
+        }
+
+        $('#geosearchButton').click(function(){
+            showModal();
+        });
+
+        //about modal toggle
+        $('#aboutButton').click(function() {
+            $('#aboutModal').modal('show');
+        });
+
+        $('#geosearchButton').click(function(){
+            showModal();
+        });
+    });
+
+    // All code for handling IE warning popup
+    if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
+        $("#IEwarningModal").modal('show');
+    } else {
+        return false;
+    }
+    // End IE warning code
+
     // USGS Search
     search_api.create( "geosearch", {
         on_result: function(o) {
@@ -141,24 +169,4 @@ require([
     $('#mobile-main-menu').click(function() {
 		$('body').toggleClass('isOpenMenu');
 	});
-
-    // Modals
-    $(document).ready(function(){
-        function showModal() {
-            $('#geosearchModal').modal('show');
-        }
-
-        $('#geosearchButton').click(function(){
-            showModal();
-        });
-
-        //about modal toggle
-        $('#aboutButton').click(function() {
-            $('#aboutModal').modal('show');
-        });
-
-        $('#geosearchButton').click(function(){
-            showModal();
-        });
-    });
 });

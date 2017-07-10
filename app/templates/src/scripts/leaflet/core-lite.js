@@ -22,6 +22,14 @@ $( document ).ready(function() {
 	//set app version
 	$('#aboutModalTitle').append(' <small>v' + app.version + '</small>');
 
+	// All code for handling IE warning popup
+    if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
+        $("#IEwarningModal").modal('show');
+    } else {
+        return false;
+    }
+    // End IE warning code
+
 	// USGS Search
 	search_api.create( "geosearch", {
 			on_result: function(o) {
