@@ -20,41 +20,41 @@ require([
         zoom: app.zoomLevel
     });
 
-    //set app version
-	$('#aboutModalTitle').append(' <small>v' + app.version + '</small>');
-
-    //displays map scale on map load
-    app.map.on("load", function() {
-        var scale =  app.map.getScale().toFixed(0);
-        $('#scale')[0].innerHTML = addCommas(scale);
-        var initMapCenter = webMercatorUtils.webMercatorToGeographic(app.map.extent.getCenter());
-        $('#latitude').html(initMapCenter.y.toFixed(3));
-        $('#longitude').html(initMapCenter.x.toFixed(3));
+    //basemap toggles
+    $('#btnStreets').click(function() {
+        app.map.setBasemap('streets');
+    });
+    $('#btnSatellite').click(function() {
+        app.map.setBasemap('satellite');
+    });
+    $('#btnTopo').click(function() {
+        app.map.setBasemap('topo');
+    });
+    $('#btnTerrain').click(function() {
+        app.map.setBasemap('terrain');
+    });
+    $('#btnGray').click(function() {
+        app.map.setBasemap('gray');
+    });
+    $('#btnNatGeo').click(function() {
+        app.map.setBasemap('national-geographic');
     });
 
-    //displays map scale on scale change (i.e. zoom level)
-    app.map.on('zoom-end', function () {
-        var scale =  app.map.getScale().toFixed(0);
-        $('#scale')[0].innerHTML = addCommas(scale);
-    });
+    //button for returning to initial extent
+    var home = new HomeButton({
+        map: app.map
+    }, 'homeButton');
+    home.startup();
+    //button for finding and zooming to user's location
+    var locate = new LocateButton({
+        map: app.map
+    }, 'locateButton');
+    locate.startup();
 
-    //updates lat/lng indicator on mouse move. does not apply on devices w/out mouse. removes 'map center' label
-    app.map.on('mouse-move', function (cursorPosition) {
-        $('#mapCenterLabel').css('display', 'none');
-        if (cursorPosition.mapPoint != null) {
-            var geographicMapPt = webMercatorUtils.webMercatorToGeographic(cursorPosition.mapPoint);
-            $('#latitude').html(geographicMapPt.y.toFixed(3));
-            $('#longitude').html(geographicMapPt.x.toFixed(3));
-        }
-    });
-    //updates lat/lng indicator to map center after pan and shows 'map center' label.
-    app.map.on('pan-end', function () {
-        //displays latitude and longitude of map center
-        $('#mapCenterLabel').css('display', 'inline');
-        var geographicMapCenter = webMercatorUtils.webMercatorToGeographic(app.map.extent.getCenter());
-        $('#latitude').html(geographicMapCenter.y.toFixed(3));
-        $('#longitude').html(geographicMapCenter.x.toFixed(3));
-    });
+    //mobile menu toggle
+    $('#mobile-main-menu').click(function() {
+		$('body').toggleClass('isOpenMenu');
+	});
 
     // Modals
     $(document).ready(function(){
@@ -75,14 +75,6 @@ require([
             showModal();
         });
     });
-
-    // All code for handling IE warning popup
-    if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
-        $("#IEwarningModal").modal('show');
-    } else {
-        return false;
-    }
-    // End IE warning code
 
     // USGS Search
     search_api.create( "geosearch", {
@@ -134,39 +126,48 @@ require([
         }
     });
 
-    //button for returning to initial extent
-    var home = new HomeButton({
-        map: app.map
-    }, 'homeButton');
-    home.startup();
-    //button for finding and zooming to user's location
-    var locate = new LocateButton({
-        map: app.map
-    }, 'locateButton');
-    locate.startup();
+    //set app version
+	$('#aboutModalTitle').append(' <small>v' + app.version + '</small>');
 
-    //basemap toggles
-    $('#btnStreets').click(function() {
-        app.map.setBasemap('streets');
-    });
-    $('#btnSatellite').click(function() {
-        app.map.setBasemap('satellite');
-    });
-    $('#btnTopo').click(function() {
-        app.map.setBasemap('topo');
-    });
-    $('#btnTerrain').click(function() {
-        app.map.setBasemap('terrain');
-    });
-    $('#btnGray').click(function() {
-        app.map.setBasemap('gray');
-    });
-    $('#btnNatGeo').click(function() {
-        app.map.setBasemap('national-geographic');
+    //displays map scale on map load
+    app.map.on("load", function() {
+        var scale =  app.map.getScale().toFixed(0);
+        $('#scale')[0].innerHTML = addCommas(scale);
+        var initMapCenter = webMercatorUtils.webMercatorToGeographic(app.map.extent.getCenter());
+        $('#latitude').html(initMapCenter.y.toFixed(3));
+        $('#longitude').html(initMapCenter.x.toFixed(3));
     });
 
-    //mobile menu toggle
-    $('#mobile-main-menu').click(function() {
-		$('body').toggleClass('isOpenMenu');
-	});
+    //displays map scale on scale change (i.e. zoom level)
+    app.map.on('zoom-end', function () {
+        var scale =  app.map.getScale().toFixed(0);
+        $('#scale')[0].innerHTML = addCommas(scale);
+    });
+
+    //updates lat/lng indicator on mouse move. does not apply on devices w/out mouse. removes 'map center' label
+    app.map.on('mouse-move', function (cursorPosition) {
+        $('#mapCenterLabel').css('display', 'none');
+        if (cursorPosition.mapPoint != null) {
+            var geographicMapPt = webMercatorUtils.webMercatorToGeographic(cursorPosition.mapPoint);
+            $('#latitude').html(geographicMapPt.y.toFixed(3));
+            $('#longitude').html(geographicMapPt.x.toFixed(3));
+        }
+    });
+    //updates lat/lng indicator to map center after pan and shows 'map center' label.
+    app.map.on('pan-end', function () {
+        //displays latitude and longitude of map center
+        $('#mapCenterLabel').css('display', 'inline');
+        var geographicMapCenter = webMercatorUtils.webMercatorToGeographic(app.map.extent.getCenter());
+        $('#latitude').html(geographicMapCenter.y.toFixed(3));
+        $('#longitude').html(geographicMapCenter.x.toFixed(3));
+    });
+
+
+    // All code for handling IE warning popup
+    if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
+        $("#IEwarningModal").modal('show');
+    } else {
+        return false;
+    }
+    // End IE warning code
 });

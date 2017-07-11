@@ -16,19 +16,34 @@ $( document ).ready(function() {
 		maxZoom: 16
 	}).addTo(app.map);
 
-	//set initial view
-	app.map.setView([app.mapY, app.mapX], app.zoomLevel);
+	/*  START EVENT HANDLERS */
+	$('#mobile-main-menu').click(function() {
+		$('body').toggleClass('isOpenMenu');
+	});
 
-	//set app version
-	$('#aboutModalTitle').append(' <small>v' + app.version + '</small>');
+	$('.basemapBtn').click(function() {
+		$('.basemapBtn').removeClass('slick-btn-selection');
+		$(this).addClass('slick-btn-selection');
+		var baseMap = this.id.replace('btn','');
+		setBasemap(baseMap);
+	});
 
-	// All code for handling IE warning popup
-    if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
-        $("#IEwarningModal").modal('show');
-    } else {
-        return false;
-    }
-    // End IE warning code
+	// geosearch modal
+    $('#geosearchButton').click(function() {
+		$('#geosearchModal').modal('show');
+	});
+
+	// about modal
+	$('#aboutButton').click(function() {
+		$('#aboutModal').modal('show');
+	});
+
+	//about modal toggle
+	$('#aboutButton').click(function() {
+		$('#aboutModal').modal('show');
+	});
+
+	/*  END EVENT HANDLERS */
 
 	// USGS Search
 	search_api.create( "geosearch", {
@@ -55,6 +70,20 @@ $( document ).ready(function() {
 			"include_huc10": true,
 			"include_huc12": true,
 		});
+
+	//set initial view
+	app.map.setView([app.mapY, app.mapX], app.zoomLevel);
+
+	//set app version
+	$('#aboutModalTitle').append(' <small>v' + app.version + '</small>');
+
+	// All code for handling IE warning popup
+    if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
+        $("#IEwarningModal").modal('show');
+    } else {
+        return false;
+    }
+    // End IE warning code
 
 	// START LAT/LONG INDICATOR
 	
@@ -121,30 +150,6 @@ $( document ).ready(function() {
 		}
 
 	// END LAT/LONG INDICATOR
-	
-	/*  START EVENT HANDLERS */
-	$('#mobile-main-menu').click(function() {
-		$('body').toggleClass('isOpenMenu');
-	});
-
-	$('.basemapBtn').click(function() {
-		$('.basemapBtn').removeClass('slick-btn-selection');
-		$(this).addClass('slick-btn-selection');
-		var baseMap = this.id.replace('btn','');
-		setBasemap(baseMap);
-	});
-
-	// geosearch modal
-    $('#geosearchButton').click(function() {
-		$('#geosearchModal').modal('show');
-	});
-
-	// about modal
-	$('#aboutButton').click(function() {
-		$('#aboutModal').modal('show');
-	});	
-
-	/*  END EVENT HANDLERS */
 });
 
 function setBasemap(baseMap) {

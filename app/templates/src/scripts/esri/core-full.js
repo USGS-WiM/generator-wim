@@ -512,7 +512,7 @@ require([
     legend.startup();
 
     
-        // FAQ Modal controls.
+    // FAQ Modal controls.
     $('#faq1header').click(function(){$('#faq1body').slideToggle(250);});
     $('#faq2header').click(function(){$('#faq2body').slideToggle(250);});
     $('#faq3header').click(function(){$('#faq3body').slideToggle(250);});
