@@ -21,23 +21,61 @@ require([
     });
 
     //basemap toggles
-    $('#btnStreets').click(function() {
-        app.map.setBasemap('streets');
-    });
-    $('#btnSatellite').click(function() {
-        app.map.setBasemap('satellite');
-    });
-    $('#btnTopo').click(function() {
-        app.map.setBasemap('topo');
-    });
-    $('#btnTerrain').click(function() {
-        app.map.setBasemap('terrain');
-    });
-    $('#btnGray').click(function() {
-        app.map.setBasemap('gray');
-    });
-    $('#btnNatGeo').click(function() {
-        app.map.setBasemap('national-geographic');
+    $(document).ready(function(){
+        $('#btnStreets').click(function() {
+            app.map.setBasemap('streets');
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Basemap',
+                eventAction: 'click',
+                eventLabel: 'Streets'
+            });
+        });
+        $('#btnSatellite').click(function() {
+            app.map.setBasemap('satellite');
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Basemap',
+                eventAction: 'click',
+                eventLabel: 'Satellite'
+            });
+        });
+        $('#btnTopo').click(function() {
+            app.map.setBasemap('topo');
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Basemap',
+                eventAction: 'click',
+                eventLabel: 'Topo'
+            });
+        });
+        $('#btnTerrain').click(function() {
+            app.map.setBasemap('terrain');
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Basemap',
+                eventAction: 'click',
+                eventLabel: 'Terrain'
+            });
+        });
+        $('#btnGray').click(function() {
+            app.map.setBasemap('gray');
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Basemap',
+                eventAction: 'click',
+                eventLabel: 'Gray'
+            });
+        });
+        $('#btnNatGeo').click(function() {
+            app.map.setBasemap('national-geographic');
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Basemap',
+                eventAction: 'click',
+                eventLabel: 'National Geographic'
+            });
+        });
     });
 
     //button for returning to initial extent
