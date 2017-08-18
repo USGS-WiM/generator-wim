@@ -163,6 +163,11 @@ function setBasemap(baseMap) {
 		case 'NatGeo': baseMap = 'NationalGeographic'; break;
 	}
 
+	// Google Analytics to track basemap clicks, un-comment it out when GA tag is live in the index.html
+	
+	/* var dimensionValue = baseMap;
+	ga('send', 'event', 'Basemap', 'click', 'Basemap Clicked', {'dimension1': dimensionValue}); */
+
 	if (app.baseMapLayer) app.map.removeLayer(app.baseMapLayer);
 	app.baseMapLayer = L.esri.basemapLayer(baseMap);
 	app.map.addLayer(app.baseMapLayer);
