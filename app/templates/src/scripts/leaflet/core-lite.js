@@ -10,80 +10,8 @@ $( document ).ready(function() {
   		center: mapCenter,
 	});
 
-	//basemap
-	app.baseMapLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-		attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-		maxZoom: 16
-	}).addTo(app.map);
-
-	/*  START EVENT HANDLERS */
-	$('#mobile-main-menu').click(function() {
-		$('body').toggleClass('isOpenMenu');
-	});
-
-	$('.basemapBtn').click(function() {
-		$('.basemapBtn').removeClass('slick-btn-selection');
-		$(this).addClass('slick-btn-selection');
-		var baseMap = this.id.replace('btn','');
-		setBasemap(baseMap);
-	});
-
-	// geosearch modal
-    $('#geosearchButton').click(function() {
-		$('#geosearchModal').modal('show');
-	});
-
-	// about modal
-	$('#aboutButton').click(function() {
-		$('#aboutModal').modal('show');
-	});
-
-	//about modal toggle
-	$('#aboutButton').click(function() {
-		$('#aboutModal').modal('show');
-	});
-
-	/*  END EVENT HANDLERS */
-
-	// USGS Search
-	search_api.create( "geosearch", {
-			on_result: function(o) {
-				// what to do when a location is found
-				// o.result is geojson point feature of location with properties
-				app.map
-					.fitBounds([ // zoom to location
-						[ o.result.properties.LatMin, o.result.properties.LonMin ],
-						[ o.result.properties.LatMax, o.result.properties.LonMax ]
-					])
-					$("#geosearchModal").modal('hide');
-		},
-		
-			"include_usgs_sw": true,
-			"include_usgs_gw": true,
-			"include_usgs_sp": true,
-			"include_usgs_at": true,
-			"include_usgs_ot": true,
-			"include_huc2": true,
-			"include_huc4": true,
-			"include_huc6": true,
-			"include_huc8": true,
-			"include_huc10": true,
-			"include_huc12": true,
-		});
-
 	//set initial view
 	app.map.setView([app.mapY, app.mapX], app.zoomLevel);
-
-	//set app version
-	$('#aboutModalTitle').append(' <small>v' + app.version + '</small>');
-
-	// All code for handling IE warning popup
-    if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
-        $("#IEwarningModal").modal('show');
-    } else {
-        return false;
-    }
-    // End IE warning code
 
 	// START LAT/LONG INDICATOR
 	
@@ -150,6 +78,78 @@ $( document ).ready(function() {
 		}
 
 	// END LAT/LONG INDICATOR
+
+	//basemap
+	app.baseMapLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+		attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+		maxZoom: 16
+	}).addTo(app.map);
+
+	/*  START EVENT HANDLERS */
+	$('#mobile-main-menu').click(function() {
+		$('body').toggleClass('isOpenMenu');
+	});
+
+	$('.basemapBtn').click(function() {
+		$('.basemapBtn').removeClass('slick-btn-selection');
+		$(this).addClass('slick-btn-selection');
+		var baseMap = this.id.replace('btn','');
+		setBasemap(baseMap);
+	});
+
+	// geosearch modal
+    $('#geosearchButton').click(function() {
+		$('#geosearchModal').modal('show');
+	});
+
+	// about modal
+	$('#aboutButton').click(function() {
+		$('#aboutModal').modal('show');
+	});
+
+	//about modal toggle
+	$('#aboutButton').click(function() {
+		$('#aboutModal').modal('show');
+	});
+
+	/*  END EVENT HANDLERS */
+
+	// USGS Search
+	search_api.create( "geosearch", {
+			on_result: function(o) {
+				// what to do when a location is found
+				// o.result is geojson point feature of location with properties
+				app.map
+					.fitBounds([ // zoom to location
+						[ o.result.properties.LatMin, o.result.properties.LonMin ],
+						[ o.result.properties.LatMax, o.result.properties.LonMax ]
+					])
+					$("#geosearchModal").modal('hide');
+		},
+		
+			"include_usgs_sw": true,
+			"include_usgs_gw": true,
+			"include_usgs_sp": true,
+			"include_usgs_at": true,
+			"include_usgs_ot": true,
+			"include_huc2": true,
+			"include_huc4": true,
+			"include_huc6": true,
+			"include_huc8": true,
+			"include_huc10": true,
+			"include_huc12": true,
+		});
+
+	//set app version
+	$('#aboutModalTitle').append(' <small>v' + app.version + '</small>');
+
+	// All code for handling IE warning popup
+    if(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > 0){
+        $("#IEwarningModal").modal('show');
+    } else {
+        return false;
+    }
+    // End IE warning code
 });
 
 function setBasemap(baseMap) {
@@ -164,7 +164,7 @@ function setBasemap(baseMap) {
 	}
 
 	// Google Analytics to track basemap clicks, un-comment it out when GA tag is live in the index.html
-	
+
 	/* var dimensionValue = baseMap;
 	ga('send', 'event', 'Basemap', 'click', 'Basemap Clicked', {'dimension1': dimensionValue}); */
 
