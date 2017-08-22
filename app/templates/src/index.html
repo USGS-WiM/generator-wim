@@ -61,6 +61,8 @@
         <!-- endbuild -->
     <%}%>
 
+    <% if( analyticsOption == "yes") {%>
+        <script src="scripts/core-full.js"></script>
     <!-- Start Google Analytics -->
     <!--
     <script>
@@ -76,6 +78,7 @@
     </script>
     -->
     <!-- End Google Analytics -->
+    <%}%>
 
   </head>
   <body>

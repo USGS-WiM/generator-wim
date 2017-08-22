@@ -21,6 +21,9 @@ var common = {
         <%if(mappingFlavor == "full"){%>
         app: [PATHS.src + 'scripts/core-lite.js', PATHS.src + 'scripts/core-full.js'],
         <%}%>
+        <%if(analyticsOption == "yes"){%>
+        app: [PATHS.src + 'scripts/core-lite.js', PATHS.src + 'scripts/core-full.js'],
+        <%}%>
         vendor: [
             PATHS.src + '/styles/main.css', 
             <%if(mappingAPI == "leaflet"){%>

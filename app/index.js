@@ -18,6 +18,7 @@ var WiMGenerator = class extends yeoman {
     this.argument('mappingAPI', { type: String, required: false });
     this.argument('mappingFlavor', { type: String, required: false });
     this.argument('buildSystem', { type: String, required: false });
+    this.argument('analyticsOption', { type: String, required: false});
   }
 
   initializing() {
@@ -90,6 +91,15 @@ var WiMGenerator = class extends yeoman {
         choices: [
           'gulp',
           'webpack'
+        ]
+      },
+      {
+        type: 'list',
+        name: 'analyticsOption',
+        message: 'Choose to have Google Analytics placeholder or not:',
+        choices: [
+          'yes',
+          'no'
         ],
         //only ask this question if the mappingAPI is leaflet right now
         when: function(answers) {
@@ -99,6 +109,7 @@ var WiMGenerator = class extends yeoman {
         this.appName = answers.appName;
         this.mappingAPI = answers.mappingAPI;
         this.mappingFlavor = answers.mappingFlavor;
+        this.analyticsOption = answers.analyticsOption;
         //assume gulp unless we got an answer to the buildSystem question
         (answers.buildSystem) ? this.buildSystem = answers.buildSystem : this.buildSystem = 'gulp';
       });
@@ -112,6 +123,7 @@ var WiMGenerator = class extends yeoman {
       this.log(chalk.blue('You chose the mapping API:'), chalk.red(this.mappingAPI));
       this.log(chalk.blue('You chose the mapping flavor:'), chalk.red(this.mappingFlavor));
       this.log(chalk.blue('You chose the build system:'), chalk.red(this.buildSystem));
+      this.log(chalk.blue('You chose the google analytics option'), chalk.red(this.analyticsOption));
     }
   }
 
@@ -125,6 +137,7 @@ var WiMGenerator = class extends yeoman {
       mappingFlavor: this.mappingFlavor,
       appName: this.appName,
       buildSystem: this.buildSystem,
+      analyticsOption: this.analyticsOption,
       slugifiedAppName: slugify(this.appName)
     };
 
