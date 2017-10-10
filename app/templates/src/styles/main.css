@@ -585,3 +585,56 @@ pre {
   left: 275px;
   top: 75px;
 }
+
+/* Rotating FAQ arrows when clicked */
+
+#angle1 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle2 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle3 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle4 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle5 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle6 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle7 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle8 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle9 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}
+#angle10 {
+  transition-duration: 0.5s;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+}

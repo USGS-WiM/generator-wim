@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="author" content="USGS WiM">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="copyright" href="license.txt">
+    <link rel="copyright" href="license.txt">
     <link rel="shortcut icon" id="favicon" type="image/ico" href="images/favicon-dark.png" />
-    <title><%= appName %></title>
+    <title>
+        <%= appName %>
+    </title>
 
     <script src="scripts/appConfig.js"></script>
 
-    <link rel="stylesheet" href="https://txpub.usgs.gov/DSS/search_api/2.1/api/search_api.css"/>
+    <link rel="stylesheet" href="https://txpub.usgs.gov/DSS/search_api/2.1/api/search_api.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/7f01eb2758.js"></script>
 
     <% if (buildSystem == "webpack") {%>
     <script src="./scripts/vendor.bundle.min.js"></script>
-    <script src="./scripts/bundle.min.js"></script> 
+    <script src="./scripts/bundle.min.js"></script>
     <%}%>
 
     <% if (mappingAPI == "esri") {%>
@@ -28,41 +32,41 @@
 
 
     <% if (buildSystem == "gulp") {%>
-        <!-- build:css styles/vendor.css -->
-        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
-        <% if (mappingAPI == "esri") {%>
+    <!-- build:css styles/vendor.css -->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <% if (mappingAPI == "esri") {%>
 
-        <%}%>
-        <% if (mappingAPI == "leaflet") {%>
-        <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css">
-        <%}%>
-        <!-- endbuild -->
-        
-        <!-- build:css styles/custom.css -->
-        <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="../node_modules/wim-styles/template/css/base.css">
-        <!-- endbuild -->
+    <%}%>
+    <% if (mappingAPI == "leaflet") {%>
+    <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css">
+    <%}%>
+    <!-- endbuild -->
 
-        <!-- build:js scripts/vendor.js -->
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
-        <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
-        <% if( mappingAPI == "leaflet") {%>
-        <script src="../node_modules/leaflet/dist/leaflet.js"></script>
-        <script src="../node_modules/esri-leaflet/dist/esri-leaflet.js"></script>
-        <%}%>
-        <!-- endbuild -->
+    <!-- build:css styles/custom.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="../node_modules/wim-styles/template/css/base.css">
+    <!-- endbuild -->
 
-        <!-- build:js scripts/custom.js -->
-        <script src="scripts/utilities.js"></script>
-        <script src="scripts/core-lite.js"></script>
-        <% if( mappingFlavor == "full") {%>
-        <script src="scripts/core-full.js"></script>
-        <%}%>
-        <!-- endbuild -->
+    <!-- build:js scripts/vendor.js -->
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <% if( mappingAPI == "leaflet") {%>
+    <script src="../node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="../node_modules/esri-leaflet/dist/esri-leaflet.js"></script>
+    <%}%>
+    <!-- endbuild -->
+
+    <!-- build:js scripts/custom.js -->
+    <script src="scripts/utilities.js"></script>
+    <script src="scripts/core-lite.js"></script>
+    <% if( mappingFlavor == "full") {%>
+    <script src="scripts/core-full.js"></script>
+    <%}%>
+    <!-- endbuild -->
     <%}%>
 
     <% if( analyticsOption == "yes") {%>
-        <script src="scripts/core-full.js"></script>
+    <script src="scripts/core-full.js"></script>
     <!-- Start Google Analytics -->
     <!--
     <script>
@@ -80,31 +84,32 @@
     <!-- End Google Analytics -->
     <%}%>
 
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="top-menu">
         <div class="title">
             <a class='top-menu-brand' href="https://www.usgs.gov"><img id="logo" src="images/usgs_logo.png"></a>
-            <span class="app-name"><%= appName %></span> <span class="app-name-mobile"><%= appName %></span> 
+            <span class="app-name"><%= appName %></span> <span class="app-name-mobile"><%= appName %></span>
         </div>
         <div id="mobile-main-menu">
-            <span class="glyphicon glyphicon-menu-hamburger" ></span>
+            <span class="glyphicon glyphicon-menu-hamburger"></span>
         </div>
 
         <button id="geosearchButton" type="button" class="btn btn-default top-menu-btn pull-right" onclick="ga('send','event','navbar','click','Find Location Modal Opened');">
             <i class="glyphicon glyphicon-search"></i><span class="hidden-xs">&nbsp;&nbsp;Find Location</span>
         </button>
-        
+
         <% if( mappingFlavor == "full") {%>
-        <button id="faqButton" class="btn btn-default top-menu-btn pull-right">
+            <button id="faqButton" class="btn btn-default top-menu-btn pull-right">
             <i class="glyphicon glyphicon-book"></i><span class="hidden-xs">&nbsp;&nbsp;FAQ</span>
         </button>
 
-        <button id="userGuideButton" class="btn btn-default top-menu-btn pull-right">
+            <button id="userGuideButton" class="btn btn-default top-menu-btn pull-right">
             <i class="glyphicon glyphicon-book"></i><span class="hidden-xs">&nbsp;&nbsp;User Guide</span>
         </button>
-        <%}%>
-        <button id="aboutButton" class="btn btn-default top-menu-btn pull-right" onclick="ga('send','event','navbar','click','About');">
+            <%}%>
+                <button id="aboutButton" class="btn btn-default top-menu-btn pull-right" onclick="ga('send','event','navbar','click','About');">
             <i class="glyphicon glyphicon-info-sign"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
         </button>
 
@@ -112,7 +117,7 @@
 
     <div id="main-menu">
         <div class="main-menu-container scrollable">
-            <div class="menu-content"> 
+            <div class="menu-content">
                 <div class="scrollable-content">
 
                     <div class="panel-group" id="accordion">
@@ -125,7 +130,7 @@
                                 </h4>
                             </div>
                             <div id="panel1" class="panel-collapse collapse">
-                                <div class="panel-body">     
+                                <div class="panel-body">
                                 </div>
                             </div>
                         </div>
@@ -141,57 +146,59 @@
                             <div id="basemapsPanel" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <button id="btnStreets" class="btn btn-default slick-btn basemapBtn equalize"><img class="basemapThumb" alt="" src="images/streets.jpg"><br class="basemapThumb">Streets</button>
-                                    <button id="btnSatellite" class="btn btn-default slick-btn basemapBtn equalize" ><img class="basemapThumb" alt="" src="images/satellite.jpg"><br class="basemapThumb">Satellite</button>
+                                    <button id="btnSatellite" class="btn btn-default slick-btn basemapBtn equalize"><img class="basemapThumb" alt="" src="images/satellite.jpg"><br class="basemapThumb">Satellite</button>
                                     <button id="btnTopo" class="btn btn-default slick-btn basemapBtn equalize"><img class="basemapThumb" alt="" src="images/topo.jpg"><br class="basemapThumb">Topo</button>
                                     <button id="btnTerrain" class="btn btn-default slick-btn basemapBtn equalize"><img class="basemapThumb" alt="" src="images/terrain.jpg"><br class="basemapThumb">Terrain</button>
-                                    <button id="btnGray" class="btn btn-default slick-btn basemapBtn equalize slick-btn-selection" ><img class="basemapThumb" alt="" src="images/gray.jpg"><br class="basemapThumb">Gray</button>
+                                    <button id="btnGray" class="btn btn-default slick-btn basemapBtn equalize slick-btn-selection"><img class="basemapThumb" alt="" src="images/gray.jpg"><br class="basemapThumb">Gray</button>
                                     <button id="btnNatGeo" class="btn btn-default slick-btn basemapBtn equalize"><img class="basemapThumb" alt="" src="images/natgeo.jpg"><br class="basemapThumb">NatGeo</button>
                                 </div>
                             </div>
                         </div>
 
-                         <!--map layers panel for esri full -->
+                        <!--map layers panel for esri full -->
                         <% if( mappingAPI == "esri" && mappingFlavor == "full") {%>
-                        <div class="panel panel-default sidebar-panel">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#layersPanel" >
+                            <div class="panel panel-default sidebar-panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#layersPanel">
                                         Map Layers
                                     </a>
-                                </h4>
-                            </div>
-                            <div id="layersPanel" class="panel-collapse collapse in">
-                                <div class="panel-body collapse in">
-                                    <div id="toggle" style="padding: 2px 2px;"></div>
+                                    </h4>
+                                </div>
+                                <div id="layersPanel" class="panel-collapse collapse in">
+                                    <div class="panel-body collapse in">
+                                        <div id="toggle" style="padding: 2px 2px;"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <%}%>
-                        <!-- end map layers panel for esri full -->
+                            <%}%>
+                                <!-- end map layers panel for esri full -->
                     </div>
                     <!-- -->
                     <div class="footer-links">
                         <div class="identification"><a href="https://wim.usgs.gov/" target="_blank">Powered by WiM</a></div>
-                            <a href="https://usgs.gov" target="_blank">USGS Home </a>
-                            <a href="https://answers.usgs.gov" target="_blank">Contact USGS </a>
-                            <a href="https://search.usgs.gov" target="_blank">Search USGS </a>
-                            <a href="https://www2.usgs.gov/laws/accessibility.html" target="_blank">Accessibility </a>
-                            <a href="https://www2.usgs.gov/foia/" target="_blank">FOIA </a>
-                            <a href="https://www2.usgs.gov/laws/privacy.html" target="_blank">Privacy </a>
-                            <a href="https://www2.usgs.gov/laws/policies_notices.html" target="_blank">Policies & Notices</a>
+                        <a href="https://usgs.gov" target="_blank">USGS Home </a>
+                        <a href="https://answers.usgs.gov" target="_blank">Contact USGS </a>
+                        <a href="https://search.usgs.gov" target="_blank">Search USGS </a>
+                        <a href="https://www2.usgs.gov/laws/accessibility.html" target="_blank">Accessibility </a>
+                        <a href="https://www2.usgs.gov/foia/" target="_blank">FOIA </a>
+                        <a href="https://www2.usgs.gov/laws/privacy.html" target="_blank">Privacy </a>
+                        <a href="https://www2.usgs.gov/laws/policies_notices.html" target="_blank">Policies & Notices</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
 
-    <div id="aboutModal" class="modal fade"  tabindex="-1" role="dialog" >
+
+    <div id="aboutModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog  modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                    <h4 class="modal-title" id="aboutModalTitle"><%= appName %></h4>
+                    <h4 class="modal-title" id="aboutModalTitle">
+                        <%= appName %>
+                    </h4>
                 </div>
                 <div id="aboutModalBody" class="modal-body">
                     <ul class="nav nav-tabs" id="aboutModalTabs">
@@ -200,55 +207,62 @@
                         <li role="presentation"><a id="contactTab" href="#contactTabPane" data-toggle="tab" onclick="ga('send','event','About Modal','click','Contact');"><i class="glyphicon glyphicon-envelope"></i>&nbsp;Contact Us</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="aboutTabPane"></br>
+                        <div role="tabpanel" class="tab-pane active" id="aboutTabPane">
+                            </br>
                             <p>Add some information about this app.</p>
                             <p>Developed by <a href="https://wim.usgs.gov" target="_blank">Web Informatics and Mapping (WiM)</a></p>
                             <span id="appVersion"></span>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="disclaimerTabPane">
                             <h3>Disclaimer</h3>
-                                <p>The use of trade, product, industry or firm names or products is for informative purposes only and does not constitute an endorsement by the U.S. Government...</p>
+                            <p>The use of trade, product, industry or firm names or products is for informative purposes only
+                                and does not constitute an endorsement by the U.S. Government...</p>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="contactTabPane">
                             <h3>Contact Us</h3>
-                                <p>Add contact information for cooperator agency.</p>
-                                <p><i class="glyphicon glyphicon-envelope"></i> email:</p>
-                                <p><i class="glyphicon glyphicon-earphone"></i> phone:</p>
+                            <p>Add contact information for cooperator agency.</p>
+                            <p><i class="glyphicon glyphicon-envelope"></i> email:</p>
+                            <p><i class="glyphicon glyphicon-earphone"></i> phone:</p>
                         </div>
                     </div>
                 </div>
                 <!--<div class="modal-footer">
                 </div>-->
-            </div><!-- /.modal-content -->
-        </div> <!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
     <div class="modal fade overflow-y-hidden" id="geosearchModal" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                        <h4 class="modal-title">Find Location</h4>
+                    <h4 class="modal-title">Find Location</h4>
                 </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <div id="geosearch" align="center"></div>
-                            <br>
-                            <div align="center">
-                                <p>Search provided by <a href="https://txpub.usgs.gov/dss/search_api/2.0/" target="_blank">USGS Search Javascript API</a></p>
-                            </div>
-                            <br>
-                            <div>
-                                <h5 style="text-align: center">Supported search strings include: </h5>
-                                    <p style="text-align: center">Address, States, Zip Codes, Area Codes, Lat/Long (i.e. '43.9,-72.1')</p>
-                            </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div id="geosearch" align="center"></div>
+                        <br>
+                        <div align="center">
+                            <p>Search provided by <a href="https://txpub.usgs.gov/dss/search_api/2.0/" target="_blank">USGS Search Javascript API</a></p>
                         </div>
-                            <form id="geosearch-form" class="form-inline">
-                                <button id="btnDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
-                            </form>
+                        <br>
+                        <div>
+                            <h5 style="text-align: center">Supported search strings include: </h5>
+                            <p style="text-align: center">Address, States, Zip Codes, Area Codes, Lat/Long (i.e. '43.9,-72.1')</p>
+                        </div>
                     </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
+                    <form id="geosearch-form" class="form-inline">
+                        <button id="btnDismiss" type="submit" class="btn btn-default btn-fixed" data-dismiss="modal">Dismiss</button>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
 
     <!-- IE Warning Modal -->
@@ -261,220 +275,303 @@
                     <h4><i class="fa fa-exclamation-triangle fa-lg"></i> Web browser warning</h4>
                 </div>
                 <div class="modal-body">
-                    <p>This web application does not support use of Microsoft Internet Explorer. It is not designed or tested for use with IE and functionality may be limited or impaired.</p>
-                    <p>Please use this application in a modern, standards-compliant browser, such as Google Chrome, Microsoft Edge, or Mozilla Firefox.</p>
+                    <p>This web application does not support use of Microsoft Internet Explorer. It is not designed or tested
+                        for use with IE and functionality may be limited or impaired.</p>
+                    <p>Please use this application in a modern, standards-compliant browser, such as Google Chrome, Microsoft
+                        Edge, or Mozilla Firefox.</p>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Continue Anyway (Not recommended)</button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
     <!-- End IE Warning Modal -->
 
-<% if( mappingFlavor == "full") {%>
-<!-- User Guide Modal -->
-<div id="userGuideModal" class="modal fade"  tabindex="-1" role="dialog" onclick="ga('send','event','navbar','click','User Guide');">
-    <div class="modal-dialog  modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                <h4 class="modal-title">Map Interface User Guide</h4>
-            </div>
-            <div id="aboutModalBody" class="modal-body">
-                <ul class="nav nav-tabs" id="aboutModalTabs">
-                    <li role="presentation" class="active"><a id="searchTab" href="#searchTabPane" data-toggle="tab"><i class="glyphicon glyphicon-search"></i>&nbsp;Search, Zoom, Print</a></li>
-                    <li role="presentation"><a id="explanationTab" href="#explanationTabPane" data-toggle="tab"><i class="glyphicon glyphicon-list"></i>&nbsp;Explanation</a></li>
-                    <li role="presentation"><a id="mapSelectionTab" href="#mapSelectionTabPane" data-toggle="tab"><i class="glyphicon glyphicon-wrench"></i>&nbsp;Map selection options</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="searchTabPane">
-                        <span class="user-guide-header">Search, zoom, and print capabilities</span>
-                        <div class="user-guide-item">
-                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
-                            <p><b>Searching</b>The search option allows the user to search for a location such as a city, state, zip code, or general place name.</p>
-                        </div>
-                        <div class="user-guide-item">
-                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
-                            <p><b>Navigating the map</b>The scroll wheel on the mouse can be used to zoom, and in the upper left area of the tool are "+" and "&#45;" icons to zoom in and out, respectively. You may also hold shift and drag a box to zoom. On mobile or touch screens, simply pinch the screen to zoom.</p>
-                        </div>
-                        <div class="user-guide-item">
-                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
-                            <p><b>Home Location</b>The crosshair button will zoom the map to your location, and the home button will center the US on the map.</p>
-                        </div>
-                        <div class="user-guide-item">
-                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
-                            <p><b>Opening a site</b>Clicking on an arrow or circle at a site will bring up a window with details about the site, graphs of the original data and model predictions (for some constituents), and a table of the other trend results at the same site.</p>
-                        </div>
-                        <div class="user-guide-item">
-                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
-                            <p><b>Moving site window</b>Reposition the site info pop-up window with the mouse see the rest of the underlying map if necessary.</p>
-                        </div>
-                        <div class="user-guide-item">
-                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
-                            <p><b>More site details</b>Additional details about the graphs are available in the FAQs. Additional details about the column headers in the table are available by hovering on the help button for each column header.</p>
+    <% if( mappingFlavor == "full") {%>
+        <!-- User Guide Modal -->
+        <div id="userGuideModal" class="modal fade" tabindex="-1" role="dialog" onclick="ga('send','event','navbar','click','User Guide');">
+            <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                        <h4 class="modal-title">Map Interface User Guide</h4>
+                    </div>
+                    <div id="aboutModalBody" class="modal-body">
+                        <ul class="nav nav-tabs" id="aboutModalTabs">
+                            <li role="presentation" class="active"><a id="searchTab" href="#searchTabPane" data-toggle="tab"><i class="glyphicon glyphicon-search"></i>&nbsp;Search, Zoom, Print</a></li>
+                            <li role="presentation"><a id="explanationTab" href="#explanationTabPane" data-toggle="tab"><i class="glyphicon glyphicon-list"></i>&nbsp;Explanation</a></li>
+                            <li role="presentation"><a id="mapSelectionTab" href="#mapSelectionTabPane" data-toggle="tab"><i class="glyphicon glyphicon-wrench"></i>&nbsp;Map selection options</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="searchTabPane">
+                                <span class="user-guide-header">Search, zoom, and print capabilities</span>
+                                <div class="user-guide-item">
+                                    <div class="user-guide-item-image"><img src="https://placehold.it/140x60" /></div>
+                                    <p><b>Searching</b>The search option allows the user to search for a location such as a
+                                        city, state, zip code, or general place name.</p>
+                                </div>
+                                <div class="user-guide-item">
+                                    <div class="user-guide-item-image"><img src="https://placehold.it/140x60" /></div>
+                                    <p><b>Navigating the map</b>The scroll wheel on the mouse can be used to zoom, and in the
+                                        upper left area of the tool are "+" and "&#45;" icons to zoom in and out, respectively.
+                                        You may also hold shift and drag a box to zoom. On mobile or touch screens, simply
+                                        pinch the screen to zoom.</p>
+                                </div>
+                                <div class="user-guide-item">
+                                    <div class="user-guide-item-image"><img src="https://placehold.it/140x60" /></div>
+                                    <p><b>Home Location</b>The crosshair button will zoom the map to your location, and the
+                                        home button will center the US on the map.</p>
+                                </div>
+                                <div class="user-guide-item">
+                                    <div class="user-guide-item-image"><img src="https://placehold.it/140x60" /></div>
+                                    <p><b>Opening a site</b>Clicking on an arrow or circle at a site will bring up a window
+                                        with details about the site, graphs of the original data and model predictions (for
+                                        some constituents), and a table of the other trend results at the same site.</p>
+                                </div>
+                                <div class="user-guide-item">
+                                    <div class="user-guide-item-image"><img src="https://placehold.it/140x60" /></div>
+                                    <p><b>Moving site window</b>Reposition the site info pop-up window with the mouse see the
+                                        rest of the underlying map if necessary.</p>
+                                </div>
+                                <div class="user-guide-item">
+                                    <div class="user-guide-item-image"><img src="https://placehold.it/140x60" /></div>
+                                    <p><b>More site details</b>Additional details about the graphs are available in the FAQs.
+                                        Additional details about the column headers in the table are available by hovering
+                                        on the help button for each column header.</p>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="explanationTabPane">
+                                <span class="user-guide-header">Explanation</span>
+                                <div class="user-guide-item">
+                                    <div class="user-guide-item-image"><img src="https://placehold.it/140x60" /></div>
+                                    <p><b>Explanation display</b>The Explanation box can be collapsed to display more of the
+                                        mapped area.</p>
+                                </div>
+                                <div class="user-guide-item">
+                                    <div class="user-guide-item-image"><img src="https://placehold.it/140x60" /></div>
+                                    <p><b>Using the Explanation</b>The expanded Explanation box explains the arrows and circles
+                                        that appear for each site, displaying the results from the statistical analysis of
+                                        trends.</p>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="mapSelectionTabPane">
+                                <span class="user-guide-header">Map selection options</span>
+                                <div class="user-guide-item">
+                                    <div class="user-guide-item-image"><img src="https://placehold.it/140x60" /></div>
+                                    <p><b>Changing the basemap style</b>The "Basemaps" sidebar allows a user to show various
+                                        geographic information or landscape imagery as a background layer beneath the trend
+                                        results.</p>
+                                </div>
+                                <div class="user-guide-item">
+                                    <div class="user-guide-item-image"><img src="https://placehold.it/140x60" /></div>
+                                    <p><b>Changing or adding map layers</b>The "Map Layers" sidebar allows a user to show land
+                                        use for 1974, 1982, 1992, 2002, or 2012 as a background layer beneath the trend results.</p>
+                                </div>
+                                <div class="user-guide-item">
+                                    <div class="user-guide-item-image"><img src="https://placehold.it/140x60" /></div>
+                                    <p><b>Selecting a constituent</b>The Constituent group selection allows a user to choose
+                                        a constituent group and then choose a specific constituent from within that group.
+                                        See About -&gt; Learn More for a list of constituents.</p>
+                                </div>
+                                <div class="user-guide-item">
+                                    <div class="user-guide-item-image"><img src="https://placehold.it/140x60" /></div>
+                                    <p><b>Selecting a trend type</b>Based on the constituent selection, a user can choose from
+                                        among the available trend types. Concentration is the amount of the constituent in
+                                        the stream. Load is the mass of the constituent transported past the sampling point
+                                        in a stream during a period of time. A metric is an index calculated to represent
+                                        a specific characteristic of aquatic communities. Changes over time in water-quality
+                                        concentration and load and changes in aquatic ecology-metrics can be strongly influenced
+                                        by random and systematic variations in streamflow. Flow normalization removes the
+                                        variation in concentration, load, or metric that is due to variations in streamflow.
+                                        As a result, concentration and load trends are flow normalized and aquatic ecology
+                                        metric trends are flow normalized. See FAQ #17 for more information. Note not all
+                                        trend types are available for every constituent.</p>
+                                </div>
+                                <div class="user-guide-item">
+                                    <div class="user-guide-item-image"><img src="https://placehold.it/140x60" /></div>
+                                    <p><b>Selecting a trend period</b>Based on the constituent selection, a user can choose
+                                        from among the available trend periods. Once the constituent, trend type, and trend
+                                        period have been selected, the map will automatically update. Note not all trend
+                                        periods are available for every constituent.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="explanationTabPane">
-                        <span class="user-guide-header">Explanation</span>
-                        <div class="user-guide-item">
-                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
-                            <p><b>Explanation display</b>The Explanation box can be collapsed to display more of the mapped area.</p>
+
+                    <form id="closeModalButton" id="disclaimer-form" class="form-inline" style="text-align:center;">
+                        <button id="enterMapper" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </form>
+
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- User Guide modal -->
+
+        <div id="faqModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
+                        <h4 class="modal-title">Frequently Asked Questions</h4>
+                    </div>
+                    <div class="faq-modal-body">
+                        <h4 style="margin-bottom: 15px; font-weight: 600;">Study scope</h4>
+                        <div class="faq-header" id="faq1header">1. What is the purpose of this study?
+                            <div id="angle1" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div>
                         </div>
-                        <div class="user-guide-item">
-                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
-                            <p><b>Using the Explanation</b>The expanded Explanation box explains the arrows and circles that appear for each site, displaying the results from the statistical analysis of trends.</p>
+                        <div class="faq-body" id="faq1body">
+                            Hamburger frankfurter cupim kevin pastrami salami pork chop jerky prosciutto burgdoggen tenderloin jowl sausage. Jowl ham
+                            hock short ribs burgdoggen shankle alcatra spare ribs andouille pork loin turkey pork chop capicola
+                            tongue.
+                        </div>
+
+                        <div class="faq-header" id="faq2header">2. Where can I get more information on this study?
+                            <div id="angle2" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div>
+                        </div>
+                        <div class="faq-body" id="faq2body">
+                            Jowl ham hock short ribs burgdoggen shankle alcatra spare ribs andouille pork loin turkey pork chop capicola tongue.
+                        </div>
+
+                        <div class="faq-header" id="faq3header">3. Why evaluate changes in water quality?
+                            <div id="angle3" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div>
+                        </div>
+                        <div class="faq-body" id="faq3body">
+                            Shank pork loin pork chop, alcatra beef ribs t-bone jowl. Short ribs burgdoggen drumstick salami t-bone shoulder, turducken
+                            pork loin tenderloin bacon doner brisket jerky. Burgdoggen bresaola brisket tail bacon, salami
+                            drumstick rump. Landjaeger drumstick filet mignon pastrami prosciutto ham hock bacon kevin capicola
+                            t-bone. Drumstick picanha ball tip venison pork boudin salami meatloaf bresaola leberkas ham
+                            chicken bacon.
+                        </div>
+
+                        <div class="faq-header" id="faq4header">4. Who completed this study?
+                            <div id="angle4" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div>
+                        </div>
+                        <div class="faq-body" id="faq4body">
+                            Kevin cupim capicola jerky short ribs, shoulder boudin. Pork chop meatball beef ribs, boudin kielbasa burgdoggen fatback
+                            short ribs strip steak shoulder turkey cupim swine.
+                        </div>
+
+                        <div class="faq-header" id="faq5header">5. What data were included in your analyses?
+                            <div id="angle5" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div>
+                        </div>
+                        <div class="faq-body" id="faq5body">
+                            Porchetta capicola cupim shoulder, ribeye chicken drumstick salami andouille swine short loin turkey boudin doner. Brisket
+                            beef ribs pork loin rump, landjaeger turducken pork kevin meatball sausage picanha pork chop
+                            jerky chicken. Burgdoggen ham hock boudin short ribs pastrami alcatra bresaola rump pork belly
+                            sausage spare ribs pork chop.
+                        </div>
+
+                        <div class="faq-header" id="faq6header">6. What constituents were included in your analyses?
+                            <div id="angle6" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div>
+                        </div>
+                        <div class="faq-body" id="faq6body">
+                            Kevin capicola pig rump. Kielbasa swine strip steak drumstick pancetta hamburger tongue doner pastrami meatball picanha.
+                            Frankfurter tri-tip sausage brisket jerky, turducken shankle ball tip short loin picanha beef
+                            ribs andouille. Sausage pastrami pork prosciutto venison.
+                        </div>
+
+                        <div class="faq-header" id="faq7header">7. What time periods did you assess in your trend analyses?
+                            <div id="angle7" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div>
+                        </div>
+                        <div class="faq-body" id="faq7body">
+                            Ribeye pork shank beef ribs, drumstick prosciutto venison porchetta leberkas picanha kevin landjaeger. Hamburger tri-tip
+                            rump ham hock cow picanha pork belly salami chuck doner. Shankle burgdoggen ball tip, doner corned
+                            beef alcatra short loin. Drumstick hamburger ball tip, spare ribs sirloin biltong shankle flank
+                            short loin ham landjaeger.
+                        </div>
+
+                        <div class="faq-header" id="faq8header">8. Why do your trends only extend through 2012?
+                            <div id="angle8" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div>
+                        </div>
+                        <div class="faq-body" id="faq8body">
+                            Ham hock prosciutto meatball tail turducken leberkas brisket biltong. Kevin capicola pig rump. Kielbasa swine strip steak
+                            drumstick pancetta hamburger tongue doner pastrami meatball picanha. Frankfurter tri-tip sausage
+                            brisket jerky, turducken shankle ball tip short loin picanha beef ribs andouille. Sausage pastrami
+                            pork prosciutto venison.
+                        </div>
+
+
+                        <h4 style="margin-bottom: 15px; font-weight: 600;">Features of the Mapper</h4>
+
+
+                        <div class="faq-header" id="faq9header">9. Where can I find help for navigating this mapper?
+                            <div id="angle9" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div>
+                        </div>
+                        <div class="faq-body" id="faq9body">
+                            Hamburger tri-tip rump ham hock cow picanha pork belly salami chuck doner. Shankle burgdoggen ball tip, doner corned beef
+                            alcatra short loin.
+                        </div>
+
+                        <div class="faq-header" id="faq10header">10. Are the data used in your trend analyses available for download?
+                            <div id="angle10" style="display: -webkit-inline-box;"><i class="fa fa-angle-right"></i></div>
+                        </div>
+                        <div class="faq-body" id="faq10body">
+                            Bacon ipsum dolor amet landjaeger jerky ground round ribeye t-bone pork loin short ribs capicola burgdoggen picanha flank.
+                            Pork pork chop t-bone tri-tip tenderloin brisket pig, turkey filet mignon landjaeger prosciutto
+                            alcatra ball tip pork loin cow.
                         </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="mapSelectionTabPane">
-                        <span class="user-guide-header">Map selection options</span>
-                        <div class="user-guide-item">
-                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
-                            <p><b>Changing the basemap style</b>The "Basemaps" sidebar allows a user to show various geographic information or landscape imagery as a background layer beneath the trend results.</p>
-                        </div>
-                        <div class="user-guide-item">
-                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
-                            <p><b>Changing or adding map layers</b>The "Map Layers" sidebar allows a user to show land use for 1974, 1982, 1992, 2002, or 2012 as a background layer beneath the trend results.</p>
-                        </div>
-                        <div class="user-guide-item">
-                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
-                            <p><b>Selecting a constituent</b>The Constituent group selection allows a user to choose a constituent group and then choose a specific constituent from within that group. See About -&gt; Learn More for a list of constituents.</p>
-                        </div>
-                        <div class="user-guide-item">
-                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
-                            <p><b>Selecting a trend type</b>Based on the constituent selection, a user can choose from among the available trend types. Concentration is the amount of the constituent in the stream. Load is the mass of the constituent transported past the sampling point in a stream during a period of time. A metric is an index calculated to represent a specific characteristic of aquatic communities. Changes over time in water-quality concentration and load and changes in aquatic ecology-metrics can be strongly influenced by random and systematic variations in streamflow. Flow normalization removes the variation in concentration, load, or metric that is due to variations in streamflow. As a result, concentration and load trends are flow normalized and aquatic ecology metric trends are flow normalized. See FAQ #17 for more information. Note not all trend types are available for every constituent.</p>
-                        </div>
-                        <div class="user-guide-item">
-                            <div class="user-guide-item-image"><img src="https://placehold.it/140x60"/></div>
-                            <p><b>Selecting a trend period</b>Based on the constituent selection, a user can choose from among the available trend periods. Once the constituent, trend type, and trend period have been selected, the map will automatically update. Note not all trend periods are available for every constituent.</p>
-                        </div>
-                    </div>
+                    <!-- /.modal-content -->
                 </div>
+                <!-- /.modal-dialog -->
             </div>
+            <!-- /.modal -->
+        </div>
+        <!-- End FAQ Modal-->
+        <%}%>
 
-            <form id="closeModalButton" id="disclaimer-form" class="form-inline" style="text-align:center;">
-                <button id="enterMapper" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            </form>
+            <div id="mapDiv">
 
-        </div><!-- /.modal-content -->
-    </div> <!-- /.modal-dialog -->
-</div><!-- User Guide modal -->
-
-<div id="faqModal" class="modal fade"  tabindex="-1" role="dialog" >
-    <div class="modal-dialog  modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                <h4 class="modal-title">Frequently Asked Questions</h4>
-            </div>
-            <div class="faq-modal-body">
-                <h4 style="margin-bottom: 15px; font-weight: 600;">Study scope</h4>
-                <div class="faq-header" id="faq1header">1. What is the purpose of this study? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq1body">
-                    Hamburger frankfurter cupim kevin pastrami salami pork chop jerky prosciutto burgdoggen tenderloin jowl sausage. Jowl ham hock short ribs burgdoggen shankle alcatra spare ribs andouille pork loin turkey pork chop capicola tongue.
-                </div>
-
-                <div class="faq-header" id="faq2header">2. Where can I get more information on this study? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq2body">
-                    Jowl ham hock short ribs burgdoggen shankle alcatra spare ribs andouille pork loin turkey pork chop capicola tongue.
-                </div>
-
-                <div class="faq-header" id="faq3header">3. Why evaluate changes in water quality? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq3body">
-                    Shank pork loin pork chop, alcatra beef ribs t-bone jowl. Short ribs burgdoggen drumstick salami t-bone shoulder, turducken pork loin tenderloin bacon doner brisket jerky. Burgdoggen bresaola brisket tail bacon, salami drumstick rump. Landjaeger drumstick filet mignon pastrami prosciutto ham hock bacon kevin capicola t-bone. Drumstick picanha ball tip venison pork boudin salami meatloaf bresaola leberkas ham chicken bacon.
-                </div>
-
-                <div class="faq-header" id="faq4header">4. Who completed this study? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq4body">
-                    Kevin cupim capicola jerky short ribs, shoulder boudin. Pork chop meatball beef ribs, boudin kielbasa burgdoggen fatback short ribs strip steak shoulder turkey cupim swine.
-                </div>
-
-                <div class="faq-header" id="faq5header">5. What data were included in your analyses? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq5body">
-                    Porchetta capicola cupim shoulder, ribeye chicken drumstick salami andouille swine short loin turkey boudin doner. Brisket beef ribs pork loin rump, landjaeger turducken pork kevin meatball sausage picanha pork chop jerky chicken. Burgdoggen ham hock boudin short ribs pastrami alcatra bresaola rump pork belly sausage spare ribs pork chop. 
-                </div>
-
-                <div class="faq-header" id="faq6header">6. What constituents were included in your analyses? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq6body">
-                    Kevin capicola pig rump. Kielbasa swine strip steak drumstick pancetta hamburger tongue doner pastrami meatball picanha. Frankfurter tri-tip sausage brisket jerky, turducken shankle ball tip short loin picanha beef ribs andouille. Sausage pastrami pork prosciutto venison.
-                </div>
-
-                <div class="faq-header" id="faq7header">7. What time periods did you assess in your trend analyses? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq7body">
-                    Ribeye pork shank beef ribs, drumstick prosciutto venison porchetta leberkas picanha kevin landjaeger. Hamburger tri-tip rump ham hock cow picanha pork belly salami chuck doner. Shankle burgdoggen ball tip, doner corned beef alcatra short loin. Drumstick hamburger ball tip, spare ribs sirloin biltong shankle flank short loin ham landjaeger.
-                </div>
-
-                <div class="faq-header" id="faq8header">8. Why do your trends only extend through 2012? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq8body">
-                    Ham hock prosciutto meatball tail turducken leberkas brisket biltong. Kevin capicola pig rump. Kielbasa swine strip steak drumstick pancetta hamburger tongue doner pastrami meatball picanha. Frankfurter tri-tip sausage brisket jerky, turducken shankle ball tip short loin picanha beef ribs andouille. Sausage pastrami pork prosciutto venison.
-                </div>
-
-
-                <h4 style="margin-bottom: 15px; font-weight: 600;">Features of the Mapper</h4>
-
-
-                <div class="faq-header" id="faq9header">9. Where can I find help for navigating this mapper? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq9body">
-                    Hamburger tri-tip rump ham hock cow picanha pork belly salami chuck doner. Shankle burgdoggen ball tip, doner corned beef alcatra short loin. 
-                </div>
-
-                <div class="faq-header" id="faq10header">10. Are the data used in your trend analyses available for download? <i class="fa fa-angle-right"></i></div>
-                <div class="faq-body" id="faq10body">
-                    Bacon ipsum dolor amet landjaeger jerky ground round ribeye t-bone pork loin short ribs capicola burgdoggen picanha flank. Pork pork chop t-bone tri-tip tenderloin brisket pig, turkey filet mignon landjaeger prosciutto alcatra ball tip pork loin cow. 
-                </div>
-            </div><!-- /.modal-content -->
-        </div> <!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-</div>
-<!-- End FAQ Modal-->
-<%}%>
-
-    <div id="mapDiv">
-
-        <% if( mappingAPI == "esri" && mappingFlavor == "full") {%>
-        <div id="legendElement" class="panel panel-default legendClass">
-            <div id="legendHeading" class=" legendHeading" role="tab">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" style="text-decoration: none"  href="#legendCollapse" aria-expanded="true" aria-controls="collapseOne">
+                <% if( mappingAPI == "esri" && mappingFlavor == "full") {%>
+                    <div id="legendElement" class="panel panel-default legendClass">
+                        <div id="legendHeading" class=" legendHeading" role="tab">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" style="text-decoration: none" href="#legendCollapse" aria-expanded="true" aria-controls="collapseOne">
                         <span class="glyphicon glyphicon-list"></span>
                         Explanation
                     </a>
-                </h4>
+                            </h4>
+                        </div>
+                        <div id="legendCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div id="legendDiv" class="panel-body"></div>
+                        </div>
+                    </div>
+                    <%}%>
+
             </div>
-            <div id="legendCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div id="legendDiv" class="panel-body"></div>
-            </div>
-        </div>
-        <%}%>
 
-    </div>
+            <% if( mappingAPI == "esri") {%>
+                <div id="homeButton"></div>
+                <div id="locateButton"></div>
 
-    <% if( mappingAPI == "esri") {%>
-    <div id="homeButton"></div>
-    <div id="locateButton"></div>
+                <div id="latLngScale" class="latLngScale">
+                    <span class="hover-content"> <b>Map scale </b></span> 1:
+                    <span id="scale"></span> <br>
+                    <span class="hover-content"><b>Latitude</b></span>
+                    <span id="latitude">y</span> |
+                    <span class="hover-content"> <b>Longitude</b></span>
+                    <span id="longitude">x</span>
+                    <span id="mapCenterLabel" class="hover-content"> (center)</span>
+                </div>
+                <%}%>
 
-    <div id="latLngScale" class="latLngScale">
-        <span class="hover-content"> <b>Map scale </b></span>
-        1:<span id="scale"></span> <br>
-        <span class="hover-content"><b>Latitude</b></span>
-        <span id="latitude">y</span> |
-        <span class="hover-content"> <b>Longitude</b></span>
-        <span id="longitude">x</span>
-        <span id="mapCenterLabel"  class="hover-content"> (center)</span>
-    </div>
-    <%}%>
+                    <% if( mappingAPI == "leaflet") {%>
+                        <div id="latLngScale" class="latLngScale">
+                            <span class="hover-content"> <b>Map scale </b></span> 1:
+                            <span id="scale"></span> | <span class="hover-content"> <b>Zoom level </b></span> <span id="zoomLevel"></span><br>
+                            <span class="hover-content"><b>Latitude</b></span>
+                            <span id="latitude">y</span> |
+                            <span class="hover-content"> <b>Longitude</b></span>
+                            <span id="longitude">x</span>
+                            <span id="mapCenterLabel" class="hover-content"> (center)</span>
+                        </div>
+                        <%}%>
+</body>
 
-    <% if( mappingAPI == "leaflet") {%>
-    <div id="latLngScale" class="latLngScale">
-            <span class="hover-content"> <b>Map scale </b></span>
-            1:<span id="scale"></span> | <span class="hover-content"> <b>Zoom level </b></span> <span id="zoomLevel"></span><br>
-            <span class="hover-content"><b>Latitude</b></span>
-            <span id="latitude">y</span> |
-            <span class="hover-content"> <b>Longitude</b></span>
-            <span id="longitude">x</span>
-            <span id="mapCenterLabel"  class="hover-content"> (center)</span>
-    </div>
-    <%}%>
-  </body>
 </html>
