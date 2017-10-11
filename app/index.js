@@ -60,7 +60,7 @@ var WiMGenerator = class extends yeoman {
     this.log(yosay(chalk.magenta('You\'re using the fantastic WiM generator v2.')));
 
     //check for command line arguments
-    if ((!this.options.appName) && (!this.options.mappingAPI) && (!this.options.mappingFlavor) && (!this.options.buildSystem)) {
+    if ((!this.options.appName) && (!this.options.mappingAPI) && (!this.options.mappingFlavor) && (!this.options.buildSystem) && (!this.options.analyticsOption)) {
       return this.prompt([{
         type    : 'input',
         name: 'appName',
@@ -86,20 +86,20 @@ var WiMGenerator = class extends yeoman {
       },
       {
         type: 'list',
-        name: 'buildSystem',
-        message: 'Choose your build system:',
-        choices: [
-          'gulp',
-          'webpack'
-        ]
-      },
-      {
-        type: 'list',
         name: 'analyticsOption',
         message: 'Choose to have Google Analytics placeholder or not:',
         choices: [
           'yes',
           'no'
+        ],
+      },
+      {
+        type: 'list',
+        name: 'buildSystem',
+        message: 'Choose your build system:',
+        choices: [
+          'gulp',
+          'webpack'
         ],
         //only ask this question if the mappingAPI is leaflet right now
         when: function(answers) {
@@ -118,12 +118,13 @@ var WiMGenerator = class extends yeoman {
       this.appName = this.options.appName;
       this.mappingAPI = this.options.mappingAPI;
       this.mappingFlavor = this.options.mappingFlavor;
+      this.analyticsOption = this.options.analyticsOption;
       this.buildSystem = this.options.buildSystem;
       this.log(chalk.blue('You chose the application name:'), chalk.red(this.appName));
       this.log(chalk.blue('You chose the mapping API:'), chalk.red(this.mappingAPI));
       this.log(chalk.blue('You chose the mapping flavor:'), chalk.red(this.mappingFlavor));
-      this.log(chalk.blue('You chose the build system:'), chalk.red(this.buildSystem));
       this.log(chalk.blue('You chose the google analytics option'), chalk.red(this.analyticsOption));
+      this.log(chalk.blue('You chose the build system:'), chalk.red(this.buildSystem));
     }
   }
 
@@ -136,8 +137,8 @@ var WiMGenerator = class extends yeoman {
       mappingAPI: this.mappingAPI,
       mappingFlavor: this.mappingFlavor,
       appName: this.appName,
-      buildSystem: this.buildSystem,
       analyticsOption: this.analyticsOption,
+      buildSystem: this.buildSystem,
       slugifiedAppName: slugify(this.appName)
     };
 
