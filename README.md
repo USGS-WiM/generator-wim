@@ -1,13 +1,21 @@
+![WiM](wimlogo.png)
+
 # generator-wim
 
-> [Yeoman](http://yeoman.io) generator for scaffolding html5/javascript web mappinng apps.  Allows for use of [ESRI](https://developers.arcgis.com/javascript/) or [Leaflet](http://leafletjs.com/) as the mapping API.   It uses npm for dependency injection and gulp as its task runner.
+[Yeoman](http://yeoman.io) generator for scaffolding html5/javascript web mappinng apps.  Allows for use of [ESRI](https://developers.arcgis.com/javascript/) or [Leaflet](http://leafletjs.com/) as the mapping API.   It uses npm for dependency injection and gulp as its task runner.
 
+### Prerequisites
 
-## Generator installation
-
-#### 1.  Install required software (see Getting Started above before proceeding)
-[node.js](https://nodejs.org)  
+[Node Package Manager (npm)](https://www.npmjs.com/)
 [git](https://windows.github.com/)
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+### Installing
+
+#### 1.  Install required software (see Prerequisites above before proceeding)
 
 #### 2.  Install yeoman
 This will install the following packages globally (to your "C:\Users\%user%\AppData\Roaming\npm\node_modules" folder.)  This can be done from any command prompt
@@ -119,3 +127,53 @@ git add .
 git commit -m 'message describing your updates'
 git push origin 'new_branch_name'
 ```
+
+## Built With
+
+* [Yeoman](https://angular.io/) - generator for scaffolding html5/javascript web mappinng apps.
+* [ESRI](https://developers.arcgis.com/javascript/) - Mapping API option.
+* [Leaflet](http://leafletjs.com/) Mapping API option.
+* [NPM](https://www.npmjs.com/) - Dependency Management
+* [Others](https://www.npmjs.com/) - Any other high-level dependencies
+
+## Contributing
+
+Please read [CONTRIBUTING.md]() for details on the process for submitting pull requests to us. Please read [CODE_OF_CONDUCT.md]() for details on adhering by the [USGS Code of Scientific Conduct](https://www2.usgs.gov/fsp/fsp_code_of_scientific_conduct.asp).
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+
+Advance the version when adding features, fixing bugs or making minor enhancement. Follow semver principles. To add tag in git, type git tag v{major}.{minor}.{patch}. Example: git tag v2.0.5
+
+To push tags to remote origin: `git push origin --tags`
+
+*Note that your alias for the remote origin may differ.
+
+## Authors
+
+* **[Martyn Smith](https://www.usgs.gov/staff-profiles/martyn-smith)**  - *Lead Developer* - [USGS Web Informatics & Mapping](https://wim.usgs.gov/)
+* **[Nicholas Estes](https://www.usgs.gov/staff-profiles/nicholas-j-estes)**  - *Developer* - [USGS Web Informatics & Mapping](https://wim.usgs.gov/)
+* **[Blake Draper](https://www.usgs.gov/staff-profiles/blake-a-draper)**  - *Developer* - [USGS Web Informatics & Mapping](https://wim.usgs.gov/)
+
+See also the list of [contributors](https://github.com/USGS-WiM/generator-wim/graphs/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the Creative Commons CC0 1.0 Universal License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Suggested Citation
+In the spirit of open source, please cite any re-use of the source code stored in this repository. Below is the suggested citation:
+
+`This project contains code produced by the Web Informatics and Mapping (WIM) team at the United States Geological Survey (USGS). As a work of the United States Government, this project is in the public domain within the United States. https://wim.usgs.gov`
+
+
+## Acknowledgments
+
+* Hat tip to anyone who's code was used
+* Inspiration Note 
+
+## About WIM
+* This project authored by the [USGS WIM team](https://wim.usgs.gov)
+* WIM is a team of developers and technologists who build and manage tools, software, web services, and databases to support USGS science and other federal government cooperators.
+* WiM is a part of the [Upper Midwest Water Science Center](https://www.usgs.gov/centers/wisconsin-water-science-center).
