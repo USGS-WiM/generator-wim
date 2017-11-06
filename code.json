@@ -1,10 +1,10 @@
 [
   {
-    "name": "Wimpo",
+    "name": "generator-wim",
     "organization": "U.S. Geological Survey",
-    "description": "Documents best practices for software development within WIM",
-    "version": "v0.0.0",
-    "status": "Ideation",
+    "description": "Yeoman generator for creating WiM compliant mapping templates",
+    "version": "v1.0.0",
+    "status": "Production",
 
     "permissions": {
       "usageType": "openSource",
@@ -17,9 +17,9 @@
     },
 
     "homepageURL": "https://wim.usgs.gov",
-    "downloadURL": "https://github.com/USGS-WiM/wimpo/archive/master.zip",
-    "disclaimerURL": "https://github.com/USGS-WiM/wimpo/blob/master/LICENSE.md",
-    "repositoryUrl": "https://github.com/USGS-WiM/wimpo",
+    "downloadURL": "https://github.com/USGS-WiM/generator-wim/archive/staging.zip",
+    "disclaimerURL": "https://github.com/USGS-WiM/generator-wim/blob/staging/LICENSE.md",
+    "repositoryUrl": "https://github.com/USGS-WiM/generator-wim",
     "vcs": "git",
 
     "laborHours": null,
@@ -30,16 +30,19 @@
     ],
 
     "languages": [
-      "Markdown"
+      "Markdown",
+      "html",
+      "javascript",
+      "css"
     ],
 
     "contact": {
-      "name": "jessie doe",
-      "email": "jdoe@usgs.gov"
+      "name": "Martyn Smith",
+      "email": "marsmith@usgs.gov"
     },
 
     "date": {
-      "metadataLastUpdated": "2017-10-25"
+      "metadataLastUpdated": "2017-11-6"
     }
   }
 ]
