@@ -18,7 +18,7 @@
 
     "homepageURL": "https://wim.usgs.gov",
     "downloadURL": "https://github.com/USGS-WiM/generator-wim/archive/staging.zip",
-    "disclaimerURL": "https://github.com/USGS-WiM/generator-wim/blob/staging/LICENSE.md",
+    "disclaimerURL": "https://github.com/USGS-WiM/generator-wim/blob/staging/DISCLAIMER.md",
     "repositoryUrl": "https://github.com/USGS-WiM/generator-wim",
     "vcs": "git",
 
