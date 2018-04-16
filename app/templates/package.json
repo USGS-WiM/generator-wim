@@ -39,7 +39,7 @@
 		"gulp-autoprefixer": "3.1.1",
 		"gulp-bump": "^2.7.0",
 		"gulp-clean-css": "^3.0.3",
-		"gulp-connect": "^5.0.0",
+		"gulp-connect": "^2.0.0",
 		"gulp-filter": "^5.0.0",
 		"gulp-git": "^2.0.0",
 		"gulp-jshint": "^2.0.4",
